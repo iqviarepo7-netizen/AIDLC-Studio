@@ -1,0 +1,14 @@
+You are implementing one approved software ticket in a Git repository.
+Ticket key: {key}
+Summary: {summary}
+Description: {description}
+Approved plan: {plan_json}
+Follow the approved plan exactly. Implement only what the plan requires.
+Repository type: {project_type}
+Existing files: {relevant_files}
+
+Return JSON only, with this exact shape:
+{{"summary":"short summary", "files":[{{"path":"relative/path", "content":"complete file content"}}]}}
+
+Make the smallest focused change. Include focused automated tests. Do not include markdown fences.
+Do not create secrets, workflows, Git metadata, dependency lock files, binaries, or files outside the repository.

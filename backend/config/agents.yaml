@@ -1,0 +1,47 @@
+agents:
+  task_analyzer:
+    enabled: true
+    default_constraint: Preserve existing repository conventions.
+    default_acceptance: "The behavior described by '{summary}' is available to callers."
+    missing_description_ambiguity: The ticket has no description beyond its summary.
+
+  complexity:
+    enabled: true
+    use_llm: true
+    prompt_template_path: prompts/complexity.txt
+    base_score: 2
+    keyword_rules:
+      - keywords: [database, migration, integration]
+        score_add: 2
+      - keywords: [api, endpoint]
+        score_add: 1
+    levels:
+      - name: LOW
+        max_score: 3
+        estimated_files: 1
+      - name: MEDIUM
+        max_score: 6
+        estimated_files: 3
+      - name: HIGH
+        max_score: 10
+        estimated_files: 5
+    explanation_template: "{level} complexity based on configured keyword rules and ticket scope."
+
+  planning:
+    enabled: true
+    use_llm: true
+    prompt_template_path: prompts/planning.txt
+
+  implementation:
+    enabled: true
+    prompt_template_path: prompts/implementation.txt
+    max_files: 10
+
+  validator:
+    enabled: true
+
+  publisher:
+    enabled: true
+
+  report:
+    enabled: true

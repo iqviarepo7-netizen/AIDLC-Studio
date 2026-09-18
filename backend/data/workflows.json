@@ -1,0 +1,115 @@
+[
+  {
+    "id": "a512c4be-0494-42d0-88bf-860199ef6ac1",
+    "jira_key": "SCRUM-5",
+    "state": "PLAN_APPROVED",
+    "created_at": "2026-09-10T21:32:49.510997Z",
+    "updated_at": "2026-09-10T21:32:55.427213Z",
+    "error": null,
+    "jira_task": {
+      "key": "SCRUM-5",
+      "summary": "Add a GET /hello API endpoint",
+      "description": "Create GET /hello that returns a JSON greeting message.",
+      "issue_type": "Task",
+      "priority": "Medium",
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "Add a GET /hello API endpoint",
+      "functional_requirement": "Create GET /hello that returns a JSON greeting message.",
+      "acceptance_criteria": [
+        "The behavior described by 'Add a GET /hello API endpoint' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 3,
+      "level": "LOW",
+      "explanation": "Low complexity based on the apparent API, integration, and data-change scope in the ticket.",
+      "estimated_files": 1
+    },
+    "recommendation": {
+      "recommended_model": "gemini",
+      "alternatives": [
+        {
+          "id": "gemini",
+          "label": "Gemini Flash",
+          "provider": "gemini",
+          "available": true,
+          "estimated_tokens": 6000,
+          "estimated_cost_usd": 0.01
+        },
+        {
+          "id": "openai",
+          "label": "OpenAI (connector ready)",
+          "provider": "openai",
+          "available": false,
+          "estimated_tokens": 8000,
+          "estimated_cost_usd": null
+        },
+        {
+          "id": "anthropic",
+          "label": "Anthropic (connector ready)",
+          "provider": "anthropic",
+          "available": false,
+          "estimated_tokens": 8000,
+          "estimated_cost_usd": null
+        },
+        {
+          "id": "ollama",
+          "label": "Local Ollama (connector ready)",
+          "provider": "ollama",
+          "available": false,
+          "estimated_tokens": 8000,
+          "estimated_cost_usd": null
+        }
+      ],
+      "reason": "Gemini Flash is the configured MVP recommendation for this low complexity task; token and cost figures are approximate."
+    },
+    "selected_model": "gemini",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "Add a GET /hello API endpoint",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "Existing route/controller module",
+          "Existing test module"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the project test command."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": null
+      }
+    ],
+    "repository_analysis": null,
+    "implementation": null,
+    "verification_comment": null,
+    "test_result": null,
+    "pull_request": null,
+    "audit_log": [
+      {
+        "timestamp": "2026-09-10T21:32:51.584394+00:00",
+        "agent": "orchestrator",
+        "action": "requirement-and-complexity",
+        "status": "completed"
+      }
+    ]
+  }
+]

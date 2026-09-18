@@ -1,0 +1,97 @@
+automation:
+  mode: full
+  auto_start: true
+  require_model_selection: false
+  max_retries: 2
+  retry_on:
+    - validation_fail
+    - implementation_fail
+
+workflow:
+  store_path: ${WORKFLOW_STORE_PATH}
+  default_base_branch: ${GITHUB_BASE_BRANCH}
+
+model_routing:
+  - complexity_min: 1
+    complexity_max: 3
+    provider: groq
+    model: ${GROQ_MODEL_LOW}
+    max_tokens: 6000
+  - complexity_min: 4
+    complexity_max: 6
+    provider: groq
+    model: ${GROQ_MODEL_MEDIUM}
+    max_tokens: 14000
+  - complexity_min: 7
+    complexity_max: 10
+    provider: groq
+    model: ${GROQ_MODEL_HIGH}
+    max_tokens: 32000
+
+retry_escalation: next_tier
+
+mcp:
+  jira:
+    server_url: ${JIRA_MCP_URL}
+    auth_token: ${JIRA_MCP_TOKEN}
+    tools:
+      fetch_issue: get_issue
+      transition: transition_issue
+      comment: add_comment
+  git:
+    server_url: ${GIT_MCP_URL}
+    auth_token: ${GIT_MCP_TOKEN}
+    tools:
+      analyze: analyze_repository
+      branch: create_branch
+      write: write_files
+      push: push_branch
+      pr: create_pull_request
+
+validation:
+  commands:
+    - id: syntax
+      cmd:
+        - python
+        - -m
+        - compileall
+        - -q
+        - .
+    - id: tests
+      cmd:
+        - python
+        - -m
+        - pytest
+        - -q
+  fail_fast: true
+  timeout_seconds: 120
+
+jira_publish:
+  transition_id: ${JIRA_DONE_TRANSITION_ID}
+  comment_template: |
+    PR created: {pr_url}
+
+    Summary: {summary}
+    Model: {model}
+    Tests: {test_summary}
+
+guardrails:
+  strict: true
+  max_file_bytes: 102400
+  blocked_path_segments:
+    - .git
+    - .env
+    - node_modules
+    - .venv
+  stage_tools:
+    analyzing:
+      - jira.fetch_issue
+    implementing:
+      - git.analyze
+      - git.branch
+      - git.write
+    publishing:
+      - git.push
+      - git.pr
+      - jira.transition
+      - jira.comment

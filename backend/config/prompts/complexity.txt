@@ -1,0 +1,14 @@
+Analyze this Jira ticket against the repository context and estimate implementation complexity.
+
+Ticket key: {key}
+Summary: {summary}
+Description: {description}
+Acceptance criteria: {acceptance_criteria}
+Project type: {project_type}
+Relevant files: {relevant_files}
+File count in scope: {file_count}
+
+Return JSON only:
+{{"score":1-10,"level":"LOW|MEDIUM|HIGH","estimated_files":1,"explanation":"brief reason citing ticket scope and repo impact","likely_areas":["module or area names"]}}
+
+Score guide: 1-3 small localized change, 4-6 multiple files or moderate logic, 7-10 cross-cutting, integration, or architectural work.
