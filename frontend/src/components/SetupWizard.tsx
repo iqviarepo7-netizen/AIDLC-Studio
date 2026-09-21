@@ -11,7 +11,7 @@ type Props = {
   error?: string;
 };
 
-const defaultJira: JiraConnectionConfig = { mode: "mcp", base_url: "", email: "", api_token: "", mcp_url: "", mcp_token: "", transition_id: "" };
+const defaultJira: JiraConnectionConfig = { mode: "direct", base_url: "", email: "", api_token: "", mcp_url: "", mcp_token: "", transition_id: "" };
 const defaultGit: GitConnectionConfig = { mode: "direct", repository_path: "", base_branch: "main", remote: "origin", mcp_url: "", mcp_token: "" };
 
 function BranchField({
@@ -119,7 +119,7 @@ export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
             <div className="setup-grid">
               <label>
                 Base URL
-                <input value={jira.base_url ?? ""} onChange={(e) => setJira({ ...jira, base_url: e.target.value })} placeholder="https://your-org.atlassian.net" required />
+                <input value={jira.base_url ?? ""} onChange={(e) => setJira({ ...jira, base_url: e.target.value })} placeholder="https://jira.company.com" required />
               </label>
               <label>
                 Email

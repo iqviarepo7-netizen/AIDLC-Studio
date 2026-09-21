@@ -12,6 +12,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -129,6 +136,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -246,6 +260,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -464,6 +485,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -664,6 +692,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -1009,6 +1044,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -1355,6 +1397,13 @@
       "description": "Create GET /hello_vanakam that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -1840,6 +1889,13 @@
       "description": "Create GET /hello_world_i_am_mk that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -2062,6 +2118,13 @@
       "description": "Create GET /hello_vanakam that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -2378,6 +2441,13 @@
       "description": "Create GET /hello_world that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -2727,6 +2797,13 @@
       "description": "Create GET /hello_world_i_am_mk that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -3072,6 +3149,13 @@
       "description": "Create GET /hello_hi that returns a JSON greeting message.",
       "issue_type": "Task",
       "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
       "acceptance_criteria": []
     },
     "requirement_analysis": {
@@ -3408,5 +3492,1772 @@
       "final_status": "PUBLISHING",
       "retry_count": 0
     }
+  },
+  {
+    "id": "10a606d4-40d4-4697-872a-65287a7fed02",
+    "jira_key": "SCRUM-7",
+    "state": "FAILED",
+    "created_at": "2026-09-21T04:09:35.843534Z",
+    "updated_at": "2026-09-21T04:10:08.019131Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "SCRUM-7",
+      "summary": "add a GET /hello_world_i_am_mk API endpoint python",
+      "description": "Create GET /hello_world_i_am_mk that returns a JSON greeting message. Code language: python",
+      "issue_type": "Task",
+      "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "add a GET /hello_world_i_am_mk API endpoint python",
+      "functional_requirement": "Create GET /hello_world_i_am_mk that returns a JSON greeting message. Code language: python",
+      "acceptance_criteria": [
+        "The behavior described by 'add a GET /hello_world_i_am_mk API endpoint python' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 3,
+      "level": "LOW",
+      "explanation": "Low complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 1
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-20b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 3 (LOW)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "max_tokens": 6000,
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 3 (LOW)."
+    },
+    "selected_model": "groq:openai/gpt-oss-20b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "add a GET /hello_world_i_am_mk API endpoint python",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "app/models.py",
+          "app/services/insulin.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "Scope could not be classified confidently; planning will inspect the repository conventions."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "app/services",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "app/models.py",
+        "app/services/insulin.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "UNCLEAR",
+      "pattern_summary": "Scope could not be classified confidently; planning will inspect the repository conventions.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": []
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7",
+      "existing_branches": [
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v1",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v2",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v3",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v4",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v5",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v6"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi` already exists. A new branch `ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T04:09:38.270877Z",
+        "workflow_id": "10a606d4-40d4-4697-872a-65287a7fed02",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 2388,
+        "request_redacted": {
+          "issue_key": "SCRUM-7"
+        },
+        "response_redacted": {
+          "summary": "add a GET /hello_world_i_am_mk API endpoint python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:09:39.396644Z",
+        "workflow_id": "10a606d4-40d4-4697-872a-65287a7fed02",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1125,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:10:06.974407Z",
+        "workflow_id": "10a606d4-40d4-4697-872a-65287a7fed02",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 8103,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "SCRUM-7",
+          "summary": "add a GET /hello_world_i_am_mk API endpoint python",
+          "base_branch": "main",
+          "branch_name": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7"
+        },
+        "response_redacted": {
+          "branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T04:09:39.982747+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:09:41.201502+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:09:41.204274+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T04:09:42.466328+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:10:08.019131+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "0781ecb0-29e4-4ca8-ab9b-75ea233def9a",
+    "jira_key": "SCRUM-7",
+    "state": "FAILED",
+    "created_at": "2026-09-21T04:25:24.270170Z",
+    "updated_at": "2026-09-21T04:26:00.577609Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "SCRUM-7",
+      "summary": "add a GET /hello_world_i_am_mk API endpoint python",
+      "description": "Create GET /hello_world_i_am_mk that returns a JSON greeting message. Code language: python",
+      "issue_type": "Task",
+      "priority": "Medium",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "add a GET /hello_world_i_am_mk API endpoint python",
+      "functional_requirement": "Create GET /hello_world_i_am_mk that returns a JSON greeting message. Code language: python",
+      "acceptance_criteria": [
+        "The behavior described by 'add a GET /hello_world_i_am_mk API endpoint python' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 3,
+      "level": "LOW",
+      "explanation": "Low complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 1
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-20b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 3 (LOW)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "max_tokens": 6000,
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 3 (LOW)."
+    },
+    "selected_model": "groq:openai/gpt-oss-20b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "add a GET /hello_world_i_am_mk API endpoint python",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "Scope could not be classified confidently; planning will inspect the repository conventions."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "UNCLEAR",
+      "pattern_summary": "Scope could not be classified confidently; planning will inspect the repository conventions.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": []
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v8",
+      "existing_branches": [
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v1",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v2",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v3",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v4",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v5",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v6",
+        "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v7"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi` already exists. A new branch `ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v8` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v8",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T04:25:26.663945Z",
+        "workflow_id": "0781ecb0-29e4-4ca8-ab9b-75ea233def9a",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 2343,
+        "request_redacted": {
+          "issue_key": "SCRUM-7"
+        },
+        "response_redacted": {
+          "summary": "add a GET /hello_world_i_am_mk API endpoint python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:25:27.783722Z",
+        "workflow_id": "0781ecb0-29e4-4ca8-ab9b-75ea233def9a",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1115,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:25:59.428101Z",
+        "workflow_id": "0781ecb0-29e4-4ca8-ab9b-75ea233def9a",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 9548,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "SCRUM-7",
+          "summary": "add a GET /hello_world_i_am_mk API endpoint python",
+          "base_branch": "main",
+          "branch_name": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v8"
+        },
+        "response_redacted": {
+          "branch": "ai/scrum-7-add-a-get-hello-world-i-am-mk-api-endpoi_v8"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T04:25:28.373203+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:25:29.504771+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:25:29.504771+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T04:25:30.608586+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:26:00.577609+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "41c99dc1-b689-4704-8d53-f53eb84cbbff",
+    "jira_key": "AAR8-137177",
+    "state": "FAILED",
+    "created_at": "2026-09-21T04:40:06.304593Z",
+    "updated_at": "2026-09-21T04:40:40.884133Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "AAR8-137177",
+      "summary": "Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes",
+      "description": "{*}User Requirement{*}:\u00a0\r\nThis requirement introduces a Non-Critical Insulin Protocol that calculates and recommends a correction insulin dose based on the patient's BMI, latest HGT value, and whether the administration is a bedtime dose. The recommendation is presented in eMAR for nurse consideration during administration.\r\n*Pre-Requisite:*\r\nThe protocol shall be applicable only when:\r\n * Insulin Flag is enabled in the Drug Master.\r\n * Insulin Protocol Type is selected as Non-Critical Insulin Protocol.\r\n * An HGT Result Item is:\r\n ** Tagged to the drug in the Insulin Scale configuration.\r\n ** Mapped to an Observation Panel where nurses record HGT values.\r\n**\r\n\r\nSample data for configuring the Insulin scale:\r\n|Low|High|BMI <25 KG/M2\u00a0|BMI 25 - 30 KG/M2|BMI > 30 KG/M2|Bedtime|\r\n|0|150|0|0|0|0|\r\n|151|200|1|2|3|0|\r\n|201|250|2|4|6|1|\r\n|251|300|3|6|9|2|\r\n|301|350|4|8|12|3|\r\n|351|400|5|10|15|3|\r\n|401|600|6|12|18|3|\r\n\r\n*EMAR Enhancements:*\r\n\r\nInside the pop-up of each bubble, user should be able to view the following fields along with the existing fields:\r\n\r\n1) HGT - Latest value will be pulled from Charting and should be non-editable\r\n\r\n2) A mandatory check box will be introduced to identify whether nurse is administering pre meal insulin or bedtime.\u00a0\r\n * Field name: Is this a pre-Meal dose?\u00a0\r\n * Field response: Yes/No\r\n * Manual input by the user.\r\n * \r\nh4. Logic\r\n\r\nIf pre-Meal= Yes:\r\n * Use regular correction dose scale. The determination of pre-Meal dose will be done from Protocol Level\r\n\r\nIf pre-Meal= No:\r\n * Use bedtime correction dose scale. The determination of bedtime dose will be done from Protocol Level\r\n\r\n3) Suggested Correction dose -\r\n * Non-editable field and auto-populate when pre-Meal(Yes/No) is selected.\r\n * This will be pulled from the insulin scale if configured configuration available in the insulin scale in drug master.\r\n * If insulin is bedtime dose, then correction dose will be pulled from bedtime protocol else from other protocol with respect to BMI and HGT value.\r\n\r\n4) *Suggested Total Dose (Prescribed Dose + Correction Dose)* -\r\n * Non-editable field and auto-populate when pre-Meal(Yes/No) is selected.\r\n * This will be the addition of the Dosage prescribed by the Doctor and Suggested Correction dose from insulin scale.\r\n * Nurse may accept or ignore the recommendation.\r\n * Nurse can administer any dosage as clinically required.\r\n * The name of the field should be - *Suggested Total Dose (Prescribed Dose + Correction Dose)*\r\n * The Suggested Total Dose can be considered by the Nurse for administration. Nurse would edit the administered dosage with the total suggested dose to proceed. - *QA to confirm this behavior.*\r\n\r\n*!image-2026-08-12-17-34-11-018.png|width=509,height=310!*\r\n\r\n5) *Hypoglycemia Logic:*\r\n\r\nIf *HGT<70,* System shall not display any alert 'Initiate Hypoglycemia Protocol'. Do not calculate or show value for correction dosage or suggested total dosage.\r\n\r\n*Audit Log:*\r\n\r\nBelow field has to be added to the Audit log against each bubble.\u00a0\r\n * New fields in audit log: Dosage, Suggested Correction dose, pre-Meal check, Suggested Total Dose will be displayed in the audit log.\r\n * These new fields will be only available in the UI if the Insulin flag is enabled in drug master and the Non-Critical Insulin protocol type has been selected in CPOE. Else, these new fields should not appear in the audit log of the bubble.\r\n\r\n!image-2026-08-12-15-49-07-423.png|width=476,height=172!\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0",
+      "issue_type": "Story",
+      "priority": "Low",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes",
+      "functional_requirement": "{*}User Requirement{*}:\u00a0\r\nThis requirement introduces a Non-Critical Insulin Protocol that calculates and recommends a correction insulin dose based on the patient's BMI, latest HGT value, and whether the administration is a bedtime dose. The recommendation is presented in eMAR for nurse consideration during administration.\r\n*Pre-Requisite:*\r\nThe protocol shall be applicable only when:\r\n * Insulin Flag is enabled in the Drug Master.\r\n * Insulin Protocol Type is selected as Non-Critical Insulin Protocol.\r\n * An HGT Result Item is:\r\n ** Tagged to the drug in the Insulin Scale configuration.\r\n ** Mapped to an Observation Panel where nurses record HGT values.\r\n**\r\n\r\nSample data for configuring the Insulin scale:\r\n|Low|High|BMI <25 KG/M2\u00a0|BMI 25 - 30 KG/M2|BMI > 30 KG/M2|Bedtime|\r\n|0|150|0|0|0|0|\r\n|151|200|1|2|3|0|\r\n|201|250|2|4|6|1|\r\n|251|300|3|6|9|2|\r\n|301|350|4|8|12|3|\r\n|351|400|5|10|15|3|\r\n|401|600|6|12|18|3|\r\n\r\n*EMAR Enhancements:*\r\n\r\nInside the pop-up of each bubble, user should be able to view the following fields along with the existing fields:\r\n\r\n1) HGT - Latest value will be pulled from Charting and should be non-editable\r\n\r\n2) A mandatory check box will be introduced to identify whether nurse is administering pre meal insulin or bedtime.\u00a0\r\n * Field name: Is this a pre-Meal dose?\u00a0\r\n * Field response: Yes/No\r\n * Manual input by the user.\r\n * \r\nh4. Logic\r\n\r\nIf pre-Meal= Yes:\r\n * Use regular correction dose scale. The determination of pre-Meal dose will be done from Protocol Level\r\n\r\nIf pre-Meal= No:\r\n * Use bedtime correction dose scale. The determination of bedtime dose will be done from Protocol Level\r\n\r\n3) Suggested Correction dose -\r\n * Non-editable field and auto-populate when pre-Meal(Yes/No) is selected.\r\n * This will be pulled from the insulin scale if configured configuration available in the insulin scale in drug master.\r\n * If insulin is bedtime dose, then correction dose will be pulled from bedtime protocol else from other protocol with respect to BMI and HGT value.\r\n\r\n4) *Suggested Total Dose (Prescribed Dose + Correction Dose)* -\r\n * Non-editable field and auto-populate when pre-Meal(Yes/No) is selected.\r\n * This will be the addition of the Dosage prescribed by the Doctor and Suggested Correction dose from insulin scale.\r\n * Nurse may accept or ignore the recommendation.\r\n * Nurse can administer any dosage as clinically required.\r\n * The name of the field should be - *Suggested Total Dose (Prescribed Dose + Correction Dose)*\r\n * The Suggested Total Dose can be considered by the Nurse for administration. Nurse would edit the administered dosage with the total suggested dose to proceed. - *QA to confirm this behavior.*\r\n\r\n*!image-2026-08-12-17-34-11-018.png|width=509,height=310!*\r\n\r\n5) *Hypoglycemia Logic:*\r\n\r\nIf *HGT<70,* System shall not display any alert 'Initiate Hypoglycemia Protocol'. Do not calculate or show value for correction dosage or suggested total dosage.\r\n\r\n*Audit Log:*\r\n\r\nBelow field has to be added to the Audit log against each bubble.\u00a0\r\n * New fields in audit log: Dosage, Suggested Correction dose, pre-Meal check, Suggested Total Dose will be displayed in the audit log.\r\n * These new fields will be only available in the UI if the Insulin flag is enabled in drug master and the Non-Critical Insulin protocol type has been selected in CPOE. Else, these new fields should not appear in the audit log of the bubble.\r\n\r\n!image-2026-08-12-15-49-07-423.png|width=476,height=172!\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\n\u00a0",
+      "acceptance_criteria": [
+        "The behavior described by 'Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 2,
+      "level": "LOW",
+      "explanation": "Low complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 1
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-20b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 2 (LOW)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-20b",
+      "max_tokens": 6000,
+      "reason": "Recommended groq/openai/gpt-oss-20b for complexity score 2 (LOW)."
+    },
+    "selected_model": "groq:openai/gpt-oss-20b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "This looks like a change to existing functionality in the repository."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "EXTEND_EXISTING",
+      "pattern_summary": "This looks like a change to existing functionality in the repository.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": []
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/aar8-137177-insulin-control-protocol-for-non-critica",
+      "existing_branches": [],
+      "branch_collision": false,
+      "collision_message": null
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/aar8-137177-insulin-control-protocol-for-non-critica",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T04:40:08.063010Z",
+        "workflow_id": "41c99dc1-b689-4704-8d53-f53eb84cbbff",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 1721,
+        "request_redacted": {
+          "issue_key": "AAR8-137177"
+        },
+        "response_redacted": {
+          "summary": "Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:40:09.244544Z",
+        "workflow_id": "41c99dc1-b689-4704-8d53-f53eb84cbbff",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1174,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:40:39.810302Z",
+        "workflow_id": "41c99dc1-b689-4704-8d53-f53eb84cbbff",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 8950,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "AAR8-137177",
+          "summary": "Insulin Control Protocol for Non-Critical Hospitalized Patients - EMAR Changes",
+          "base_branch": "main",
+          "branch_name": "ai/aar8-137177-insulin-control-protocol-for-non-critica"
+        },
+        "response_redacted": {
+          "branch": "ai/aar8-137177-insulin-control-protocol-for-non-critica"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T04:40:09.874834+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:40:11.096720+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:40:11.096720+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T04:40:12.400748+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:40:40.884133+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "e2e48b16-c8b4-45fc-8265-6790f8e0d771",
+    "jira_key": "AAR8-139847",
+    "state": "ANALYZING",
+    "created_at": "2026-09-21T04:46:57.974537Z",
+    "updated_at": "2026-09-21T04:46:58.008878Z",
+    "error": null,
+    "jira_task": null,
+    "requirement_analysis": null,
+    "complexity": null,
+    "model_recommendation": null,
+    "model_selection": null,
+    "selected_model": null,
+    "plans": [],
+    "repository_analysis": null,
+    "scope_analysis": null,
+    "branch_analysis": null,
+    "selected_base_branch": "main",
+    "work_branch": null,
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [],
+    "audit_log": [],
+    "retry_count": 0,
+    "current_stage": "fetch_issue",
+    "report": null
+  },
+  {
+    "id": "a3b7eed7-2071-40a7-9e08-9d2fbfa370aa",
+    "jira_key": "AAR8-139847",
+    "state": "FAILED",
+    "created_at": "2026-09-21T04:51:55.891214Z",
+    "updated_at": "2026-09-21T04:52:26.610840Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "AAR8-139847",
+      "summary": "GRN changes to support HUMVO verification",
+      "description": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "issue_type": "Story",
+      "priority": "Low",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "GRN changes to support HUMVO verification",
+      "functional_requirement": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "acceptance_criteria": [
+        "The behavior described by 'GRN changes to support HUMVO verification' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 5,
+      "level": "MEDIUM",
+      "explanation": "Medium complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 3
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-120b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 14000,
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "selected_model": "groq:openai/gpt-oss-120b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "GRN changes to support HUMVO verification",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "This looks like a change to existing functionality in the repository."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "EXTEND_EXISTING",
+      "pattern_summary": "This looks like a change to existing functionality in the repository.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": [
+        "app/main.py"
+      ]
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2",
+      "existing_branches": [
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v1"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio` already exists. A new branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T04:51:57.892054Z",
+        "workflow_id": "a3b7eed7-2071-40a7-9e08-9d2fbfa370aa",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 1953,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:51:59.166695Z",
+        "workflow_id": "a3b7eed7-2071-40a7-9e08-9d2fbfa370aa",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1284,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T04:52:25.363862Z",
+        "workflow_id": "a3b7eed7-2071-40a7-9e08-9d2fbfa370aa",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 8492,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "AAR8-139847",
+          "summary": "GRN changes to support HUMVO verification",
+          "base_branch": "main",
+          "branch_name": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2"
+        },
+        "response_redacted": {
+          "branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T04:51:59.736864+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:52:00.985585+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:52:00.985585+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T04:52:02.288706+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T04:52:26.610840+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "c82e7217-ef1c-47cc-a37b-b6b3b491b56d",
+    "jira_key": "AAR8-139847",
+    "state": "ANALYZING",
+    "created_at": "2026-09-21T04:56:47.654670Z",
+    "updated_at": "2026-09-21T04:56:47.687244Z",
+    "error": null,
+    "jira_task": null,
+    "requirement_analysis": null,
+    "complexity": null,
+    "model_recommendation": null,
+    "model_selection": null,
+    "selected_model": null,
+    "plans": [],
+    "repository_analysis": null,
+    "scope_analysis": null,
+    "branch_analysis": null,
+    "selected_base_branch": "main",
+    "work_branch": null,
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [],
+    "audit_log": [],
+    "retry_count": 0,
+    "current_stage": "fetch_issue",
+    "report": null
+  },
+  {
+    "id": "ff40dd52-8190-40b0-91c3-21909c7008a2",
+    "jira_key": "AAR8-139847",
+    "state": "FAILED",
+    "created_at": "2026-09-21T05:00:17.084698Z",
+    "updated_at": "2026-09-21T05:00:52.310399Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "AAR8-139847",
+      "summary": "GRN changes to support HUMVO verification",
+      "description": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "issue_type": "Story",
+      "priority": "Low",
+      "status": null,
+      "status_category": null,
+      "assignee": null,
+      "assignee_email": null,
+      "reporter": null,
+      "labels": [],
+      "url": null,
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "GRN changes to support HUMVO verification",
+      "functional_requirement": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "acceptance_criteria": [
+        "The behavior described by 'GRN changes to support HUMVO verification' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 5,
+      "level": "MEDIUM",
+      "explanation": "Medium complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 3
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-120b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 14000,
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "selected_model": "groq:openai/gpt-oss-120b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "GRN changes to support HUMVO verification",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "This looks like a change to existing functionality in the repository."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "EXTEND_EXISTING",
+      "pattern_summary": "This looks like a change to existing functionality in the repository.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": [
+        "app/main.py"
+      ]
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3",
+      "existing_branches": [
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v1",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio` already exists. A new branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T05:00:19.089652Z",
+        "workflow_id": "ff40dd52-8190-40b0-91c3-21909c7008a2",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 1958,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:00:20.235383Z",
+        "workflow_id": "ff40dd52-8190-40b0-91c3-21909c7008a2",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1142,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:00:51.021500Z",
+        "workflow_id": "ff40dd52-8190-40b0-91c3-21909c7008a2",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 8146,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "AAR8-139847",
+          "summary": "GRN changes to support HUMVO verification",
+          "base_branch": "main",
+          "branch_name": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3"
+        },
+        "response_redacted": {
+          "branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T05:00:20.789192+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:00:22.146802+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:00:22.146802+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T05:00:23.499732+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:00:52.310399+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "1f6bba84-84c2-4070-ac2d-f264ca095247",
+    "jira_key": "AAR8-139847",
+    "state": "FAILED",
+    "created_at": "2026-09-21T05:05:30.580086Z",
+    "updated_at": "2026-09-21T05:06:07.796671Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "AAR8-139847",
+      "summary": "GRN changes to support HUMVO verification",
+      "description": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "issue_type": "Story",
+      "priority": "Low",
+      "status": "In Progress",
+      "status_category": "In Progress",
+      "assignee": "Balakrishnan, Marimuthu",
+      "assignee_email": "marimuthu.balakrishnan@iqvia.com",
+      "reporter": "Purushothaman, Sanjay",
+      "labels": [
+        "2.12.2_Dev",
+        "2.12.2_Dev_Set2",
+        "HANDEDOVERTODEV",
+        "HUMVO",
+        "SEP14-SEP18-P1"
+      ],
+      "url": "https://jiraims.rm.imshealth.com/browse/AAR8-139847",
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "GRN changes to support HUMVO verification",
+      "functional_requirement": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "acceptance_criteria": [
+        "The behavior described by 'GRN changes to support HUMVO verification' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 5,
+      "level": "MEDIUM",
+      "explanation": "Medium complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 3
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-120b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 14000,
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "selected_model": "groq:openai/gpt-oss-120b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "GRN changes to support HUMVO verification",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "This looks like a change to existing functionality in the repository."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "EXTEND_EXISTING",
+      "pattern_summary": "This looks like a change to existing functionality in the repository.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": [
+        "app/main.py"
+      ]
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4",
+      "existing_branches": [
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v1",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio` already exists. A new branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T05:05:32.622358Z",
+        "workflow_id": "1f6bba84-84c2-4070-ac2d-f264ca095247",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 2017,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:05:35.110297Z",
+        "workflow_id": "1f6bba84-84c2-4070-ac2d-f264ca095247",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 2425,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:05:36.320215Z",
+        "workflow_id": "1f6bba84-84c2-4070-ac2d-f264ca095247",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1210,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:06:06.398701Z",
+        "workflow_id": "1f6bba84-84c2-4070-ac2d-f264ca095247",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 7524,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "AAR8-139847",
+          "summary": "GRN changes to support HUMVO verification",
+          "base_branch": "main",
+          "branch_name": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4"
+        },
+        "response_redacted": {
+          "branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T05:05:36.955530+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:05:38.274485+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:05:38.274485+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T05:05:39.697113+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:06:07.795668+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
+  },
+  {
+    "id": "3ec89ebb-1ca4-4bba-b4fb-0e6d7020208f",
+    "jira_key": "AAR8-139847",
+    "state": "FAILED",
+    "created_at": "2026-09-21T05:26:11.997807Z",
+    "updated_at": "2026-09-21T05:26:45.836081Z",
+    "error": "Groq generation failed: HTTP 401 \u2014 Invalid API Key",
+    "jira_task": {
+      "key": "AAR8-139847",
+      "summary": "GRN changes to support HUMVO verification",
+      "description": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "issue_type": "Story",
+      "priority": "Low",
+      "status": "In Progress",
+      "status_category": "In Progress",
+      "assignee": "Balakrishnan, Marimuthu",
+      "assignee_email": "marimuthu.balakrishnan@iqvia.com",
+      "reporter": "Purushothaman, Sanjay",
+      "labels": [
+        "2.12.2_Dev",
+        "2.12.2_Dev_Set2",
+        "HANDEDOVERTODEV",
+        "HUMVO",
+        "SEP14-SEP18-P1"
+      ],
+      "url": "https://jiraims.rm.imshealth.com/browse/AAR8-139847",
+      "acceptance_criteria": []
+    },
+    "requirement_analysis": {
+      "problem_summary": "GRN changes to support HUMVO verification",
+      "functional_requirement": "h2. Business Objective\r\n\r\nIntroduce a configurable Medicines Verification System (MVS) workflow for EMVO Reportable items during the GRN process.\r\n\r\nThis enhancement will:\r\n * Allow Data Matrix scanning for medicine packs.\r\n * Capture GTIN, Serial Number, Batch Number, and other encoded details.\r\n * Verify each scanned pack through the MVS portal.\r\n * Retrieve and store Pack Status and Pack Reason.\r\n * Allow duplicate Item + Batch entries when each pack has a unique serial number.\r\n * Prevent approval of unverified or invalid packs.\r\n * Maintain the existing GRN workflow for non-EMVO items and clients who do not enable the feature.\r\n\r\n----\r\nh2. Scope\r\n * New MVS configuration in App Settings.\r\n * New configuration to allow duplicate items in GRN.\r\n * Data Matrix scanning during GRN entry.\r\n * Line-level MVS API invocation.\r\n * Pack Status and Pack Reason retrieval.\r\n * Approval validation based on Pack Status.\r\n * EMVO Reportable item processing.\r\n * Reference-domain mapping for Pack Status and Pack Reason.\r\n\r\nh1. Configuration\r\nh2. Configuration 1\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Medicines Verification System\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled, the MVS workflow shall be applicable.\r\n\r\nWhen disabled, the existing GRN workflow shall continue.\r\nh2. Configuration 2\r\n\r\n*Path:* App Settings \u2192 Inventory \u2192 Allow Duplicate Items in GRN\r\n\r\n*Type:* Toggle\r\n\r\n*Default Value:* Disabled\r\n\r\nWhen enabled:\r\n * Same Item and Batch can exist in multiple GRN rows.\r\n * Each row must contain a unique Serial Number.\r\n\r\nWhen disabled:\r\n * Existing duplicate validation shall continue.\r\n\r\n----\r\nh1. GRN Fields\r\n\r\nFor EMVO Reportable items, the following information shall be maintained:\r\n * GTIN\r\n * Serial Number\r\n * Pack Status\r\n * Pack Reason\r\n * Batch Number\r\n * Other values available in the Data Matrix code\r\n\r\n----\r\nh1. Functional Requirements\r\nh2. FR1: Applicability\r\n\r\nThe workflow shall be applicable only when:\r\n * Medicines Verification System = Enabled\r\n * Item Master \u2192 EMVO Reportable = Enabled\r\n\r\nIf either condition is not met, the item shall follow the existing GRN workflow.\r\nh2. FR2: Data Matrix Scanning\r\n\r\nDuring GRN entry:\r\n * The user shall place the cursor on the Item Name field.\r\n * The user shall scan the Data Matrix code.\r\n * The system shall automatically decode and populate available values such as:\r\n ** GTIN\r\n ** Serial Number\r\n ** Batch Number\r\n ** Expiry Date (if available)\r\n ** Other supported attributes\r\n\r\n----\r\nh2. FR3: Duplicate Item Handling\r\n\r\nWhen \"Allow Duplicate Items in GRN\" is enabled:\r\n * The same Item and Batch Number may be received in multiple GRN rows.\r\n * Each row must have a unique Serial Number.\r\n * Duplicate Item + Batch combinations shall be permitted only when Serial Numbers are unique.\r\n\r\n----\r\nh2. FR4: Line-Level MVS Verification\r\n\r\nWhen scanning for an EMVO Reportable item is completed and the user moves to the next line:\r\n * The scan will continue in the next line.\r\n\r\n----\r\nh2. FR5: MVS Response Handling\r\n\r\nThe interface response shall return:\r\n * Pack Status Code\r\n * Pack Reason Code\r\n\r\nThe system shall map the returned values to the corresponding GRN line.\r\n----\r\nh2. FR6: Reference Domain Mapping\r\n\r\nPack Status and Pack Reason shall be configured using reference domains.\r\n\r\nWhen the interface returns a code:\r\n * If a matching reference value exists, the corresponding description shall be populated.\r\n * If no matching reference value exists:\r\n ** Pack Status shall remain blank.\r\n ** Pack Reason shall remain blank.\r\n\r\n----\r\nh2. FR7: Auto Approval Restriction\r\n\r\nWhen:\r\n * Medicines Verification System is enabled\r\n * The GRN contains EMVO Reportable items\r\n\r\nThe Auto Approval functionality shall not be executed.\r\n\r\nThe GRN shall proceed through manual approval only even if the store is configured as GRN Auto approve.\r\n----\r\nh2. FR8: Approval Validation\r\n\r\nGRN approval shall be allowed only when:\r\n * Every EMVO Reportable item has a Pack Status.\r\n\r\n----\r\nh2. FR9: Empty Pack Status Validation\r\n\r\nIf one or more EMVO Reportable items contain a blank Pack Status:\r\n * Approval shall be blocked.\r\n * The affected rows shall be highlighted.\r\n * The following message shall be displayed:\r\n\r\n{quote}\"Pack status required to approve the GRN.\"\r\n{quote}\r\n----\r\nh2. FR10: Mixed GRN Handling\r\n\r\nA GRN may contain both:\r\n * EMVO Reportable items\r\n * Non-EMVO items\r\n\r\nFor such GRNs:\r\n * MVS verification shall be performed only for EMVO Reportable items.\r\n * Non-EMVO items shall follow the current workflow.\r\n * Approval shall remain blocked until all EMVO Reportable items satisfy approval conditions.\r\n\r\n----\r\nh2. FR11: Post Approval Workflow\r\n\r\nOnce the GRN is approved successfully:\r\n * Existing inventory workflows shall continue without any changes.\r\n\r\n----\r\nh2. FR13: MVS Confirmation API Trigger After GRN Approval\r\n * Upon successful GRN approval, the system shall trigger an outbound API call with the approved GRN details.\r\n * The API shall be triggered only for GRNs containing *EMVO Reportable* items.\r\n * The outbound request shall be initiated after the approval transaction is successfully completed.\r\n * The API payload shall contain the GRN details required by the external Medicines Verification System process.\r\n * The exact request and response structure shall be finalized as part of the interface specification.\r\n\r\nh2. FR14: Post Approval Processing\r\n * If the API call is successful, the system shall continue with the existing workflow.\r\n * The API response shall be stored for audit/troubleshooting if interface logging is enabled.\r\n * The response should be saved in the DB. Not required to display in front end.\u00a0\r\n\r\n-------------------------------------------------------------------------------------------------\r\n\r\n*Acceptance Criteria*\r\n\r\nAC1\r\n\r\nGiven Medicines Verification System is disabled\r\nWhen a GRN is processed\r\nThen the existing workflow shall continue.\r\n\r\nAC2\r\n\r\nGiven Medicines Verification System is enabled\r\nAnd EMVO Reportable = Enabled for the item\r\nWhen the item is entered in GRN\r\nThen the MVS workflow shall be applicable.\r\n\r\nAC3\r\n\r\nGiven the user scans a Data Matrix code\r\nWhen the scan is completed\r\nThen GTIN, Serial Number, Batch Number, and other available values shall be populated automatically.\r\n\r\nAC4\r\n\r\nGiven Allow Duplicate Items in GRN is enabled\r\nWhen the same Item and Batch are added in multiple lines with different Serial Numbers\r\nThen the system shall allow the GRN entry.\r\n\r\nAC5\r\n\r\nGiven a scan is completed for an EMVO Reportable item\r\nWhen the user moves to the next line\r\nThen the system shall invoke the MVS API for that line item.\r\n\r\nAC6\r\n\r\nGiven the interface returns Pack Status and Pack Reason codes\r\nWhen matching reference values exist\r\nThen the corresponding descriptions shall be populated.\r\n\r\nAC7\r\n\r\nGiven the interface returns a code not available in the reference domain\r\nWhen the response is processed\r\nThen Pack Status and/or Pack Reason shall remain blank.\r\n\r\nAC8\r\n\r\nGiven the GRN contains EMVO Reportable items\r\nWhen Auto Approval conditions are met\r\nThen Auto Approval shall not execute.\r\n\r\nAC9\r\n\r\nGiven an EMVO Reportable item has a blank Pack Status\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked\r\nAnd the item shall be highlighted\r\nAnd the message \"Pack status required to approve the GRN\" shall be displayed.\r\n\r\nAC10\r\n\r\nGiven an EMVO Reportable item has Pack Status other than Active\r\nWhen the user attempts GRN approval\r\nThen approval shall be blocked.\r\n\r\nAC11\r\n\r\nGiven non-Active items are removed\r\nAnd all remaining EMVO Reportable items have Pack Status = Active\r\nWhen approval is attempted again\r\nThen the system shall allow GRN approval.\r\n\r\nAC12\r\n\r\nGiven a GRN contains both EMVO and non-EMVO items\r\nWhen the GRN is processed\r\nThen only EMVO Reportable items shall participate in MVS verification.\r\n\r\nAC13\r\n\r\nGiven the GRN is approved successfully\r\nWhen post-approval processing begins\r\nThen the existing inventory workflow shall continue unchanged.\r\n\r\n-----------------------------------------------------------------------------\r\n\r\n*API DETAILS FOR ITEM STATUS CHECK DURING GRN SAVE*\r\n\r\nEndpoint: [http://10.100.50.60:5010/HUMVOIntegration/verifypack/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G110\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\", \u00a0\u00a0\u00a0 \"packState\": \"ACTIVE\", \u00a0\u00a0\u00a0 \"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n----------------------------\r\n\r\n*API DURING THE GRN APPROVE PROCESS (G120)*\r\n\r\nEndpoint for Dispense: [http://10.100.50.60:5010/HUMVOIntegration/dispense/]\r\n\r\nRequest:\r\n\r\n{\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"scheme\": \"GTIN\", \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n}\r\n\r\n\u00a0\r\n\r\nResponse:\r\n\r\n{\r\n\u00a0 \"success\": true,\r\n\u00a0 \"operation\": \"G120\",\r\n\u00a0 \"clientTransactionId\": \"TX-10001\",\r\n\u00a0 \"nmvsTransactionId\": \"ABC123456\",\r\n\u00a0 \"timestamp\": \"2026-09-09T12:00:00\",\r\n\u00a0 \"product\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"productCode\": \"05060141900015\", \u00a0\u00a0\u00a0 \"batchId\": \"1264\", \u00a0\u00a0\u00a0 \"expiryDate\": \"171200\", \u00a0\u00a0\u00a0 \"serialNumber\": \"XVTR75973491006155\" \u00a0 }\r\n\r\n,\r\n\u00a0 \"result\":\r\n\r\n{ \u00a0\u00a0\u00a0 \"returnCode\": \"NMVS_SUCCESS\", \u00a0\u00a0\u00a0 \"description\": \"Successfully processed\",\u00a0 \u00a0 \u00a0 \u00a0 \u00a0\"reason\": null, \u00a0\u00a0\u00a0 \"alertId\": null \u00a0 }\r\n\r\n}\r\n\r\n*----------------------------*\r\n\r\n*Field Mapping*\r\n\r\n\u00a0\r\n\r\nPack Status : packState\r\n\r\nPack Reason : reason\r\n\r\nGTIN Number: productCode\r\n\r\nSave - \"operation\": \"G110\" - Static\r\n\r\nApproval - \"operation\": \"G120\" - Static\r\n\r\n\"clientTransactionId\": Generated in HIS and send. (Can proceed to send the GRN number)\r\n\r\nserialNumber : serialNumber\r\n\r\n\"scheme\": \"GTIN\"\r\n\r\n---------\r\n\r\n\u00a0\r\n\r\n\u00a0\r\n\r\nThe Code scan details are as shared as below\r\n\r\n!image-2026-09-10-12-41-41-123.png!\r\n\r\n---------------\r\n\r\nPlease find the Data matrix code specification for reading the code via scanner.\r\n||Data Matrix Element||GS1 AI||Description||Typical/Maximum Length||\r\n|GTIN (Product Code)|(01)|Global Trade Item Number|*14 digits (fixed)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1]|\r\n|Expiry Date|(17)|Product expiration date|*6 digits (YYMMDD)* [[European P...eline V4_0 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/European%20Pack%20Coding%20Guideline%20V4_0.pdf?web=1], [[IQVIA_HIS_...2026-06-10 \\\\\\| Word]|https://quintiles-my.sharepoint.com/personal/kishorekumar_i_iqvia_com/_layouts/15/Doc.aspx?sourcedoc=%7B984F2538-D0B2-48C3-97F9-7A5952123F19%7D&file=IQVIA_HIS_Pharmacy_Meeting_Requirements_2026-06-10.docx&action=default&mobileredirect=true&DefaultItemOpen=1]|\r\n|Batch / Lot Number|(10)|Manufacturer batch number|*Up to 20 alphanumeric characters* (variable length)|\r\n|Serial Number|(21)|Unique pack identifier|*Up to 20 alphanumeric characters* (variable length)|\r\n|NHRN (Optional)|Country specific|National reimbursement number|Optional, country dependent [[DOC-304007...CORE-8.00 \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304007-23%20Implementation%20Guideline%20NMVS%20CORE-8.00.pdf?web=1], [[DOC-304002...ansactions \\\\\\| PDF]|https://quintiles.sharepoint.com/sites/PPGCEE-Hungary2/Shared%20Documents/Hungary/01_Clients/04_Partners/01_SMP/02_BHC_Implementation/{_}External{_}%5BSMP-IQVIA%5D/Integrations/NMVS%20-%20HUMVO%20(Medicine%20supply%20chain%20registration)/Tehnical%20documentation/DOC-304002-19-ATT-A%20G100%20Distributor%20Transactions.pdf?web=1]|\r\n\r\n*1, GTIN*\u00a0\r\n\r\n!image-2026-09-10-10-39-04-057.png|width=513,height=465!\r\n\r\n*2, Serial Number*\r\n\r\n*!image-2026-09-10-10-40-54-991.png|width=644,height=538!*\r\n\r\n*3, Expiry Date*\r\n\r\n!image-2026-09-10-10-39-59-476.png|width=656,height=270!\r\n\r\n\u00a0\r\n*4, Lot Number*\u00a0\r\n\r\n!image-2026-09-10-10-45-34-020.png|width=701,height=190!\r\n\u00a0\r\n\u00a0",
+      "acceptance_criteria": [
+        "The behavior described by 'GRN changes to support HUMVO verification' is available to callers."
+      ],
+      "constraints": [
+        "Preserve existing repository conventions."
+      ],
+      "ambiguities": []
+    },
+    "complexity": {
+      "score": 5,
+      "level": "MEDIUM",
+      "explanation": "Medium complexity based on configured keyword rules and ticket scope.",
+      "estimated_files": 3
+    },
+    "model_recommendation": {
+      "recommended_model_id": "groq:openai/gpt-oss-120b",
+      "alternatives": [
+        {
+          "id": "groq:openai/gpt-oss-20b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-20b",
+          "label": "groq / openai/gpt-oss-20b",
+          "available": true,
+          "recommended": false,
+          "estimated_tokens": 6000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 14000
+        },
+        {
+          "id": "groq:openai/gpt-oss-120b",
+          "provider": "groq",
+          "model": "openai/gpt-oss-120b",
+          "label": "groq / openai/gpt-oss-120b",
+          "available": true,
+          "recommended": true,
+          "estimated_tokens": 32000
+        }
+      ],
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "model_selection": {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 14000,
+      "reason": "Recommended groq/openai/gpt-oss-120b for complexity score 5 (MEDIUM)."
+    },
+    "selected_model": "groq:openai/gpt-oss-120b",
+    "plans": [
+      {
+        "version": 1,
+        "objective": "GRN changes to support HUMVO verification",
+        "affected_components": [
+          "Target application API",
+          "Target application tests"
+        ],
+        "likely_files": [
+          "app/main.py",
+          "tests/test_main.py"
+        ],
+        "implementation_steps": [
+          "Inspect the matching application route and test conventions.",
+          "Create the smallest implementation matching the accepted requirement.",
+          "Add focused unit coverage and run the configured validation commands."
+        ],
+        "test_approach": [
+          "Add a positive behavior test.",
+          "Add an invalid-input or error-path test when the endpoint has inputs."
+        ],
+        "risks": [
+          "Confirm endpoint naming and response shape against existing conventions."
+        ],
+        "expected_result": "The ticket behavior is implemented, validated, and ready for review.",
+        "change_request": "This looks like a change to existing functionality in the repository."
+      }
+    ],
+    "repository_analysis": {
+      "project_type": "Python",
+      "relevant_directories": [
+        "app",
+        "tests"
+      ],
+      "relevant_files": [
+        "app/main.py",
+        "tests/test_main.py"
+      ],
+      "test_command": "pytest",
+      "notes": "Repository analyzed locally (direct Git mode)."
+    },
+    "scope_analysis": {
+      "change_type": "EXTEND_EXISTING",
+      "pattern_summary": "This looks like a change to existing functionality in the repository.",
+      "already_implemented": false,
+      "already_implemented_reason": null,
+      "related_files": [
+        "app/main.py"
+      ]
+    },
+    "branch_analysis": {
+      "base_branch": "main",
+      "suggested_work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v5",
+      "existing_branches": [
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v1",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v2",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v3",
+        "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v4"
+      ],
+      "branch_collision": true,
+      "collision_message": "Work branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio` already exists. A new branch `ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v5` will be created from the selected base branch."
+    },
+    "selected_base_branch": "main",
+    "work_branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v5",
+    "generated_files": [],
+    "implementation": null,
+    "test_result": null,
+    "pull_request": null,
+    "terminal_log": [],
+    "mcp_audit": [
+      {
+        "timestamp": "2026-09-21T05:26:13.906025Z",
+        "workflow_id": "3ec89ebb-1ca4-4bba-b4fb-0e6d7020208f",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 1881,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:26:15.895924Z",
+        "workflow_id": "3ec89ebb-1ca4-4bba-b4fb-0e6d7020208f",
+        "agent": "task_analyzer",
+        "server": "jira",
+        "tool": "fetch_issue",
+        "status": "success",
+        "duration_ms": 1926,
+        "request_redacted": {
+          "issue_key": "AAR8-139847"
+        },
+        "response_redacted": {
+          "summary": "GRN changes to support HUMVO verification"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:26:17.133979Z",
+        "workflow_id": "3ec89ebb-1ca4-4bba-b4fb-0e6d7020208f",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "analyze",
+        "status": "success",
+        "duration_ms": 1250,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api"
+        },
+        "response_redacted": {
+          "project_type": "Python"
+        },
+        "guardrail_result": null
+      },
+      {
+        "timestamp": "2026-09-21T05:26:45.111448Z",
+        "workflow_id": "3ec89ebb-1ca4-4bba-b4fb-0e6d7020208f",
+        "agent": "implementation",
+        "server": "git",
+        "tool": "branch",
+        "status": "success",
+        "duration_ms": 8246,
+        "request_redacted": {
+          "repository_path": "C:\\Users\\kchinnasamy\\workspace\\hello-api",
+          "jira_key": "AAR8-139847",
+          "summary": "GRN changes to support HUMVO verification",
+          "base_branch": "main",
+          "branch_name": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v5"
+        },
+        "response_redacted": {
+          "branch": "ai/aar8-139847-grn-changes-to-support-humvo-verificatio_v5"
+        },
+        "guardrail_result": null
+      }
+    ],
+    "audit_log": [
+      {
+        "timestamp": "2026-09-21T05:26:17.722950+00:00",
+        "agent": "scope_analyzer",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:26:18.992497+00:00",
+        "agent": "complexity",
+        "action": "fetch_issue",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:26:18.992497+00:00",
+        "agent": "model_selector",
+        "action": "fetch_issue",
+        "status": "auto_selected"
+      },
+      {
+        "timestamp": "2026-09-21T05:26:20.304842+00:00",
+        "agent": "planner",
+        "action": "plan_review",
+        "status": "completed"
+      },
+      {
+        "timestamp": "2026-09-21T05:26:45.834173+00:00",
+        "agent": "orchestrator",
+        "action": "implement",
+        "status": "failed"
+      }
+    ],
+    "retry_count": 0,
+    "current_stage": "implement",
+    "report": null
   }
 ]

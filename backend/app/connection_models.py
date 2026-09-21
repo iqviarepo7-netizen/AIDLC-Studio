@@ -14,6 +14,8 @@ class JiraConnectionConfig(BaseModel):
     mcp_url: str | None = None
     mcp_token: str | None = None
     transition_id: str | None = None
+    api_version: Literal["2", "3"] | None = None
+    auth_scheme: Literal["basic", "bearer"] | None = None
 
 
 class GitConnectionConfig(BaseModel):

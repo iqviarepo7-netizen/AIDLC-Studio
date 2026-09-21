@@ -31,7 +31,20 @@ export type Workflow = {
   retry_count: number;
   selected_base_branch?: string | null;
   work_branch?: string | null;
-  jira_task?: { key: string; summary: string; description?: string } | null;
+  jira_task?: {
+    key: string;
+    summary: string;
+    description?: string;
+    issue_type?: string;
+    priority?: string | null;
+    status?: string | null;
+    status_category?: string | null;
+    assignee?: string | null;
+    assignee_email?: string | null;
+    reporter?: string | null;
+    labels?: string[];
+    url?: string | null;
+  } | null;
   requirement_analysis?: { functional_requirement: string; ambiguities: string[] } | null;
   scope_analysis?: {
     change_type: string;

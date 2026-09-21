@@ -66,6 +66,10 @@ class Orchestrator:
             workflow.selected_base_branch = base_branch.strip()
         return self.store.create(workflow)
 
+    async def load_jira_task(self, workflow: Workflow) -> Workflow:
+        workflow.jira_task = await self.mcp.fetch_issue(workflow, workflow.jira_key)
+        return self.store.save(workflow)
+
     def list_repository_branches(self) -> list[str]:
         return list_branches(self._repository_path())
 

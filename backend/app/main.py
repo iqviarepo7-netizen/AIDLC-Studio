@@ -183,6 +183,7 @@ def list_repository_branches(session: SessionConnection = Depends(require_sessio
 async def create_workflow(request: CreateWorkflowRequest, session: SessionConnection = Depends(require_session)):
     set_current_session(session)
     workflow = orchestrator.create(request.jira_key, request.base_branch or session.git.base_branch)
+    workflow = await orchestrator.load_jira_task(workflow)
     if config.policy.automation.auto_start:
         return await orchestrator.run(workflow.id)
     return workflow

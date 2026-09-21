@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Any, Literal
 
 import httpx
 from fastapi import HTTPException
@@ -10,11 +11,22 @@ logger = logging.getLogger(__name__)
 from ..connection_models import JiraConnectionConfig
 from ..models import JiraTask
 
+AuthScheme = Literal["basic", "bearer"]
+ApiVersion = Literal["2", "3"]
 
-def _auth(config: JiraConnectionConfig) -> tuple[str, str]:
-    if not config.email or not config.api_token:
+
+def _token(config: JiraConnectionConfig) -> str:
+    token = (config.api_token or "").strip().rstrip("|").strip()
+    if not token:
         raise HTTPException(status_code=400, detail="Jira email and API token are required for direct mode.")
-    return config.email, config.api_token
+    return token
+
+
+def _email(config: JiraConnectionConfig) -> str:
+    email = (config.email or "").strip()
+    if not email:
+        raise HTTPException(status_code=400, detail="Jira email and API token are required for direct mode.")
+    return email
 
 
 def _base_url(config: JiraConnectionConfig) -> str:
@@ -23,12 +35,88 @@ def _base_url(config: JiraConnectionConfig) -> str:
     return config.base_url.rstrip("/")
 
 
-async def validate_connection(config: JiraConnectionConfig) -> str:
-    url = f"{_base_url(config)}/rest/api/3/myself"
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.get(url, auth=_auth(config), headers={"Accept": "application/json"})
-    if response.status_code == 401:
+def _auth_for(config: JiraConnectionConfig, scheme: AuthScheme) -> tuple[dict[str, str], tuple[str, str] | None]:
+    token = _token(config)
+    if scheme == "basic":
+        return {}, (_email(config), token)
+    return {"Authorization": f"Bearer {token}"}, None
+
+
+def _is_html(response: httpx.Response) -> bool:
+    content_type = response.headers.get("content-type", "").lower()
+    if "text/html" in content_type:
+        return True
+    text = response.text[:80].lstrip().lower()
+    return text.startswith("<!doctype") or text.startswith("<html")
+
+
+async def _request(
+    config: JiraConnectionConfig,
+    method: str,
+    path: str,
+    *,
+    json: dict[str, Any] | None = None,
+    timeout: float = 30.0,
+) -> httpx.Response:
+    await _ensure_resolved(config)
+    version = config.api_version or "3"
+    scheme: AuthScheme = config.auth_scheme or "basic"
+    headers = {"Accept": "application/json"}
+    extra, auth = _auth_for(config, scheme)
+    headers.update(extra)
+    url = f"{_base_url(config)}/rest/api/{version}{path}"
+    async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
+        response = await client.request(method, url, auth=auth, headers=headers, json=json)
+    if response.status_code in {301, 302, 303, 307, 308} or _is_html(response):
+        raise HTTPException(
+            status_code=401,
+            detail="Jira returned a login page instead of the REST API. Check VPN/SSO access and that the token is a REST API token or personal access token.",
+        )
+    return response
+
+
+async def _ensure_resolved(config: JiraConnectionConfig) -> None:
+    if config.api_version and config.auth_scheme:
+        return
+    versions: list[ApiVersion] = [config.api_version] if config.api_version else ["3", "2"]
+    schemes: list[AuthScheme] = [config.auth_scheme] if config.auth_scheme else ["basic", "bearer"]
+    last_status: int | None = None
+    saw_html = False
+    async with httpx.AsyncClient(timeout=20.0, follow_redirects=False) as client:
+        for version in versions:
+            for scheme in schemes:
+                headers = {"Accept": "application/json"}
+                extra, auth = _auth_for(config, scheme)
+                headers.update(extra)
+                url = f"{_base_url(config)}/rest/api/{version}/myself"
+                response = await client.get(url, auth=auth, headers=headers)
+                last_status = response.status_code
+                if response.status_code in {301, 302, 303, 307, 308} or _is_html(response):
+                    saw_html = True
+                    continue
+                if response.status_code in {401, 403}:
+                    continue
+                if response.status_code == 404:
+                    continue
+                if response.status_code >= 400:
+                    raise HTTPException(status_code=502, detail=f"Jira connection failed: HTTP {response.status_code}.")
+                config.api_version = version
+                config.auth_scheme = scheme
+                logger.info("jira_auth_resolved api_version=%s auth_scheme=%s", version, scheme)
+                return
+    if saw_html:
+        raise HTTPException(
+            status_code=401,
+            detail="Jira returned a login page instead of the REST API. Check VPN/SSO access and that the token is a REST API token or personal access token.",
+        )
+    if last_status in {401, 403}:
         raise HTTPException(status_code=401, detail="Jira authentication failed. Check email and API token.")
+    raise HTTPException(status_code=502, detail=f"Jira connection failed: HTTP {last_status or 'unknown'}.")
+
+
+async def validate_connection(config: JiraConnectionConfig) -> str:
+    await _ensure_resolved(config)
+    response = await _request(config, "GET", "/myself", timeout=20.0)
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail=f"Jira connection failed: HTTP {response.status_code}.")
     data = response.json()
@@ -36,42 +124,55 @@ async def validate_connection(config: JiraConnectionConfig) -> str:
     return f"Connected as {display}"
 
 
+def parse_issue(data: dict[str, Any], jira_key: str, *, base_url: str | None = None) -> JiraTask:
+    fields = data.get("fields", data) if isinstance(data.get("fields", data), dict) else {}
+    description = fields.get("description")
+    if isinstance(description, dict):
+        description = " ".join(_walk_adf(description))
+    key = str(data.get("key") or jira_key).upper()
+    status = fields.get("status") if isinstance(fields.get("status"), dict) else {}
+    status_category = status.get("statusCategory") if isinstance(status.get("statusCategory"), dict) else {}
+    labels = fields.get("labels") or data.get("labels") or []
+    return JiraTask(
+        key=key,
+        summary=str(fields.get("summary") or data.get("summary") or key),
+        description=str(description) if description else None,
+        issue_type=(fields.get("issuetype") or {}).get("name", data.get("issue_type", "TASK")),
+        priority=(fields.get("priority") or {}).get("name", data.get("priority")),
+        status=_named(status) or _string(data.get("status")),
+        status_category=_named(status_category) or _string(status_category.get("key")),
+        assignee=_person_name(fields.get("assignee") or data.get("assignee")),
+        assignee_email=_person_email(fields.get("assignee") or data.get("assignee")),
+        reporter=_person_name(fields.get("reporter") or data.get("reporter")),
+        labels=[str(label) for label in labels] if isinstance(labels, list) else [],
+        url=_browse_url(data, key, base_url),
+        acceptance_criteria=list(data.get("acceptance_criteria") or fields.get("acceptance_criteria") or []),
+    )
+
+
 async def fetch_issue(config: JiraConnectionConfig, jira_key: str) -> JiraTask:
-    url = f"{_base_url(config)}/rest/api/3/issue/{jira_key.upper()}"
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        response = await client.get(url, auth=_auth(config), headers={"Accept": "application/json"})
+    response = await _request(config, "GET", f"/issue/{jira_key.upper()}")
     if response.status_code == 404:
         raise HTTPException(status_code=404, detail=f"Jira issue {jira_key} was not found.")
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail=f"Jira fetch failed: HTTP {response.status_code}.")
-    data = response.json()
-    fields = data.get("fields", {})
-    description = fields.get("description")
-    if isinstance(description, dict):
-        description = " ".join(_walk_adf(description))
-    return JiraTask(
-        key=jira_key.upper(),
-        summary=str(fields.get("summary") or jira_key),
-        description=str(description) if description else None,
-        issue_type=(fields.get("issuetype") or {}).get("name", "TASK"),
-        priority=(fields.get("priority") or {}).get("name"),
-        acceptance_criteria=list(fields.get("acceptance_criteria") or []),
-    )
+    return parse_issue(response.json(), jira_key, base_url=_base_url(config))
+
+
+def _comment_payload(config: JiraConnectionConfig, comment: str) -> dict[str, Any]:
+    if config.api_version == "2":
+        return {"body": comment}
+    return {"body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": comment}]}]}}
 
 
 async def comment_issue(config: JiraConnectionConfig, jira_key: str, comment: str) -> None:
-    url = f"{_base_url(config)}/rest/api/3/issue/{jira_key.upper()}/comment"
-    payload = {"body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": comment}]}]}}
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.post(url, auth=_auth(config), json=payload, headers={"Accept": "application/json"})
+    response = await _request(config, "POST", f"/issue/{jira_key.upper()}/comment", json=_comment_payload(config, comment), timeout=20.0)
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail=f"Jira comment failed: HTTP {response.status_code}.")
 
 
 async def list_comment_texts(config: JiraConnectionConfig, jira_key: str) -> list[str]:
-    url = f"{_base_url(config)}/rest/api/3/issue/{jira_key.upper()}/comment"
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.get(url, auth=_auth(config), headers={"Accept": "application/json"})
+    response = await _request(config, "GET", f"/issue/{jira_key.upper()}/comment", timeout=20.0)
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail=f"Jira comment fetch failed: HTTP {response.status_code}.")
     comments = response.json().get("comments", [])
@@ -99,11 +200,48 @@ async def has_pr_comment(config: JiraConnectionConfig, jira_key: str, pr_url: st
 
 
 async def transition_issue(config: JiraConnectionConfig, jira_key: str, transition_id: str) -> None:
-    url = f"{_base_url(config)}/rest/api/3/issue/{jira_key.upper()}/transitions"
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.post(url, auth=_auth(config), json={"transition": {"id": transition_id}}, headers={"Accept": "application/json"})
+    response = await _request(
+        config,
+        "POST",
+        f"/issue/{jira_key.upper()}/transitions",
+        json={"transition": {"id": transition_id}},
+        timeout=20.0,
+    )
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail=f"Jira transition failed: HTTP {response.status_code}.")
+
+
+def _named(value: object) -> str | None:
+    if isinstance(value, dict) and value.get("name"):
+        return str(value["name"])
+    return None
+
+
+def _string(value: object) -> str | None:
+    if isinstance(value, str) and value.strip():
+        return value
+    return None
+
+
+def _person_name(value: object) -> str | None:
+    if not isinstance(value, dict):
+        return _string(value)
+    return _string(value.get("displayName")) or _string(value.get("name")) or _string(value.get("emailAddress"))
+
+
+def _person_email(value: object) -> str | None:
+    if not isinstance(value, dict):
+        return None
+    return _string(value.get("emailAddress"))
+
+
+def _browse_url(data: dict[str, Any], key: str, base_url: str | None) -> str | None:
+    if base_url:
+        return f"{base_url.rstrip('/')}/browse/{key}"
+    self_url = data.get("self")
+    if isinstance(self_url, str) and "/rest/" in self_url:
+        return f"{self_url.split('/rest/', 1)[0]}/browse/{key}"
+    return None
 
 
 def _walk_adf(value: object) -> list[str]:

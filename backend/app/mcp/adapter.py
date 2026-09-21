@@ -139,20 +139,7 @@ class MCPAdapter:
             tool_key="fetch_issue",
             arguments={"issue_key": jira_key, "key": jira_key},
         )
-        data = result.data
-        fields = data.get("fields", data)
-        description = fields.get("description")
-        if isinstance(description, dict):
-            description = " ".join(self._walk_adf(description))
-        summary = fields.get("summary") or data.get("summary") or jira_key
-        return JiraTask(
-            key=jira_key.upper(),
-            summary=str(summary),
-            description=str(description) if description else None,
-            issue_type=(fields.get("issuetype") or {}).get("name", data.get("issue_type", "TASK")),
-            priority=(fields.get("priority") or {}).get("name", data.get("priority")),
-            acceptance_criteria=list(data.get("acceptance_criteria") or fields.get("acceptance_criteria") or []),
-        )
+        return direct_jira.parse_issue(result.data, jira_key)
 
     async def analyze_repository(self, workflow: Workflow, repository_path: str) -> RepositoryAnalysis:
         session = get_current_session()

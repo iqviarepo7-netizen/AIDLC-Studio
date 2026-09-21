@@ -10,15 +10,14 @@ export type SetupHelpId = "jira-direct" | "jira-mcp" | "git-direct" | "git-mcp";
 export const SETUP_HELP: Record<SetupHelpId, SetupHelpGuide> = {
   "jira-direct": {
     title: "Jira · Direct API",
-    summary: "Connect straight to your Atlassian Cloud site using email and an API token.",
+    summary: "Connect to Jira Cloud or Server/Data Center using email and an API token or personal access token.",
     steps: [
-      { title: "Open Atlassian account settings", detail: "Go to id.atlassian.com → Security → Create and manage API tokens." },
-      { title: "Create an API token", detail: "Copy the token immediately — it is shown only once." },
-      { title: "Set Base URL", detail: "Use your site root, e.g. https://your-company.atlassian.net (no /jira suffix)." },
-      { title: "Enter email + token", detail: "Use the Atlassian account email tied to the token." },
+      { title: "Create a token", detail: "Cloud: id.atlassian.com → Security → API tokens. Server/Data Center: Profile → Personal Access Tokens." },
+      { title: "Set Base URL", detail: "Use the site root, e.g. https://your-company.atlassian.net or https://jira.company.com (no trailing path)." },
+      { title: "Enter email + token", detail: "Use the account email and paste the token. Do not include extra characters from the copy." },
       { title: "Optional transition ID", detail: "Find it via Jira workflow settings if you want tickets moved to Done after publish." },
     ],
-    tips: ["Validation calls GET /rest/api/3/myself to confirm credentials."],
+    tips: ["The studio tries REST API v3 then v2, and Basic auth then Bearer PAT, so Cloud and company Jira both work."],
   },
   "jira-mcp": {
     title: "Jira · MCP",

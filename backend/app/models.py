@@ -27,6 +27,13 @@ class JiraTask(BaseModel):
     description: str | None = None
     issue_type: str = "TASK"
     priority: str | None = None
+    status: str | None = None
+    status_category: str | None = None
+    assignee: str | None = None
+    assignee_email: str | None = None
+    reporter: str | None = None
+    labels: list[str] = Field(default_factory=list)
+    url: str | None = None
     acceptance_criteria: list[str] = Field(default_factory=list)
 
 

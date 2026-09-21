@@ -112,6 +112,26 @@ export function StageActivityCard({ workflow, busy, onProceedPlan, onRegenerateP
           <li className={workflow.scope_analysis ? "done" : workflow.jira_task ? "active" : ""}>Scope repository patterns</li>
           <li className={workflow.complexity ? "done" : workflow.scope_analysis ? "active" : ""}>Score complexity</li>
         </ul>
+        {workflow.jira_task && (
+          <dl className="jira-meta">
+            <div>
+              <dt>Status</dt>
+              <dd>{workflow.jira_task.status ?? "Unknown"}</dd>
+            </div>
+            <div>
+              <dt>Assignee</dt>
+              <dd>{workflow.jira_task.assignee ?? "Unassigned"}</dd>
+            </div>
+            <div>
+              <dt>Type</dt>
+              <dd>{workflow.jira_task.issue_type ?? "Task"}</dd>
+            </div>
+            <div>
+              <dt>Priority</dt>
+              <dd>{workflow.jira_task.priority ?? "None"}</dd>
+            </div>
+          </dl>
+        )}
       </section>
     );
   }

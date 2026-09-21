@@ -607,6 +607,29 @@ button.small { padding: 6px 10px; font-size: 11px; }
 }
 .stage-checklist li.active { color: var(--accent); background: rgba(34,211,238,0.08); animation: stageSlide 1.2s ease infinite alternate; }
 .stage-checklist li.done { color: var(--success); background: rgba(74,222,128,0.08); }
+.jira-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 0;
+}
+.jira-meta div {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+}
+.jira-meta dt {
+  margin: 0 0 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+.jira-meta dd {
+  margin: 0;
+  color: var(--text-primary);
+}
 .stage-file-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .stage-file-list li {
   padding: 8px 10px;
@@ -673,6 +696,7 @@ button.small { padding: 6px 10px; font-size: 11px; }
 }
 
 @media (max-width: 640px) {
+  .jira-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .setup-section-head { flex-direction: column; align-items: stretch; }
   .mode-toggle { width: 100%; }
   .mode-toggle button { flex: 1; }
