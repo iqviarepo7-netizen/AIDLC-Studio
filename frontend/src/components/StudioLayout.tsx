@@ -6,8 +6,10 @@ import { FileTree } from "./FileTree";
 import { ModelSelectionPanel } from "./ModelSelectionPanel";
 import { StageActivityCard } from "./StageActivityCard";
 import { TerminalPanel } from "./TerminalPanel";
+import { ImplementationReportModal } from "./ImplementationReportModal";
 import { WorkflowProgress } from "./WorkflowProgress";
 import type { useStudio } from "../hooks/useStudio";
+import { canShowReport } from "../reportUtils";
 
 type Props = {
   studio: ReturnType<typeof useStudio>;
@@ -27,6 +29,9 @@ export function StudioLayout({ studio }: Props) {
         sessionSummary={studio.sessionSummary}
         busy={studio.busy}
         workflowState={studio.workflow?.state}
+        showReport={canShowReport(studio.workflow)}
+        reportPartial={studio.workflow?.state === "FAILED"}
+        onViewReport={studio.openReport}
       />
       <WorkflowProgress config={studio.config} workflow={studio.workflow} deliveryComplete={studio.deliveryComplete} />
       {studio.error && <div className="banner error">{studio.error}</div>}
@@ -67,6 +72,14 @@ export function StudioLayout({ studio }: Props) {
         </div>
         <AgentActivityFeed workflow={studio.workflow} />
       </div>
+      {studio.workflow && (
+        <ImplementationReportModal
+          workflow={studio.workflow}
+          open={studio.reportOpen}
+          onClose={studio.closeReport}
+          onSelectFile={studio.viewReportFile}
+        />
+      )}
     </div>
   );
 }

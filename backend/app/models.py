@@ -162,6 +162,64 @@ class TerminalLogEntry(BaseModel):
     duration_ms: int
 
 
+class ReportFileSummary(BaseModel):
+    path: str
+    line_count: int
+
+
+class ReportRequirementSection(BaseModel):
+    jira_task: JiraTask | None = None
+    requirement_analysis: RequirementAnalysis | None = None
+    scope_analysis: ScopeAnalysis | None = None
+    repository_analysis: RepositoryAnalysis | None = None
+    branch_analysis: BranchAnalysis | None = None
+
+
+class ReportPlanningSection(BaseModel):
+    complexity: ComplexityAssessment | None = None
+    model_recommendation: ModelRecommendation | None = None
+    model_selection: ModelSelection | None = None
+    selected_model: str | None = None
+    plan: Plan | None = None
+
+
+class ReportBuildSection(BaseModel):
+    base_branch: str | None = None
+    work_branch: str | None = None
+    branch_collision: bool = False
+    collision_message: str | None = None
+    changed_files: list[str] = Field(default_factory=list)
+    diff_summary: str = ""
+    files: list[ReportFileSummary] = Field(default_factory=list)
+
+
+class ReportTestingSection(BaseModel):
+    validation_status: str = "UNKNOWN"
+    validation_summary: str = ""
+    test_result: TestResult | None = None
+    terminal_log: list[TerminalLogEntry] = Field(default_factory=list)
+
+
+class ReportDeliverySection(BaseModel):
+    pull_request: PullRequest | None = None
+    pr_body: str | None = None
+    jira_comment_posted: bool = False
+    jira_transition_posted: bool = False
+
+
+class ReportFailureInfo(BaseModel):
+    stage: str | None = None
+    stage_label: str | None = None
+    error: str | None = None
+    agent: str | None = None
+
+
+class ReportSectionStatus(BaseModel):
+    id: str
+    label: str
+    status: str
+
+
 class WorkflowReport(BaseModel):
     jira_key: str
     summary: str
@@ -172,6 +230,17 @@ class WorkflowReport(BaseModel):
     pr_url: str | None = None
     final_status: str
     retry_count: int = 0
+    duration_ms: int | None = None
+    generated_at: datetime | None = None
+    report_status: str = "complete"
+    failure: ReportFailureInfo | None = None
+    sections: list[ReportSectionStatus] = Field(default_factory=list)
+    requirement: ReportRequirementSection | None = None
+    planning: ReportPlanningSection | None = None
+    build: ReportBuildSection | None = None
+    testing: ReportTestingSection | None = None
+    delivery: ReportDeliverySection | None = None
+    audit_trail: list[MCPAuditRecord] = Field(default_factory=list)
 
 
 class Workflow(BaseModel):

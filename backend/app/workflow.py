@@ -85,7 +85,7 @@ class Orchestrator:
             workflow.state = WorkflowState.FAILED
             workflow.error = str(exc.detail)
             self._audit(workflow, "orchestrator", "failed")
-            return self.store.save(workflow)
+            return self._save_failure(workflow)
 
     async def select_model(self, workflow_id: str, route_id: str, work_branch: str | None = None) -> Workflow:
         workflow = self.store.get(workflow_id)
@@ -271,7 +271,8 @@ class Orchestrator:
                         continue
                     workflow.state = WorkflowState.FAILED
                     workflow.error = "Validation failed and retry limit was reached."
-                    return self.store.save(workflow)
+                    self._audit(workflow, "validator", "failed")
+                    return self._save_failure(workflow)
 
                 if self.config.policy.automation.mode == "review_required":
                     workflow.state = WorkflowState.AWAITING_REVIEW
@@ -284,16 +285,18 @@ class Orchestrator:
                 workflow.state = WorkflowState.FAILED
                 workflow.error = str(exc.detail)
                 self._audit(workflow, "orchestrator", "failed")
-                return self.store.save(workflow)
+                return self._save_failure(workflow)
             except Exception as exc:  # pragma: no cover - defensive path
                 logger.exception("workflow_failed workflow_id=%s", workflow.id)
                 workflow.state = WorkflowState.FAILED
                 workflow.error = str(exc)
-                return self.store.save(workflow)
+                self._audit(workflow, "orchestrator", "failed")
+                return self._save_failure(workflow)
 
         workflow.state = WorkflowState.FAILED
         workflow.error = "Retry limit reached."
-        return self.store.save(workflow)
+        self._audit(workflow, "orchestrator", "failed")
+        return self._save_failure(workflow)
 
     async def approve(self, workflow_id: str) -> Workflow:
         workflow = self.store.get(workflow_id)
@@ -331,7 +334,7 @@ class Orchestrator:
             workflow.state = WorkflowState.FAILED
             workflow.error = str(exc.detail)
             self._audit(workflow, "orchestrator", "failed")
-            return self.store.save(workflow)
+            return self._save_failure(workflow)
 
     async def check_jira_sync(self, workflow_id: str) -> dict[str, object]:
         from .integrations import direct_jira
@@ -363,9 +366,13 @@ class Orchestrator:
         self._set_stage(workflow, "publish")
         self.store.save(workflow)
         workflow.pull_request = await self.publisher.publish(workflow, repository_path)
-        workflow.report = self.report_agent.generate(workflow)
         workflow.state = WorkflowState.COMPLETED
+        workflow.report = self.report_agent.generate(workflow)
         self._audit(workflow, "publisher", "completed")
+        return self.store.save(workflow)
+
+    def _save_failure(self, workflow: Workflow) -> Workflow:
+        workflow.report = self.report_agent.generate(workflow)
         return self.store.save(workflow)
 
     def _require_model_selection(self) -> bool:

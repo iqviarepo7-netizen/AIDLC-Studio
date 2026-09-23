@@ -31,21 +31,21 @@ export type Workflow = {
   retry_count: number;
   selected_base_branch?: string | null;
   work_branch?: string | null;
-  jira_task?: {
-    key: string;
-    summary: string;
-    description?: string;
-    issue_type?: string;
-    priority?: string | null;
-    status?: string | null;
-    status_category?: string | null;
-    assignee?: string | null;
-    assignee_email?: string | null;
-    reporter?: string | null;
-    labels?: string[];
-    url?: string | null;
+  jira_task?: { key: string; summary: string; description?: string; issue_type?: string; priority?: string | null; acceptance_criteria?: string[] } | null;
+  requirement_analysis?: {
+    problem_summary?: string;
+    functional_requirement: string;
+    acceptance_criteria?: string[];
+    constraints?: string[];
+    ambiguities: string[];
   } | null;
-  requirement_analysis?: { functional_requirement: string; ambiguities: string[] } | null;
+  repository_analysis?: {
+    project_type: string;
+    relevant_directories: string[];
+    relevant_files: string[];
+    test_command?: string | null;
+    notes: string;
+  } | null;
   scope_analysis?: {
     change_type: string;
     pattern_summary: string;
@@ -68,15 +68,107 @@ export type Workflow = {
   } | null;
   model_selection?: { provider: string; model: string; reason: string } | null;
   selected_model?: string | null;
-  plans: { version: number; objective: string; implementation_steps: string[]; change_request?: string | null; risks?: string[] }[];
+  plans: {
+    version: number;
+    objective: string;
+    affected_components?: string[];
+    likely_files?: string[];
+    implementation_steps: string[];
+    test_approach?: string[];
+    risks?: string[];
+    expected_result?: string;
+    change_request?: string | null;
+  }[];
   generated_files: GeneratedFile[];
   implementation?: { branch: string; changed_files: string[]; diff_summary: string; validation_status: string; validation_summary: string } | null;
   test_result?: { status: string; summary: string; passed: number; failed: number; executed_command: string } | null;
-  pull_request?: { title: string; url: string; number: number } | null;
+  pull_request?: { title: string; url: string; number: number; status?: string } | null;
   terminal_log: TerminalLogEntry[];
   mcp_audit: MCPAuditRecord[];
   audit_log: { timestamp: string; agent: string; action: string; status: string }[];
-  report?: { jira_key: string; summary: string; pr_url?: string | null; final_status: string } | null;
+  report?: WorkflowReport | null;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type WorkflowReport = {
+  jira_key: string;
+  summary: string;
+  complexity_level: string;
+  complexity_score: number;
+  selected_model: string;
+  validation_status: string;
+  pr_url?: string | null;
+  final_status: string;
+  retry_count: number;
+  duration_ms?: number | null;
+  generated_at?: string | null;
+  report_status?: "complete" | "partial";
+  failure?: {
+    stage?: string | null;
+    stage_label?: string | null;
+    error?: string | null;
+    agent?: string | null;
+  } | null;
+  sections?: { id: string; label: string; status: string }[];
+  requirement?: {
+    jira_task?: Workflow["jira_task"];
+    requirement_analysis?: {
+      problem_summary: string;
+      functional_requirement: string;
+      acceptance_criteria: string[];
+      constraints: string[];
+      ambiguities: string[];
+    } | null;
+    scope_analysis?: Workflow["scope_analysis"];
+    repository_analysis?: {
+      project_type: string;
+      relevant_directories: string[];
+      relevant_files: string[];
+      test_command?: string | null;
+      notes: string;
+    } | null;
+    branch_analysis?: Workflow["branch_analysis"];
+  } | null;
+  planning?: {
+    complexity?: Workflow["complexity"];
+    model_recommendation?: Workflow["model_recommendation"];
+    model_selection?: Workflow["model_selection"];
+    selected_model?: string | null;
+    plan?: {
+      version: number;
+      objective: string;
+      affected_components: string[];
+      likely_files: string[];
+      implementation_steps: string[];
+      test_approach: string[];
+      risks: string[];
+      expected_result: string;
+      change_request?: string | null;
+    } | null;
+  } | null;
+  build?: {
+    base_branch?: string | null;
+    work_branch?: string | null;
+    branch_collision: boolean;
+    collision_message?: string | null;
+    changed_files: string[];
+    diff_summary: string;
+    files: { path: string; line_count: number }[];
+  } | null;
+  testing?: {
+    validation_status: string;
+    validation_summary: string;
+    test_result?: Workflow["test_result"];
+    terminal_log: TerminalLogEntry[];
+  } | null;
+  delivery?: {
+    pull_request?: Workflow["pull_request"];
+    pr_body?: string | null;
+    jira_comment_posted: boolean;
+    jira_transition_posted: boolean;
+  } | null;
+  audit_trail?: MCPAuditRecord[];
 };
 
 export type PublicConfig = {

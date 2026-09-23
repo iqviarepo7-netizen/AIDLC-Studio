@@ -11,6 +11,9 @@ type Props = {
   onReconfigure: () => void;
   busy: boolean;
   workflowState?: string;
+  showReport?: boolean;
+  reportPartial?: boolean;
+  onViewReport?: () => void;
 };
 
 export function CommandBar({
@@ -24,6 +27,9 @@ export function CommandBar({
   onReconfigure,
   busy,
   workflowState,
+  showReport,
+  reportPartial,
+  onViewReport,
 }: Props) {
   return (
     <header className="command-bar">
@@ -59,6 +65,11 @@ export function CommandBar({
         </div>
       </div>
       <div className="status-cluster">
+        {showReport && onViewReport && (
+          <button type="button" className={`report-trigger${reportPartial ? " partial" : ""}`} onClick={onViewReport}>
+            {reportPartial ? "View Partial Report" : "View Report"}
+          </button>
+        )}
         <span className={`status-pill state-${(workflowState ?? "idle").toLowerCase()}`}>{workflowState ?? "Ready"}</span>
         <div className="health-tags">
           <span className={health?.session_active || health?.mcp.jira_configured ? "ok" : "warn"}>Jira</span>
