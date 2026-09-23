@@ -8,6 +8,7 @@ type Props = {
   onJiraKeyChange: (value: string) => void;
   baseBranch: string;
   onStart: () => void;
+  onCreateJira?: () => void;
   onReconfigure: () => void;
   busy: boolean;
   workflowState?: string;
@@ -24,6 +25,7 @@ export function CommandBar({
   onJiraKeyChange,
   baseBranch,
   onStart,
+  onCreateJira,
   onReconfigure,
   busy,
   workflowState,
@@ -55,6 +57,11 @@ export function CommandBar({
             placeholder="PROJ-123"
             pattern="[A-Za-z][A-Za-z0-9_]*-[0-9]+"
           />
+          {onCreateJira && (
+            <button type="button" onClick={onCreateJira} disabled={busy}>
+              Create Jira
+            </button>
+          )}
           <button onClick={onStart} disabled={busy || !jiraKey.trim() || (health?.repository_configured && !baseBranch)}>
             Run Pipeline
           </button>

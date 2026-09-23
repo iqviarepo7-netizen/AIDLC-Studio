@@ -1,4 +1,5 @@
 import type { BranchListResponse, HealthStatus, PublicConfig, SetupRequest, SetupResponse, Workflow, WorkflowReport } from "./types";
+import type { CreateJiraAgentResponse, CreateJiraIssueResponse, JiraCreateMetadata, JiraIssueTypeOption, JiraProjectOption } from "./types/jiraCreate";
 
 const API = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
@@ -61,4 +62,20 @@ export const api = {
     source.onmessage = (event) => onUpdate(JSON.parse(event.data) as Workflow);
     return () => source.close();
   },
+  jiraCreateProjects: () => request<{ projects: JiraProjectOption[] }>("/api/jira/create/projects"),
+  jiraCreateIssueTypes: (projectId: string) =>
+    request<{ issue_types: JiraIssueTypeOption[] }>(`/api/jira/create/issue-types?project_id=${encodeURIComponent(projectId)}`),
+  jiraCreateMetadata: (projectId: string, issueTypeId: string) =>
+    request<JiraCreateMetadata>("/api/jira/create/metadata", "POST", { project_id: projectId, issue_type_id: issueTypeId }),
+  jiraCreateIssue: (payload: { project_id: string; issue_type_id: string; fields: Record<string, unknown> }) =>
+    request<CreateJiraIssueResponse>("/api/jira/create/issue", "POST", payload),
+  jiraCreateAgent: (payload: {
+    messages: { role: "user" | "assistant"; content: string }[];
+    project_id: string;
+    issue_type_id: string;
+    project_label?: string;
+    issue_type_label?: string;
+    current_values: Record<string, unknown>;
+    user_edited_field_ids: string[];
+  }) => request<CreateJiraAgentResponse>("/api/jira/create/agent", "POST", payload),
 };

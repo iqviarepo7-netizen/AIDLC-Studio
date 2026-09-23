@@ -17,6 +17,8 @@ from .session_context import set_current_session
 from .session_store import SessionStore
 from .setup_service import validate_git, validate_jira
 from .store import WorkflowStore
+from .jira_create_models import CreateJiraAgentRequest, CreateJiraIssueRequest, CreateJiraMetadataRequest
+from .jira_create_service import create_issue, get_create_metadata, list_issue_types, list_projects, run_create_jira_agent
 from .workflow import Orchestrator
 
 log_directory = Path(__file__).resolve().parents[1] / "logs"
@@ -177,6 +179,39 @@ def list_repository_branches(session: SessionConnection = Depends(require_sessio
     branches = list_branches(str(Path(repository_path).expanduser().resolve()))
     default_branch = resolve_base_branch(session.git.base_branch, branches, settings.github_base_branch)
     return {"branches": branches, "default_branch": default_branch}
+
+
+@app.get("/api/jira/create/projects")
+async def jira_create_projects(session: SessionConnection = Depends(require_session)):
+    from .jira_create_service import require_direct_jira
+
+    config = require_direct_jira(session)
+    return {"projects": [item.model_dump() for item in await list_projects(config)]}
+
+
+@app.get("/api/jira/create/issue-types")
+async def jira_create_issue_types(project_id: str, session: SessionConnection = Depends(require_session)):
+    from .jira_create_service import require_direct_jira
+
+    config = require_direct_jira(session)
+    return {"issue_types": [item.model_dump() for item in await list_issue_types(config, project_id)]}
+
+
+@app.post("/api/jira/create/metadata")
+async def jira_create_metadata(request: CreateJiraMetadataRequest, session: SessionConnection = Depends(require_session)):
+    return await get_create_metadata(session, request)
+
+
+@app.post("/api/jira/create/issue")
+async def jira_create_issue(request: CreateJiraIssueRequest, session: SessionConnection = Depends(require_session)):
+    result = await create_issue(session, request)
+    logging.getLogger(__name__).info("jira_issue_created key=%s project=%s issue_type=%s", result.key, request.project_id, request.issue_type_id)
+    return result
+
+
+@app.post("/api/jira/create/agent")
+async def jira_create_agent(request: CreateJiraAgentRequest, session: SessionConnection = Depends(require_session)):
+    return await run_create_jira_agent(session, settings, request)
 
 
 @app.post("/api/workflows")

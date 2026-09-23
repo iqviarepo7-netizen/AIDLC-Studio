@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { AgentActivityFeed } from "./AgentActivityFeed";
+import { CreateJiraModal } from "./createJira/CreateJiraModal";
 import { CodeEditor } from "./CodeEditor";
 import { CommandBar } from "./CommandBar";
 import { CompletionCard } from "./CompletionCard";
@@ -16,6 +18,8 @@ type Props = {
 };
 
 export function StudioLayout({ studio }: Props) {
+  const [createJiraOpen, setCreateJiraOpen] = useState(false);
+
   return (
     <div className="studio-shell">
       <CommandBar
@@ -25,6 +29,7 @@ export function StudioLayout({ studio }: Props) {
         onJiraKeyChange={studio.setJiraKey}
         baseBranch={studio.baseBranch}
         onStart={studio.startWorkflow}
+        onCreateJira={() => setCreateJiraOpen(true)}
         onReconfigure={studio.beginReconfigure}
         sessionSummary={studio.sessionSummary}
         busy={studio.busy}
@@ -80,6 +85,11 @@ export function StudioLayout({ studio }: Props) {
           onSelectFile={studio.viewReportFile}
         />
       )}
+      <CreateJiraModal
+        open={createJiraOpen}
+        onClose={() => setCreateJiraOpen(false)}
+        onCreated={(jiraKey) => studio.setJiraKey(jiraKey)}
+      />
     </div>
   );
 }
