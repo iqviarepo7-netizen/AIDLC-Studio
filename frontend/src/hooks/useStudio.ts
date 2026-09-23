@@ -22,6 +22,7 @@ export function useStudio() {
   const [workBranch, setWorkBranch] = useState("");
   const [setupDraft, setSetupDraft] = useState<SetupRequest>();
   const [deliveryComplete, setDeliveryComplete] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
 
   useEffect(() => {
     api
@@ -157,6 +158,7 @@ export function useStudio() {
     try {
       const created = await api.create(jiraKey.trim().toUpperCase(), baseBranch || undefined);
       setDeliveryComplete(false);
+      setReportOpen(false);
       setWorkflow(created);
       if (!selectedFile && created.generated_files[0]) setSelectedFile(created.generated_files[0].path);
     } catch (cause) {
@@ -214,6 +216,15 @@ export function useStudio() {
   }, [workflow]);
 
   const markDeliveryComplete = useCallback(() => setDeliveryComplete(true), []);
+
+  const openReport = useCallback(() => setReportOpen(true), []);
+
+  const closeReport = useCallback(() => setReportOpen(false), []);
+
+  const viewReportFile = useCallback((path: string) => {
+    setSelectedFile(path);
+    setReportOpen(false);
+  }, []);
 
   const proceedPlan = useCallback(async () => {
     if (!workflow) return;
@@ -282,6 +293,10 @@ export function useStudio() {
     markDeliveryComplete,
     proceedPlan,
     regeneratePlan,
+    reportOpen,
+    openReport,
+    closeReport,
+    viewReportFile,
   };
 }
 

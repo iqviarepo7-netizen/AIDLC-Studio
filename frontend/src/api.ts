@@ -1,4 +1,4 @@
-import type { BranchListResponse, HealthStatus, PublicConfig, SetupRequest, SetupResponse, Workflow } from "./types";
+import type { BranchListResponse, HealthStatus, PublicConfig, SetupRequest, SetupResponse, Workflow, WorkflowReport } from "./types";
 
 const API = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
@@ -50,6 +50,7 @@ export const api = {
   proceedPlan: (id: string) => request<Workflow>(`/api/workflows/${id}/proceed-plan`, "POST"),
   regeneratePlan: (id: string) => request<Workflow>(`/api/workflows/${id}/regenerate-plan`, "POST"),
   jiraSync: (id: string) => request<{ jira_comment_found: boolean; flow_complete: boolean; pr_url: string; jira_key: string }>(`/api/workflows/${id}/jira-sync`),
+  report: (id: string) => request<{ status: string; workflow: Workflow; report?: WorkflowReport | null }>(`/api/workflows/${id}/report`),
   file: async (id: string, path: string) => {
     const response = await fetch(`${API}/api/workflows/${id}/files/${encodeURIComponent(path)}`, { headers: headers() });
     if (!response.ok) throw new Error("Could not load file content.");

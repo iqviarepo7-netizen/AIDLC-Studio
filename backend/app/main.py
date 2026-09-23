@@ -269,7 +269,13 @@ def get_workflow_file(workflow_id: str, file_path: str):
 
 @app.get("/api/workflows/{workflow_id}/report")
 def report(workflow_id: str):
+    from .agents.report import ReportAgent
+
     workflow = store.get(workflow_id)
-    if workflow.state not in {WorkflowState.COMPLETED, WorkflowState.PUBLISHING}:
-        return {"status": "incomplete", "workflow": workflow}
-    return {"status": "complete", "workflow": workflow, "report": workflow.report}
+    if workflow.state == WorkflowState.COMPLETED:
+        payload = workflow.report or ReportAgent().generate(workflow)
+        return {"status": "complete", "workflow": workflow, "report": payload}
+    if workflow.state == WorkflowState.FAILED:
+        payload = workflow.report or ReportAgent().generate(workflow)
+        return {"status": "partial", "workflow": workflow, "report": payload}
+    return {"status": "incomplete", "workflow": workflow}
