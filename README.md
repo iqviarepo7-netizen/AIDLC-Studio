@@ -17,7 +17,22 @@ Fully configurable, MCP-first, agentic Jira-to-PR automation platform with an ID
 1. Copy [`backend/.env.example`](backend/.env.example) to `backend/.env`
 2. Configure MCP server URLs/tokens, repository path, and Gemini API key
 3. Review policy files in [`backend/config/`](backend/config/) — runtime behavior is config-driven, not hardcoded
-4. Start the API:
+4. *(Optional MCP)* Start the bundled Jira MCP (puts real Jira credentials here, not in the UI):
+
+```powershell
+cd mcp-servers/jira
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+# Edit .env: JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN
+uvicorn main:app --reload --port 9001
+```
+
+In the Connect screen: Jira → **MCP**, MCP URL → `http://localhost:9001`.  
+See [`mcp-servers/jira/README.md`](mcp-servers/jira/README.md). For a quick demo without MCP, use Jira **Direct** instead.
+
+5. Start the API:
 
 ```powershell
 cd backend
@@ -27,7 +42,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-5. Start the UI:
+6. Start the UI:
 
 ```powershell
 cd frontend
