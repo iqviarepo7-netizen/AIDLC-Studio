@@ -82,6 +82,28 @@ async def test_build_parent_candidate_jql_uses_hierarchy_levels() -> None:
     assert jql == 'project = "SCRUM" AND issuetype in (10001)'
 
 
+@pytest.mark.asyncio
+async def test_build_parent_candidate_jql_uses_numeric_project_id_without_key() -> None:
+    from unittest.mock import AsyncMock, patch
+
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    issue_types = [
+        {"id": "10004", "name": "Story", "hierarchyLevel": 0, "subtask": False},
+        {"id": "10001", "name": "Epic", "hierarchyLevel": 1, "subtask": False},
+    ]
+    with (
+        patch("app.jira_create_service.fetch_project_issue_types", AsyncMock(return_value=issue_types)),
+        patch("app.jira_create_service._project_key_for_user_search", AsyncMock(return_value=None)),
+    ):
+        jql = await build_parent_candidate_jql(
+            config,
+            project_id="10000",
+            project_key=None,
+            issue_type_id="10004",
+        )
+    assert jql == "project = 10000 AND issuetype in (10001)"
+
+
 def test_generic_issue_search_option_not_in_parent_metadata() -> None:
     """Parent eligibility comes from create metadata, not issue picker results."""
     metadata = JiraCreateMetadata(

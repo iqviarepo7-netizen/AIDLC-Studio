@@ -316,7 +316,13 @@ async def get_create_metadata(session: SessionConnection, request: CreateJiraMet
     raw = _merge_create_sources(quick_raw, rest_raw)
 
     project_key = str(raw.get("projectKey") or "") or None
-    parsed_fields, tabs, _fallback_order = normalize_jira_metadata(
+    if not project_key:
+        project_key = await _project_key_for_user_search(
+            config,
+            project_id=request.project_id,
+            project_key=None,
+        )
+    parsed_fields, tabs, fallback_order = normalize_jira_metadata(
         raw,
         project_id=request.project_id,
         issue_type_id=request.issue_type_id,
@@ -324,7 +330,7 @@ async def get_create_metadata(session: SessionConnection, request: CreateJiraMet
         issue_type_name=str(raw.get("issueTypeName") or "") or None,
     )
     parsed_fields, tabs, required_field_ids, policy_order = apply_create_jira_field_policy(parsed_fields, tabs)
-    field_order = field_order_from_raw(raw, parsed_fields) or policy_order or _fallback_order
+    field_order = field_order_from_raw(raw, parsed_fields) or policy_order or fallback_order
     field_order = [field_id for field_id in field_order if field_id in parsed_fields]
     for field_id in policy_order:
         if field_id not in field_order:
@@ -361,6 +367,42 @@ async def get_create_metadata(session: SessionConnection, request: CreateJiraMet
         field_order=field_order,
         attachment_config=attachment_config,
     )
+
+
+async def _load_parent_field_for_search(
+    config: JiraConnectionConfig,
+    project_id: str,
+    issue_type_id: str,
+) -> tuple[ParsedJiraField | None, str | None]:
+    """Load and enrich only the Parent field — same rules as create metadata, without full form enrichment."""
+    rest_raw = await fetch_rest_create_fields(config, project_id, issue_type_id)
+    quick_raw: dict[str, Any] | None = None
+    try:
+        quick_raw = await fetch_quick_create_metadata(config, project_id, issue_type_id)
+    except HTTPException as quick_error:
+        if quick_error.status_code not in {401, 403, 502}:
+            raise
+    raw = _merge_create_sources(quick_raw, rest_raw)
+    project_key = str(raw.get("projectKey") or "") or None
+    if not project_key:
+        project_key = await _project_key_for_user_search(config, project_id=project_id, project_key=None)
+    parsed_fields, tabs, _fallback_order = normalize_jira_metadata(
+        raw,
+        project_id=project_id,
+        issue_type_id=issue_type_id,
+        project_key=project_key,
+        issue_type_name=str(raw.get("issueTypeName") or "") or None,
+    )
+    parsed_fields, tabs, _, _ = apply_create_jira_field_policy(parsed_fields, tabs)
+    await _enrich_parent_fields(
+        config,
+        parsed_fields,
+        project_key=project_key,
+        project_id=project_id,
+        issue_type_id=issue_type_id,
+    )
+    parent_field = next((field for field in parsed_fields.values() if field.type == "parent"), None)
+    return parent_field, project_key
 
 
 def _assignable_user_search_param_sets(
@@ -552,6 +594,18 @@ async def _project_key_for_user_search(
     return None
 
 
+def _jql_project_clause(project_id: str, project_key: str | None) -> str:
+    key = str(project_key or "").strip()
+    if key:
+        escaped = key.replace('"', '\\"')
+        return f'project = "{escaped}"'
+    pid = str(project_id).strip()
+    if pid.isdigit():
+        return f"project = {pid}"
+    escaped = pid.replace('"', '\\"')
+    return f'project = "{escaped}"'
+
+
 async def search_assignable_users(
     config: JiraConnectionConfig,
     *,
@@ -704,6 +758,71 @@ def normalize_sprint_form_values(metadata: JiraCreateMetadata, values: dict[str,
     return merged
 
 
+def _match_sprint_to_board_id(
+    raw: Any,
+    *,
+    field: ParsedJiraField,
+    remote_sprints: list[dict[str, str]],
+) -> int | None:
+    if field_is_empty(raw):
+        return None
+    text = str(raw[0] if isinstance(raw, list) and raw else raw).strip()
+    if not text:
+        return None
+    remote_ids = {str(item["value"]).strip() for item in remote_sprints}
+    remote_by_label = {
+        normalize_jira_compare_text(item["label"]): str(item["value"]).strip() for item in remote_sprints
+    }
+    if text.isdigit() and text in remote_ids:
+        return int(text)
+    needle = normalize_jira_compare_text(text)
+    if needle in remote_by_label:
+        return int(remote_by_label[needle])
+    for option in field.options:
+        opt_value = str(option.value).strip()
+        opt_label = normalize_jira_compare_text(option.label)
+        if opt_value != text and opt_label != needle:
+            continue
+        if opt_label in remote_by_label:
+            return int(remote_by_label[opt_label])
+        if opt_value in remote_ids:
+            return int(opt_value)
+    return None
+
+
+async def normalize_sprint_form_values_with_board(
+    config: JiraConnectionConfig,
+    metadata: JiraCreateMetadata,
+    values: dict[str, Any],
+    *,
+    project_key: str | None,
+    project_id: str,
+) -> dict[str, Any]:
+    """Resolve Sprint to Agile board sprint ids (createmeta ids like 1/2 are not valid on create)."""
+    try:
+        remote_sprints = await fetch_project_board_sprints(
+            config,
+            project_key=project_key,
+            project_id=project_id,
+        )
+    except HTTPException:
+        remote_sprints = []
+    if not remote_sprints:
+        return normalize_sprint_form_values(metadata, values)
+    merged = dict(values)
+    for field_id, field in metadata.fields.items():
+        if not _parsed_field_is_sprint(field):
+            continue
+        if field_id not in merged:
+            continue
+        sprint_id = _match_sprint_to_board_id(merged[field_id], field=field, remote_sprints=remote_sprints)
+        if sprint_id is not None:
+            merged[field_id] = str(sprint_id)
+        elif not field_is_empty(merged[field_id]):
+            merged.pop(field_id, None)
+    return merged
+
+
 async def fetch_project_board_sprints(
     config: JiraConnectionConfig,
     *,
@@ -782,10 +901,25 @@ async def fetch_project_issue_types(config: JiraConnectionConfig, project_id: st
         params={"projectId": project_id},
         timeout=30.0,
     )
-    if response.status_code >= 400:
+    if response.status_code < 400:
+        payload = response.json()
+        items = [item for item in payload if isinstance(item, dict)] if isinstance(payload, list) else []
+        if items:
+            return items
+    meta_response = await direct_jira._request(
+        config,
+        "GET",
+        f"/issue/createmeta/{project_id}/issuetypes",
+        timeout=30.0,
+    )
+    if meta_response.status_code >= 400:
         return []
-    payload = response.json()
-    return [item for item in payload if isinstance(item, dict)] if isinstance(payload, list) else []
+    meta_payload = meta_response.json()
+    if isinstance(meta_payload, list):
+        return [item for item in meta_payload if isinstance(item, dict)]
+    if isinstance(meta_payload, dict):
+        return _issue_types_from_createmeta_payload(meta_payload)
+    return []
 
 
 async def build_parent_candidate_jql(
@@ -795,6 +929,11 @@ async def build_parent_candidate_jql(
     project_key: str | None,
     issue_type_id: str,
 ) -> str | None:
+    resolved_key = await _project_key_for_user_search(
+        config,
+        project_id=project_id,
+        project_key=project_key,
+    )
     issue_types = await fetch_project_issue_types(config, project_id)
     child = next((item for item in issue_types if str(item.get("id")) == str(issue_type_id)), None)
     if not child:
@@ -802,7 +941,7 @@ async def build_parent_candidate_jql(
     try:
         child_level = int(child.get("hierarchyLevel"))
     except (TypeError, ValueError):
-        return None
+        child_level = 0
     parent_type_ids: list[str] = []
     for item in issue_types:
         if item.get("subtask") is True:
@@ -816,9 +955,160 @@ async def build_parent_candidate_jql(
             if type_id:
                 parent_type_ids.append(type_id)
     if not parent_type_ids:
+        for item in issue_types:
+            if item.get("subtask") is True:
+                continue
+            type_id = str(item.get("id") or "").strip()
+            name = str(item.get("name") or "").lower()
+            if type_id and name == "epic":
+                parent_type_ids.append(type_id)
+    if not parent_type_ids:
         return None
-    project_ref = str(project_key or project_id).replace('"', '\\"')
-    return f'project = "{project_ref}" AND issuetype in ({", ".join(parent_type_ids)})'
+    project_clause = _jql_project_clause(project_id, resolved_key)
+    type_refs = ", ".join(parent_type_ids)
+    return f"{project_clause} AND issuetype in ({type_refs})"
+
+
+def _issues_from_issue_picker_payload(payload: dict[str, Any]) -> list[JiraIssueSearchOption]:
+    issues: list[JiraIssueSearchOption] = []
+    seen: set[str] = set()
+    for section in payload.get("sections") or []:
+        if not isinstance(section, dict):
+            continue
+        for item in section.get("issues") or []:
+            if not isinstance(item, dict):
+                continue
+            key = str(item.get("key") or "")
+            summary = str(item.get("summaryText") or item.get("summary") or "")
+            issue_id = str(item.get("id") or item.get("issueId") or "").strip() or None
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            label = f"{key} — {summary}".strip(" —") if summary else key
+            issues.append(JiraIssueSearchOption(label=label, value=key, issue_id=issue_id))
+    return issues
+
+
+def _issues_from_jql_search_payload(payload: dict[str, Any]) -> list[JiraIssueSearchOption]:
+    issues: list[JiraIssueSearchOption] = []
+    for item in payload.get("issues") or []:
+        if not isinstance(item, dict):
+            continue
+        key = str(item.get("key") or "")
+        if not key:
+            continue
+        fields = item.get("fields") if isinstance(item.get("fields"), dict) else {}
+        summary = str(fields.get("summary") or item.get("summary") or "")
+        issue_id = str(item.get("id") or "").strip() or None
+        label = f"{key} — {summary}".strip(" —") if summary else key
+        issues.append(JiraIssueSearchOption(label=label, value=key, issue_id=issue_id))
+    return issues
+
+
+def _picker_queries_for_parent_search(query: str, project_key: str | None) -> list[str]:
+    trimmed = query.strip()
+    if trimmed:
+        return [trimmed]
+    queries = [""]
+    key = str(project_key or "").strip()
+    if key:
+        queries.append(key)
+    return queries
+
+
+async def _search_parent_via_issue_picker(
+    config: JiraConnectionConfig,
+    *,
+    project_id: str,
+    query: str,
+    jql: str | None,
+    max_results: int,
+) -> list[JiraIssueSearchOption]:
+    params: dict[str, str | int] = {
+        "query": query.strip(),
+        "currentProjectId": project_id,
+        "showSubTasks": "false",
+        "maxResults": max_results,
+    }
+    if jql:
+        params["currentJQL"] = jql
+    response = await direct_jira._request(config, "GET", "/issue/picker", params=params, timeout=30.0)
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Could not search Jira parent issues: HTTP {response.status_code}.")
+    payload = response.json()
+    if not isinstance(payload, dict):
+        return []
+    return _issues_from_issue_picker_payload(payload)
+
+
+async def _search_parent_via_jql(
+    config: JiraConnectionConfig,
+    jql: str,
+    *,
+    max_results: int,
+) -> list[JiraIssueSearchOption]:
+    """Jira Cloud removed GET /rest/api/3/search (410); use enhanced JQL search."""
+    body = {
+        "jql": jql,
+        "maxResults": max_results,
+        "fields": ["summary"],
+    }
+    response = await direct_jira._request(
+        config,
+        "POST",
+        "/search/jql",
+        json=body,
+        timeout=30.0,
+    )
+    if response.status_code >= 400:
+        response = await direct_jira._request(
+            config,
+            "GET",
+            "/search/jql",
+            params={"jql": jql, "maxResults": max_results, "fields": "summary"},
+            timeout=30.0,
+        )
+    if response.status_code >= 400:
+        response = await direct_jira._request(
+            config,
+            "GET",
+            "/search",
+            params={"jql": jql, "maxResults": max_results, "fields": "summary"},
+            timeout=30.0,
+        )
+    if response.status_code >= 400:
+        return []
+    payload = response.json()
+    if not isinstance(payload, dict):
+        return []
+    return _issues_from_jql_search_payload(payload)
+
+
+async def _parent_search_jql_candidates(
+    config: JiraConnectionConfig,
+    *,
+    project_id: str,
+    project_key: str | None,
+    issue_type_id: str,
+    field: ParsedJiraField | None,
+) -> list[str]:
+    built = await build_parent_candidate_jql(
+        config,
+        project_id=project_id,
+        project_key=project_key,
+        issue_type_id=issue_type_id,
+    )
+    field_jql = parent_picker_jql_from_field(field)
+    candidates: list[str] = []
+    if built:
+        candidates.append(built)
+        project_clause = built.split(" AND ", 1)[0]
+        epic_jql = f"{project_clause} AND issuetype = Epic"
+        if epic_jql not in candidates:
+            candidates.append(epic_jql)
+    if field_jql and field_jql not in candidates:
+        candidates.append(field_jql)
+    return candidates
 
 
 def _filter_parent_search_options(
@@ -856,6 +1146,12 @@ async def search_parent_issues(
 ) -> list[JiraIssueSearchOption]:
     from .jira_field_parser import options_from_allowed_values, options_from_parent_allowed_values
 
+    project_key = await _project_key_for_user_search(
+        config,
+        project_id=project_id,
+        project_key=project_key,
+    )
+
     if field and field.options:
         static = [JiraIssueSearchOption(label=option.label, value=option.value) for option in field.options]
         return _filter_parent_search_options(static, query, max_results=max_results)
@@ -868,45 +1164,37 @@ async def search_parent_issues(
         static = [JiraIssueSearchOption(label=option.label, value=option.value) for option in static_options]
         return _filter_parent_search_options(static, query, max_results=max_results)
 
-    jql = parent_picker_jql_from_field(field)
-    if not jql:
-        jql = await build_parent_candidate_jql(
-            config,
-            project_id=project_id,
-            project_key=project_key,
-            issue_type_id=issue_type_id,
-        )
-    params: dict[str, str | int] = {
-        "query": query.strip(),
-        "currentProjectId": project_id,
-        "showSubTasks": "false",
-        "maxResults": max_results,
-    }
-    if jql:
-        params["currentJQL"] = jql
-    response = await direct_jira._request(config, "GET", "/issue/picker", params=params, timeout=30.0)
-    if response.status_code >= 400:
-        raise HTTPException(status_code=502, detail=f"Could not search Jira parent issues: HTTP {response.status_code}.")
-    payload = response.json()
-    if not isinstance(payload, dict):
-        return []
+    jql_candidates = await _parent_search_jql_candidates(
+        config,
+        project_id=project_id,
+        project_key=project_key,
+        issue_type_id=issue_type_id,
+        field=field,
+    )
     issues: list[JiraIssueSearchOption] = []
-    seen: set[str] = set()
-    for section in payload.get("sections") or []:
-        if not isinstance(section, dict):
-            continue
-        for item in section.get("issues") or []:
-            if not isinstance(item, dict):
-                continue
-            key = str(item.get("key") or "")
-            summary = str(item.get("summaryText") or item.get("summary") or "")
-            issue_id = str(item.get("id") or item.get("issueId") or "").strip() or None
-            if not key or key in seen:
-                continue
-            seen.add(key)
-            label = f"{key} — {summary}".strip(" —") if summary else key
-            issues.append(JiraIssueSearchOption(label=label, value=key, issue_id=issue_id))
-    return issues
+    for jql in jql_candidates:
+        for picker_query in _picker_queries_for_parent_search(query, project_key):
+            try:
+                issues = await _search_parent_via_issue_picker(
+                    config,
+                    project_id=project_id,
+                    query=picker_query,
+                    jql=jql,
+                    max_results=max_results,
+                )
+            except HTTPException:
+                issues = []
+            if issues:
+                break
+        if issues:
+            break
+        issues = await _search_parent_via_jql(config, jql, max_results=max_results)
+        if issues:
+            break
+
+    if query.strip() and issues:
+        return _filter_parent_search_options(issues, query, max_results=max_results)
+    return issues[:max_results]
 
 
 async def search_create_parent_issues(
@@ -919,15 +1207,11 @@ async def search_create_parent_issues(
 ) -> list[JiraIssueSearchOption]:
     """Parent dropdown search — same eligibility source as Create Jira metadata and the agent."""
     config = require_direct_jira(session)
-    metadata = await get_create_metadata(
-        session,
-        CreateJiraMetadataRequest(project_id=project_id, issue_type_id=issue_type_id),
-    )
-    parent_field = next((field for field in metadata.fields.values() if field.type == "parent"), None)
+    parent_field, project_key = await _load_parent_field_for_search(config, project_id, issue_type_id)
     return await search_parent_issues(
         config,
         project_id=project_id,
-        project_key=metadata.project_key,
+        project_key=project_key,
         issue_type_id=issue_type_id,
         field=parent_field,
         query=query,
@@ -1222,7 +1506,13 @@ async def create_issue(session: SessionConnection, request: CreateJiraIssueReque
         project_id=metadata.project_id,
     )
     merged = await normalize_parent_form_values(config, metadata, merged)
-    merged = normalize_sprint_form_values(metadata, merged)
+    merged = await normalize_sprint_form_values_with_board(
+        config,
+        metadata,
+        merged,
+        project_key=metadata.project_key,
+        project_id=metadata.project_id,
+    )
     missing = missing_required_fields(metadata, merged)
     if missing:
         labels = ", ".join(item.label for item in missing)

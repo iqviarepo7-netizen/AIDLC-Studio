@@ -245,3 +245,48 @@ def test_build_jira_payload_coerces_sprint_label_to_numeric_id() -> None:
     assert normalized["customfield_10020"] == "99"
     payload = build_jira_fields_payload(metadata, normalized, api_version="2")
     assert payload["customfield_10020"] == [99]
+
+
+@pytest.mark.asyncio
+async def test_normalize_sprint_maps_createmeta_id_to_board_sprint() -> None:
+    from unittest.mock import AsyncMock, patch
+
+    from app.connection_models import JiraConnectionConfig
+    from app.jira_create_models import JiraFieldOption
+    from app.jira_create_service import normalize_sprint_form_values_with_board
+
+    metadata = JiraCreateMetadata(
+        project_id="10000",
+        issue_type_id="10004",
+        project_key="SCRUM",
+        fields={
+            "customfield_10020": ParsedJiraField(
+                id="customfield_10020",
+                label="Sprint",
+                required=False,
+                type="select",
+                options=[
+                    JiraFieldOption(label="Future: SCRUM Sprint 1", value="1"),
+                ],
+                raw_field={"schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"}},
+            )
+        },
+        sorted_tabs=[],
+    )
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    board_sprints = [
+        {"label": "Future: SCRUM Sprint 1", "value": "123"},
+        {"label": "Active: SCRUM Sprint 0", "value": "122"},
+    ]
+    with patch(
+        "app.jira_create_service.fetch_project_board_sprints",
+        AsyncMock(return_value=board_sprints),
+    ):
+        normalized = await normalize_sprint_form_values_with_board(
+            config,
+            metadata,
+            {"customfield_10020": "1"},
+            project_key="SCRUM",
+            project_id="10000",
+        )
+    assert normalized["customfield_10020"] == "123"

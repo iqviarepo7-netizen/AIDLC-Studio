@@ -63,10 +63,16 @@ export function JiraSearchableSelect({
   useEffect(() => {
     if (!projectId || (searchKind === "parent" && !issueTypeId)) {
       setRemoteOptions([]);
+      setLoading(false);
       return undefined;
     }
     if (searchKind === "parent" && options.length > 0) {
       setRemoteOptions([]);
+      setLoading(false);
+      return undefined;
+    }
+    if (searchKind === "parent" && !open) {
+      setLoading(false);
       return undefined;
     }
     const handle = window.setTimeout(() => {
@@ -92,8 +98,11 @@ export function JiraSearchableSelect({
         .finally(() => {
           if (requestId === requestSeqRef.current) setLoading(false);
         });
-    }, 300);
-    return () => window.clearTimeout(handle);
+    }, searchKind === "parent" ? 150 : 300);
+    return () => {
+      window.clearTimeout(handle);
+      setLoading(false);
+    };
   }, [projectId, issueTypeId, query, searchKind, open, options.length]);
 
   const mergedOptions = useMemo(() => {
@@ -146,6 +155,7 @@ export function JiraSearchableSelect({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, [id]);
 
+  const showSearching = loading && !(searchKind === "parent" && options.length > 0);
   const showPlaceholder = !open && !displayValue;
 
   return (
@@ -165,7 +175,7 @@ export function JiraSearchableSelect({
           aria-controls={`${id}-listbox`}
           required={required && !value}
           className={`jira-combobox-input${showPlaceholder ? " jira-combobox-input--placeholder" : ""}`}
-          placeholder={loading ? "Searching…" : placeholder}
+          placeholder={placeholder}
           value={displayValue}
           disabled={!projectId}
           onFocus={() => {
@@ -199,7 +209,15 @@ export function JiraSearchableSelect({
               maxHeight: menuRect.maxHeight,
             }}
           >
-            {mergedOptions.length === 0 && !loading && <li className="muted jira-combobox-empty">No matches</li>}
+            {showSearching && mergedOptions.length === 0 && (
+              <li className="muted jira-combobox-empty">Searching…</li>
+            )}
+            {mergedOptions.length === 0 && !showSearching && !searchError && (
+              <li className="muted jira-combobox-empty">No matches</li>
+            )}
+            {searchError && open && mergedOptions.length === 0 && !showSearching && (
+              <li className="muted jira-combobox-empty">{searchError}</li>
+            )}
             {mergedOptions.map((option) => (
               <li key={option.value || option.label}>
                 <button

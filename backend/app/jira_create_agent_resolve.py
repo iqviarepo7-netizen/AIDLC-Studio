@@ -394,10 +394,16 @@ async def resolve_agent_fields(
         )
         resolved.pop(field_id, None)
 
-    from .jira_create_service import normalize_parent_form_values, normalize_sprint_form_values
+    from .jira_create_service import normalize_parent_form_values, normalize_sprint_form_values_with_board
 
     resolved = await normalize_parent_form_values(config, metadata, resolved)
-    resolved = normalize_sprint_form_values(metadata, resolved)
+    resolved = await normalize_sprint_form_values_with_board(
+        config,
+        metadata,
+        resolved,
+        project_key=project_key,
+        project_id=project_id,
+    )
     return resolved, clarifications
 
 

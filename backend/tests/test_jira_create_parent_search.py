@@ -48,6 +48,55 @@ async def test_search_parent_issues_filters_generic_picker_with_hierarchy_jql() 
 
 
 @pytest.mark.asyncio
+async def test_search_parent_issues_falls_back_to_jql_when_picker_empty() -> None:
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    field = ParsedJiraField(id="parent", label="Parent", required=False, type="parent", searchable=True, options=[])
+
+    class EmptyPickerResponse:
+        status_code = 200
+
+        @staticmethod
+        def json():
+            return {"sections": []}
+
+    class JqlSearchResponse:
+        status_code = 200
+
+        @staticmethod
+        def json():
+            return {
+                "issues": [
+                    {"id": "10021", "key": "SCRUM-21", "fields": {"summary": "Hello Epic"}},
+                    {"id": "10022", "key": "SCRUM-22", "fields": {"summary": "Hi Epic parent JIRA"}},
+                ]
+            }
+
+    request_mock = AsyncMock(side_effect=[EmptyPickerResponse(), EmptyPickerResponse(), JqlSearchResponse()])
+
+    with (
+        patch(
+            "app.jira_create_service._parent_search_jql_candidates",
+            AsyncMock(return_value=['project = "SCRUM" AND issuetype in (10001)']),
+        ),
+        patch("app.integrations.direct_jira._request", request_mock),
+    ):
+        issues = await search_parent_issues(
+            config,
+            project_id="10000",
+            project_key="SCRUM",
+            issue_type_id="10004",
+            field=field,
+            query="",
+        )
+
+    assert [issue.value for issue in issues] == ["SCRUM-21", "SCRUM-22"]
+    assert request_mock.await_count == 3
+    jql_calls = [call for call in request_mock.await_args_list if len(call.args) > 2 and call.args[2] == "/search/jql"]
+    assert len(jql_calls) == 1
+    assert jql_calls[0].args[1] == "POST"
+
+
+@pytest.mark.asyncio
 async def test_search_create_parent_issues_uses_metadata_parent_field() -> None:
     from app.jira_create_models import JiraCreateMetadata, JiraFieldOption
     from app.jira_create_service import search_create_parent_issues
@@ -74,7 +123,10 @@ async def test_search_create_parent_issues_uses_metadata_parent_field() -> None:
 
     with (
         patch("app.jira_create_service.require_direct_jira", return_value=config),
-        patch("app.jira_create_service.get_create_metadata", AsyncMock(return_value=metadata)),
+        patch(
+            "app.jira_create_service._load_parent_field_for_search",
+            AsyncMock(return_value=(parent, "SCRUM")),
+        ),
         patch(
             "app.jira_create_service.search_parent_issues",
             AsyncMock(return_value=[JiraIssueSearchOption(label="SCRUM-21 — Hello Epic", value="SCRUM-21")]),
