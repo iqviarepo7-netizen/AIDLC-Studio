@@ -7,7 +7,6 @@ CONTEXT_MANAGED_FIELD_IDS = frozenset(
         "issuetype",
         "projectField",
         "issuetypeField",
-        "parent",
     }
 )
 

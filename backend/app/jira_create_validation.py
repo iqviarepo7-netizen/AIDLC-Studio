@@ -23,6 +23,14 @@ def field_question(field_id: str, label: str) -> str:
     return f"What value should we use for {label}?"
 
 
+def normalize_create_field_values(values: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(values)
+    summary = normalized.get("summary")
+    if isinstance(summary, str):
+        normalized["summary"] = summary.strip()
+    return normalized
+
+
 def field_is_empty(value: Any) -> bool:
     if value is None:
         return True
@@ -54,10 +62,15 @@ def missing_required_fields(metadata: JiraCreateMetadata, values: dict[str, Any]
 def validate_select_values(metadata: JiraCreateMetadata, values: dict[str, Any]) -> dict[str, str]:
     errors: dict[str, str] = {}
     for field_id, field in metadata.fields.items():
-        if field.type not in {"select", "radio"}:
+        if field.type not in {"select", "radio", "user", "status", "priority", "parent", "color-picker"}:
             continue
         value = values.get(field_id)
         if field_is_empty(value):
+            continue
+        if field.type == "parent" and field.searchable:
+            key = str(value).strip()
+            if not key or "-" not in key:
+                errors[field_id] = f"{field.label} must be a valid Jira issue key."
             continue
         allowed = {option.value for option in field.options}
         if allowed and str(value) not in allowed:

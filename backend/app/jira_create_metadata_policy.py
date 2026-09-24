@@ -10,14 +10,16 @@ REPORTER_FIELD_ID = "reporter"
 def apply_create_jira_field_policy(
     fields: dict[str, ParsedJiraField],
     tabs: list[JiraTabDefinition],
-) -> tuple[dict[str, ParsedJiraField], list[JiraTabDefinition]]:
+) -> tuple[dict[str, ParsedJiraField], list[JiraTabDefinition], list[str], list[str]]:
     """
     Application policy on normalized Jira create metadata (order matters):
     1. reporter.required = false
     2. description.required = true
-    3. keep only fields where required is true
+    3. keep all Create-screen fields (required and optional)
     4. sync tab field references and drop empty tabs
     5. flatten sole default Quick Create \"General\" tab (no synthetic tab UI)
+
+    Returns create-form fields, tab layout, and effective required field ids for agent/validation.
     """
     working: dict[str, ParsedJiraField] = {
         field_id: field.model_copy(deep=True) for field_id, field in fields.items()
@@ -28,8 +30,12 @@ def apply_create_jira_field_policy(
     if DESCRIPTION_FIELD_ID in working:
         working[DESCRIPTION_FIELD_ID].required = True
 
-    filtered_fields = {field_id: field for field_id, field in working.items() if field.required}
-    allowed_ids = set(filtered_fields.keys())
+    allowed_ids = set(working.keys())
+    required_field_ids = [
+        field_id
+        for field_id, field in working.items()
+        if field.required
+    ]
 
     synced_tabs: list[JiraTabDefinition] = []
     for tab in tabs:
@@ -46,8 +52,17 @@ def apply_create_jira_field_policy(
                 )
             )
 
+    field_order: list[str] = []
+    for tab in sorted(synced_tabs, key=lambda item: item.position):
+        for field_id in tab.fields:
+            if field_id in allowed_ids and field_id not in field_order:
+                field_order.append(field_id)
+    for field_id in working:
+        if field_id not in field_order:
+            field_order.append(field_id)
+
     synced_tabs = _flatten_solitary_general_tab(synced_tabs)
-    return filtered_fields, synced_tabs
+    return working, synced_tabs, required_field_ids, field_order
 
 
 def _flatten_solitary_general_tab(tabs: list[JiraTabDefinition]) -> list[JiraTabDefinition]:

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AgentActivityFeed } from "./AgentActivityFeed";
 import { CreateJiraModal } from "./createJira/CreateJiraModal";
 import { CodeEditor } from "./CodeEditor";
@@ -19,6 +19,13 @@ type Props = {
 
 export function StudioLayout({ studio }: Props) {
   const [createJiraOpen, setCreateJiraOpen] = useState(false);
+  const [jiraSuccessNotice, setJiraSuccessNotice] = useState<string>();
+
+  useEffect(() => {
+    if (!jiraSuccessNotice) return undefined;
+    const handle = window.setTimeout(() => setJiraSuccessNotice(undefined), 6000);
+    return () => window.clearTimeout(handle);
+  }, [jiraSuccessNotice]);
 
   return (
     <div className="studio-shell">
@@ -40,6 +47,7 @@ export function StudioLayout({ studio }: Props) {
       />
       <WorkflowProgress config={studio.config} workflow={studio.workflow} deliveryComplete={studio.deliveryComplete} />
       {studio.error && <div className="banner error">{studio.error}</div>}
+      {jiraSuccessNotice && <div className="banner success" role="status">{jiraSuccessNotice}</div>}
       <ModelSelectionPanel
         workflow={studio.workflow}
         selectedRoute={studio.selectedRoute}
@@ -88,7 +96,10 @@ export function StudioLayout({ studio }: Props) {
       <CreateJiraModal
         open={createJiraOpen}
         onClose={() => setCreateJiraOpen(false)}
-        onCreated={(jiraKey) => studio.setJiraKey(jiraKey)}
+        onCreated={(jiraKey, notice) => {
+          studio.setJiraKey(jiraKey);
+          if (notice) setJiraSuccessNotice(notice);
+        }}
       />
     </div>
   );

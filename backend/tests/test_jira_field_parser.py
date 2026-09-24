@@ -4,6 +4,14 @@ from app.jira_field_parser import normalize_jira_metadata, parse_jira_field, par
 from app.jira_create_agent import validate_agent_payload
 
 
+def test_number_schema_maps_to_number_type() -> None:
+    field = parse_jira_field(
+        "customfield_estimate",
+        {"label": "Estimate", "schema": {"type": "number"}, "editHtml": '<input type="text" />'},
+    )
+    assert field.type == "number"
+
+
 def test_parse_textarea_and_text_and_select() -> None:
     textarea = parse_jira_field("description", {"label": "Description", "required": True, "editHtml": "<textarea name='description'></textarea>"})
     text = parse_jira_field("summary", {"label": "Summary", "required": True, "editHtml": '<input type="text" name="summary" />'})
@@ -23,7 +31,7 @@ def test_parse_textarea_and_text_and_select() -> None:
 
 
 def test_parse_checkbox_radio_and_options() -> None:
-    checkbox = parse_jira_field("labels", {"label": "Labels", "editHtml": '<input type="checkbox" value="a">A</input>'})
+    checkbox = parse_jira_field("customfield_multi", {"label": "Options", "editHtml": '<input type="checkbox" value="a">A</input>'})
     radio = parse_jira_field(
         "customfield_2",
         {"label": "Choice", "editHtml": '<input type="radio" value="1">One<input type="radio" value="2">Two'},
@@ -47,7 +55,7 @@ def test_tab_sorting_and_field_order() -> None:
             {"id": "a", "label": "A", "position": 1, "fields": ["summary"]},
         ],
     }
-    fields, tabs = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
+    fields, tabs, _order = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
     assert [tab.label for tab in tabs] == ["A", "B"]
     assert tabs[0].fields == ["summary"]
     assert fields["summary"].tab == "a"
@@ -58,7 +66,7 @@ def test_unknown_tab_field_and_unsupported_html() -> None:
         "fields": {"summary": {"label": "Summary", "required": True, "editHtml": '<input type="text" />'}},
         "sortedTabs": [{"id": "t1", "label": "Details", "position": 0, "fields": ["summary", "missing"]}],
     }
-    fields, tabs = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
+    fields, tabs, _order = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
     assert "missing" not in fields
     assert tabs[0].fields == ["summary"]
     weird = parse_jira_field("weird", {"label": "Weird", "editHtml": "<script>alert(1)</script><div>noop</div>"})
@@ -79,10 +87,63 @@ def test_tab_field_objects_resolve_to_ids() -> None:
             }
         ],
     }
-    fields, tabs = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
+    fields, tabs, _order = normalize_jira_metadata(raw, project_id="1", issue_type_id="2")
     assert tabs[0].fields == ["assignee"]
     assert tabs[0].label == "Details"
     assert fields["assignee"].label == "Assignee"
+
+
+def test_issue_color_field_parsed_as_color_picker_with_swatches() -> None:
+    color_field = parse_jira_field(
+        "customfield_color",
+        {
+            "label": "Issue color",
+            "required": False,
+            "schema": {"type": "option", "custom": "com.pyxis.greenhopper.jira:gh-epic-color"},
+            "allowedValues": [
+                {"id": "10001", "value": "teal", "name": "Teal", "color": "#00B8D9"},
+                {"id": "10002", "value": "purple", "name": "Purple", "color": "#8777D9"},
+            ],
+            "hasDefaultValue": True,
+            "defaultValue": {"id": "10001", "name": "Teal"},
+        },
+    )
+    assert color_field.type == "color-picker"
+    assert color_field.options[0].label == "Teal"
+    assert color_field.options[0].swatch_color == "#00B8D9"
+    assert color_field.default_value == "10001"
+
+
+def test_status_field_parsed_as_select_with_jira_options() -> None:
+    status = parse_jira_field(
+        "status",
+        {
+            "label": "Status",
+            "required": False,
+            "editable": True,
+            "schema": {"type": "status", "system": "status"},
+            "allowedValues": [
+                {"id": "1", "name": "To Do"},
+                {"id": "2", "name": "In Progress"},
+            ],
+            "hasDefaultValue": True,
+            "defaultValue": {"id": "1", "name": "To Do"},
+        },
+    )
+    assert status.type == "status"
+
+    readonly_status = parse_jira_field(
+        "status",
+        {
+            "label": "Status",
+            "required": False,
+            "schema": {"type": "status", "system": "status"},
+            "allowedValues": [{"id": "1", "name": "To Do"}],
+        },
+    )
+    assert readonly_status.type == "readonly"
+    assert [option.label for option in status.options] == ["To Do", "In Progress"]
+    assert status.default_value == "1"
 
 
 def test_required_blocking_and_agent_validation() -> None:
@@ -131,3 +192,23 @@ def test_merge_preserves_user_edited_values() -> None:
     )
     assert merged["summary"] == "Human title"
     assert merged["description"] == "Agent body"
+
+
+def test_sprint_field_prefers_allowed_values_over_placeholder_edit_html() -> None:
+    sprint = parse_jira_field(
+        "customfield_10020",
+        {
+            "label": "Sprint",
+            "required": False,
+            "schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"},
+            "editHtml": '<select><option value="">Select sprint</option></select>',
+            "allowedValues": [
+                {"id": 42, "name": "SCRUM Sprint 0", "state": "active"},
+                {"id": 43, "name": "SCRUM Sprint 1", "state": "future"},
+            ],
+        },
+    )
+    assert sprint.type == "select"
+    assert len(sprint.options) == 2
+    assert sprint.options[0].value == "42"
+    assert "Sprint 0" in sprint.options[0].label

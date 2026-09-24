@@ -5,7 +5,14 @@ from fastapi import HTTPException
 
 from app.connection_models import GitConnectionConfig, JiraConnectionConfig, SessionConnection
 from app.jira_create_models import CreateJiraIssueRequest, CreateJiraMetadataRequest, JiraCreateMetadata, ParsedJiraField
-from app.jira_create_service import build_jira_fields_payload, create_issue, get_create_metadata
+from app.jira_create_service import (
+    _issue_type_eligible_for_create_dialog,
+    _merge_create_sources,
+    build_jira_fields_payload,
+    create_issue,
+    get_create_metadata,
+    list_issue_types,
+)
 from app.jira_create_validation import validate_select_values
 
 
@@ -106,6 +113,37 @@ async def test_create_issue_returns_key_without_running_pipeline() -> None:
     assert result.key == "AAR8-132000"
 
 
+def test_issue_type_eligibility_excludes_subtasks_by_api_flag() -> None:
+    assert _issue_type_eligible_for_create_dialog({"id": "1", "name": "Task", "subtask": False}) is True
+    assert _issue_type_eligible_for_create_dialog({"id": "2", "name": "Sub-task", "subtask": True}) is False
+    assert _issue_type_eligible_for_create_dialog({"id": "3", "name": "Sub-task", "hierarchyLevel": -1}) is False
+
+
+@pytest.mark.asyncio
+async def test_list_issue_types_preserves_order_and_excludes_subtasks() -> None:
+    config = JiraConnectionConfig(
+        mode="direct",
+        base_url="https://jira.example.com",
+        email="u@example.com",
+        api_token="token",
+        api_version="2",
+    )
+    payload = {
+        "values": [
+            {"id": "1", "name": "Epic", "subtask": False},
+            {"id": "2", "name": "Task", "subtask": False},
+            {"id": "3", "name": "Story", "subtask": False},
+            {"id": "4", "name": "Sub-task", "subtask": True},
+        ]
+    }
+    with patch(
+        "app.jira_create_service.direct_jira._request",
+        AsyncMock(return_value=FakeResponse(200, payload)),
+    ):
+        issue_types = await list_issue_types(config, "10")
+    assert [item.name for item in issue_types] == ["Epic", "Task", "Story"]
+
+
 @pytest.mark.asyncio
 async def test_create_issue_requires_direct_mode() -> None:
     session = SessionConnection(
@@ -115,3 +153,51 @@ async def test_create_issue_requires_direct_mode() -> None:
     with pytest.raises(HTTPException) as exc:
         await create_issue(session, CreateJiraIssueRequest(project_id="1", issue_type_id="2", fields={}))
     assert exc.value.status_code == 503
+
+
+def test_merge_create_sources_preserves_rest_allowed_values_when_quick_create_empty() -> None:
+    rest_raw = {
+        "fields": {
+            "customfield_10020": {
+                "id": "customfield_10020",
+                "label": "Sprint",
+                "schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"},
+                "allowedValues": [{"id": 42, "name": "SCRUM Sprint 0"}],
+                "editHtml": "<select></select>",
+            }
+        },
+        "sortedTabs": [],
+    }
+    quick_raw = {
+        "fields": {
+            "customfield_10020": {
+                "label": "Sprint",
+                "allowedValues": [],
+                "editHtml": '<select class="js-sprint-picker"></select>',
+            }
+        }
+    }
+    merged = _merge_create_sources(quick_raw, rest_raw)
+    allowed = merged["fields"]["customfield_10020"]["allowedValues"]
+    assert isinstance(allowed, list) and len(allowed) == 1
+    assert allowed[0]["id"] == 42
+
+
+def test_build_jira_payload_serializes_sprint_as_id_array() -> None:
+    metadata = JiraCreateMetadata(
+        project_id="10",
+        issue_type_id="20",
+        fields={
+            "customfield_10020": ParsedJiraField(
+                id="customfield_10020",
+                label="Sprint",
+                required=False,
+                type="select",
+                options=[__import__("app.jira_create_models", fromlist=["JiraFieldOption"]).JiraFieldOption(label="Sprint 0", value="42")],
+                raw_field={"schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"}},
+            )
+        },
+        sorted_tabs=[],
+    )
+    payload = build_jira_fields_payload(metadata, {"customfield_10020": "42"}, api_version="2")
+    assert payload["customfield_10020"] == [42]

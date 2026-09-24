@@ -67,8 +67,35 @@ export const api = {
     request<{ issue_types: JiraIssueTypeOption[] }>(`/api/jira/create/issue-types?project_id=${encodeURIComponent(projectId)}`),
   jiraCreateMetadata: (projectId: string, issueTypeId: string) =>
     request<JiraCreateMetadata>("/api/jira/create/metadata", "POST", { project_id: projectId, issue_type_id: issueTypeId }),
-  jiraCreateIssue: (payload: { project_id: string; issue_type_id: string; fields: Record<string, unknown> }) =>
-    request<CreateJiraIssueResponse>("/api/jira/create/issue", "POST", payload),
+  jiraCreateUserSearch: (projectId: string, query = "") =>
+    request<{ users: { label: string; value: string }[] }>(
+      `/api/jira/create/user-search?project_id=${encodeURIComponent(projectId)}&query=${encodeURIComponent(query)}`,
+    ),
+  jiraCreateIssueSearch: (projectId: string, query = "") =>
+    request<{ issues: { label: string; value: string }[] }>(
+      `/api/jira/create/issue-search?project_id=${encodeURIComponent(projectId)}&query=${encodeURIComponent(query)}`,
+    ),
+  jiraCreateIssueLinkTypes: () => request<{ link_types: import("./types/jiraCreate").JiraIssueLinkTypeOption[] }>("/api/jira/create/issue-link-types"),
+  jiraCreateIssue: (payload: {
+    project_id: string;
+    issue_type_id: string;
+    fields: Record<string, unknown>;
+    issue_links?: import("./types/jiraCreate").CreateJiraIssueLinkRequest[];
+  }) => request<CreateJiraIssueResponse>("/api/jira/create/issue", "POST", payload),
+  jiraCreateIssueAttachments: async (issueKey: string, files: File[]) => {
+    const form = new FormData();
+    files.forEach((file) => form.append("uploads", file));
+    const response = await fetch(`${API}/api/jira/create/issue/${encodeURIComponent(issueKey)}/attachments`, {
+      method: "POST",
+      headers: sessionId ? { "X-Session-Id": sessionId } : undefined,
+      body: form,
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(typeof error.detail === "string" ? error.detail : "Could not upload Jira attachments.");
+    }
+    return response.json() as Promise<import("./types/jiraCreate").CreateJiraAttachmentResponse>;
+  },
   jiraCreateAgent: (payload: {
     messages: { role: "user" | "assistant"; content: string }[];
     project_id: string;

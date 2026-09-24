@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { api } from "../../api";
 import type {
@@ -7,15 +7,17 @@ import type {
   JiraFormValues,
   JiraIssueTypeOption,
   JiraProjectOption,
+  PendingIssueLink,
+  PendingJiraAttachment,
 } from "../../types/jiraCreate";
-import { computeFieldErrors } from "./DynamicField";
+import { computeFieldErrors, normalizeSubmitValues } from "./DynamicField";
 import { CreateJiraAgentPanel } from "./CreateJiraAgentPanel";
 import { DynamicJiraForm } from "./DynamicJiraForm";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onCreated: (jiraKey: string) => void;
+  onCreated: (jiraKey: string, notice?: string) => void;
 };
 
 export function CreateJiraModal({ open, onClose, onCreated }: Props) {
@@ -26,13 +28,19 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   const [metadata, setMetadata] = useState<JiraCreateMetadata>();
   const [values, setValues] = useState<JiraFormValues>({});
   const [userEdited, setUserEdited] = useState<Set<string>>(() => new Set());
+  const [attachments, setAttachments] = useState<PendingJiraAttachment[]>([]);
+  const [issueLinks, setIssueLinks] = useState<PendingIssueLink[]>([]);
   const [messages, setMessages] = useState<AgentMessage[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(false);
+  const [loadingIssueTypes, setLoadingIssueTypes] = useState(false);
   const [loadingMetadata, setLoadingMetadata] = useState(false);
   const [agentBusy, setAgentBusy] = useState(false);
   const [creating, setCreating] = useState(false);
-  const [createAnother, setCreateAnother] = useState(false);
   const [error, setError] = useState<string>();
+
+  const issueTypesRequestRef = useRef(0);
+  const metadataRequestRef = useRef(0);
+  const createInFlightRef = useRef(false);
 
   const resetIssueState = useCallback(() => {
     setValues({});
@@ -40,6 +48,8 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
     setMessages([]);
     setMetadata(undefined);
     setIssueTypeId("");
+    setAttachments([]);
+    setIssueLinks([]);
   }, []);
 
   useEffect(() => {
@@ -57,7 +67,18 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
     setLoadingProjects(true);
     api
       .jiraCreateProjects()
-      .then((response) => setProjects(response.projects))
+      .then((response) => {
+        const loaded = response.projects;
+        setProjects(loaded);
+        if (loaded.length === 1) {
+          setProjectId(loaded[0].id);
+        } else {
+          setProjectId("");
+          setIssueTypes([]);
+          setIssueTypeId("");
+          setMetadata(undefined);
+        }
+      })
       .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load Jira projects."))
       .finally(() => setLoadingProjects(false));
   }, [open]);
@@ -65,39 +86,58 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   useEffect(() => {
     if (!open || !projectId) {
       setIssueTypes([]);
+      setLoadingIssueTypes(false);
       return;
     }
+    const requestId = ++issueTypesRequestRef.current;
+    setLoadingIssueTypes(true);
+    setIssueTypeId("");
+    setError(undefined);
     api
       .jiraCreateIssueTypes(projectId)
-      .then((response) => setIssueTypes(response.issue_types))
-      .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load issue types."));
+      .then((response) => {
+        if (requestId !== issueTypesRequestRef.current) return;
+        setIssueTypes(response.issue_types);
+      })
+      .catch((cause) => {
+        if (requestId !== issueTypesRequestRef.current) return;
+        setIssueTypes([]);
+        setIssueTypeId("");
+        setError(cause instanceof Error ? cause.message : "Could not load issue types.");
+      })
+      .finally(() => {
+        if (requestId === issueTypesRequestRef.current) setLoadingIssueTypes(false);
+      });
   }, [open, projectId]);
 
   useEffect(() => {
-    if (!open || !projectId || !issueTypeId) return;
+    if (!open || !projectId || !issueTypeId) {
+      setMetadata(undefined);
+      return;
+    }
+    const requestId = ++metadataRequestRef.current;
     setLoadingMetadata(true);
     setError(undefined);
     api
       .jiraCreateMetadata(projectId, issueTypeId)
       .then((response) => {
+        if (requestId !== metadataRequestRef.current) return;
         setMetadata(response);
         setValues((current) => applyMetadataDefaults(pruneValues(current, response), response));
+        setAttachments([]);
+        setIssueLinks([]);
       })
       .catch((cause) => {
+        if (requestId !== metadataRequestRef.current) return;
         setMetadata(undefined);
         setError(cause instanceof Error ? cause.message : "Could not load Jira create metadata.");
       })
-      .finally(() => setLoadingMetadata(false));
+      .finally(() => {
+        if (requestId === metadataRequestRef.current) setLoadingMetadata(false);
+      });
   }, [open, projectId, issueTypeId]);
 
   const fieldErrors = useMemo(() => (metadata ? computeFieldErrors(metadata, values) : {}), [metadata, values]);
-  const missingSummary = useMemo(() => {
-    const labels = Object.keys(fieldErrors)
-      .map((id) => metadata?.fields[id]?.label ?? id)
-      .filter(Boolean);
-    if (labels.length === 0) return undefined;
-    return `Still required: ${labels.join(", ")}`;
-  }, [fieldErrors, metadata]);
 
   const projectLabel = projects.find((item) => item.id === projectId);
   const issueTypeLabel = issueTypes.find((item) => item.id === issueTypeId);
@@ -141,20 +181,61 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   const handleCreate = async () => {
     if (!metadata || !projectId || !issueTypeId) return;
     if (Object.keys(fieldErrors).length > 0) return;
+    if (createInFlightRef.current) return;
+    createInFlightRef.current = true;
     setCreating(true);
     setError(undefined);
+    const fields = normalizeSubmitValues(values);
     try {
-      const result = await api.jiraCreateIssue({ project_id: projectId, issue_type_id: issueTypeId, fields: values });
-      onCreated(result.key);
-      if (createAnother) {
-        resetIssueState();
-        setCreateAnother(false);
+      const result = await api.jiraCreateIssue({
+        project_id: projectId,
+        issue_type_id: issueTypeId,
+        fields,
+        issue_links: issueLinks.map((link) => ({
+          link_type_id: link.link_type_id,
+          target_issue_key: link.target_issue_key,
+          new_issue_role: link.new_issue_role,
+        })),
+      });
+      let partial = Boolean(result.partial_success);
+      let message = result.message ?? `Jira ${result.key} created successfully.`;
+      const postOps = [...(result.post_create_operations ?? [])];
+
+      if (attachments.length > 0) {
+        const attachmentResult = await api.jiraCreateIssueAttachments(
+          result.key,
+          attachments.map((item) => item.file),
+        );
+        if (attachmentResult.partial_success) {
+          partial = true;
+          message = attachmentResult.message ?? message;
+        }
+        postOps.push(...(attachmentResult.post_create_operations ?? []));
+      }
+
+      if (partial) {
+        message =
+          message ||
+          `Jira ${result.key} was created successfully, but some additional operations could not be completed.`;
+      }
+
+      const successNotice = partial
+        ? message || `Jira ${result.key} was created, but some additional operations could not be completed.`
+        : `Jira ${result.key} created successfully.`;
+      onCreated(result.key, successNotice);
+      if (partial) {
+        const details = postOps
+          .filter((item) => !item.success)
+          .map((item) => item.detail || item.operation)
+          .join("; ");
+        setError(details ? `${message} ${details}` : message);
       } else {
         onClose();
       }
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Jira creation failed.");
     } finally {
+      createInFlightRef.current = false;
       setCreating(false);
     }
   };
@@ -174,7 +255,6 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
       <div className="create-jira-modal">
         <div className="create-jira-head">
           <div>
-            <p className="eyebrow">Jira intake</p>
             <h2 id="create-jira-title">Create Jira Agent</h2>
           </div>
           <button type="button" className="ghost small" onClick={onClose}>
@@ -205,15 +285,17 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
             Issue type
             <select
               value={issueTypeId}
-              disabled={!projectId}
+              disabled={!projectId || loadingIssueTypes}
               onChange={(event) => {
                 setIssueTypeId(event.target.value);
                 setValues({});
                 setUserEdited(new Set());
                 setMessages([]);
+                setAttachments([]);
+                setIssueLinks([]);
               }}
             >
-              <option value="">Select issue type…</option>
+              <option value="">{loadingIssueTypes ? "Loading issue types…" : "Select issue type…"}</option>
               {issueTypes.map((issueType) => (
                 <option key={issueType.id} value={issueType.id}>
                   {issueType.name}
@@ -228,18 +310,20 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
         <div className="create-jira-panels">
           <CreateJiraAgentPanel messages={messages} busy={agentBusy} ready={agentReady} onSend={handleAgentSend} />
           <DynamicJiraForm
+            projectId={projectId}
             metadata={metadata}
             values={values}
             errors={fieldErrors}
             loading={loadingMetadata}
             loadError={!loadingMetadata && projectId && issueTypeId && !metadata ? error : undefined}
             creating={creating}
-            createAnother={createAnother}
-            onCreateAnotherChange={setCreateAnother}
+            attachments={attachments}
+            onAttachmentsChange={setAttachments}
+            issueLinks={issueLinks}
+            onIssueLinksChange={setIssueLinks}
             onChange={handleFieldChange}
             onCancel={onClose}
             onCreate={handleCreate}
-            missingSummary={missingSummary}
           />
         </div>
       </div>

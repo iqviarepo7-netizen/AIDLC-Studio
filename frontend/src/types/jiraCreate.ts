@@ -3,14 +3,33 @@ export type JiraFieldOption = {
   value: string;
   disabled?: boolean;
   selected?: boolean;
+  swatch_color?: string | null;
 };
 
 export type ParsedJiraField = {
   id: string;
   label: string;
   required: boolean;
-  type: "text" | "textarea" | "select" | "checkbox" | "radio" | "unsupported";
+  type:
+    | "text"
+    | "textarea"
+    | "number"
+    | "select"
+    | "checkbox"
+    | "radio"
+    | "labels"
+    | "date"
+    | "datetime"
+    | "user"
+    | "status"
+    | "priority"
+    | "parent"
+    | "color-picker"
+    | "readonly"
+    | "unsupported";
   options: JiraFieldOption[];
+  searchable?: boolean;
+  multiple?: boolean;
   description?: string | null;
   tab?: string | null;
   default_value?: unknown;
@@ -23,6 +42,11 @@ export type JiraTabDefinition = {
   fields: string[];
 };
 
+export type JiraAttachmentConfig = {
+  enabled: boolean;
+  max_size_bytes?: number | null;
+};
+
 export type JiraCreateMetadata = {
   project_id: string;
   issue_type_id: string;
@@ -30,6 +54,14 @@ export type JiraCreateMetadata = {
   issue_type_name?: string | null;
   fields: Record<string, ParsedJiraField>;
   sorted_tabs: JiraTabDefinition[];
+  required_field_ids?: string[];
+  field_order?: string[];
+  attachment_config?: JiraAttachmentConfig;
+};
+
+export type PendingJiraAttachment = {
+  id: string;
+  file: File;
 };
 
 export type JiraProjectOption = {
@@ -66,8 +98,48 @@ export type CreateJiraAgentResponse = {
   missing_required_fields: MissingRequiredField[];
 };
 
+export type PostCreateOperationResult = {
+  operation: string;
+  success: boolean;
+  detail?: string | null;
+};
+
+export type IssueLinkDirection = "outward" | "inward";
+
+export type CreateJiraIssueLinkRequest = {
+  link_type_id: string;
+  target_issue_key: string;
+  new_issue_role: IssueLinkDirection;
+};
+
+export type PendingIssueLink = {
+  id: string;
+  link_type_id: string;
+  target_issue_key: string;
+  new_issue_role: IssueLinkDirection;
+};
+
+export type JiraIssueLinkTypeOption = {
+  id: string;
+  name: string;
+  inward: string;
+  outward: string;
+};
+
 export type CreateJiraIssueResponse = {
   key: string;
   id?: string | null;
   self_url?: string | null;
+  browse_url?: string | null;
+  partial_success?: boolean;
+  message?: string | null;
+  post_create_operations?: PostCreateOperationResult[];
+};
+
+export type CreateJiraAttachmentResponse = {
+  ok: boolean;
+  count: number;
+  partial_success?: boolean;
+  message?: string | null;
+  post_create_operations?: PostCreateOperationResult[];
 };

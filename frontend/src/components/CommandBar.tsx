@@ -57,14 +57,14 @@ export function CommandBar({
             placeholder="PROJ-123"
             pattern="[A-Za-z][A-Za-z0-9_]*-[0-9]+"
           />
+          <button onClick={onStart} disabled={busy || !jiraKey.trim() || (health?.repository_configured && !baseBranch)}>
+            Run Pipeline
+          </button>
           {onCreateJira && (
             <button type="button" onClick={onCreateJira} disabled={busy}>
               Create Jira
             </button>
           )}
-          <button onClick={onStart} disabled={busy || !jiraKey.trim() || (health?.repository_configured && !baseBranch)}>
-            Run Pipeline
-          </button>
         </div>
         <label htmlFor="base-branch">Base branch</label>
         <div className="command-row">
