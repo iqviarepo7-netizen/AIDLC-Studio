@@ -117,6 +117,7 @@ class CreateJiraIssueResponse(BaseModel):
 class JiraIssueSearchOption(BaseModel):
     label: str
     value: str
+    issue_id: str | None = None
 
 
 class JiraIssueLinkTypeOption(BaseModel):
@@ -132,6 +133,11 @@ class MissingRequiredField(BaseModel):
     question: str
 
 
+class PendingAgentField(BaseModel):
+    field_id: str
+    requested_value: str | None = None
+
+
 class CreateJiraAgentMessage(BaseModel):
     role: Literal["user", "assistant"]
     content: str
@@ -145,6 +151,9 @@ class CreateJiraAgentRequest(BaseModel):
     issue_type_label: str | None = None
     current_values: dict[str, Any] = Field(default_factory=dict)
     user_edited_field_ids: list[str] = Field(default_factory=list)
+    pending_clarification_field_id: str | None = None
+    conversation_phase: Literal["initial_requirement", "field_resolution", "ready_to_create"] | None = None
+    pending_fields: list[PendingAgentField] = Field(default_factory=list)
 
 
 class CreateJiraAgentResponse(BaseModel):
@@ -152,3 +161,7 @@ class CreateJiraAgentResponse(BaseModel):
     message: str
     fields: dict[str, Any] = Field(default_factory=dict)
     missing_required_fields: list[MissingRequiredField] = Field(default_factory=list)
+    pending_clarification_field_id: str | None = None
+    conversation_phase: Literal["initial_requirement", "field_resolution", "ready_to_create"] = "initial_requirement"
+    pending_fields: list[PendingAgentField] = Field(default_factory=list)
+    issue_links: list[CreateJiraIssueLinkRequest] = Field(default_factory=list)

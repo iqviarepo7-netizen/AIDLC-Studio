@@ -114,3 +114,22 @@ def test_generic_field_contracts_in_payload() -> None:
     assert payload["priority"] == {"id": "3"}
     assert payload["parent"] == {"key": "SCRUM-1"}
     assert payload["customfield_flag"] == [{"id": "100"}]
+
+
+def test_parent_id_ui_field_is_not_submitted_parent_uses_resolved_issue_id() -> None:
+    metadata = JiraCreateMetadata(
+        project_id="10",
+        issue_type_id="20",
+        fields={
+            "parent": ParsedJiraField(id="parent", label="Parent", required=False, type="parent", searchable=True),
+            "parentId": ParsedJiraField(id="parentId", label="Parent", required=False, type="parent", searchable=True),
+        },
+        sorted_tabs=[],
+    )
+    payload = build_jira_fields_payload(
+        metadata,
+        {"parent": "SCRUM-5", "parentId": "12345"},
+        api_version="2",
+    )
+    assert "parentId" not in payload
+    assert payload["parent"] == {"id": "12345"}

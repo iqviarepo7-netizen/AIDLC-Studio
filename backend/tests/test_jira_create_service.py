@@ -201,3 +201,47 @@ def test_build_jira_payload_serializes_sprint_as_id_array() -> None:
     )
     payload = build_jira_fields_payload(metadata, {"customfield_10020": "42"}, api_version="2")
     assert payload["customfield_10020"] == [42]
+
+
+def test_coerce_sprint_rejects_unknown_numeric_id() -> None:
+    from app.jira_create_models import JiraFieldOption
+    from app.jira_create_service import _coerce_sprint_field_value
+
+    field = ParsedJiraField(
+        id="customfield_10020",
+        label="Sprint",
+        required=False,
+        type="select",
+        options=[JiraFieldOption(label="Future: Sprint 1", value="100")],
+        raw_field={"schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"}},
+    )
+    assert _coerce_sprint_field_value(field, "1") is None
+    assert _coerce_sprint_field_value(field, "100") == 100
+
+
+def test_build_jira_payload_coerces_sprint_label_to_numeric_id() -> None:
+    from app.jira_create_models import JiraFieldOption
+    from app.jira_create_service import normalize_sprint_form_values
+
+    metadata = JiraCreateMetadata(
+        project_id="10",
+        issue_type_id="20",
+        fields={
+            "customfield_10020": ParsedJiraField(
+                id="customfield_10020",
+                label="Sprint",
+                required=False,
+                type="select",
+                options=[
+                    JiraFieldOption(label="Active: SCRUM Sprint 0", value="99"),
+                    JiraFieldOption(label="Future: SCRUM Sprint 1", value="100"),
+                ],
+                raw_field={"schema": {"type": "array", "custom": "com.pyxis.greenhopper.jira:gh-sprint"}},
+            )
+        },
+        sorted_tabs=[],
+    )
+    normalized = normalize_sprint_form_values(metadata, {"customfield_10020": "Active: SCRUM Sprint 0"})
+    assert normalized["customfield_10020"] == "99"
+    payload = build_jira_fields_payload(metadata, normalized, api_version="2")
+    assert payload["customfield_10020"] == [99]

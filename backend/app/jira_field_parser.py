@@ -208,6 +208,30 @@ def options_from_allowed_values(field: dict[str, Any]) -> list[JiraFieldOption]:
     return options
 
 
+def options_from_parent_allowed_values(field: dict[str, Any]) -> list[JiraFieldOption]:
+    """Parent create metadata: prefer issue keys so UI/agent match Jira hierarchy eligibility."""
+    allowed = field.get("allowedValues")
+    if not isinstance(allowed, list):
+        return []
+    options: list[JiraFieldOption] = []
+    for item in allowed:
+        if not isinstance(item, dict):
+            continue
+        key = str(item.get("key") or "").strip()
+        issue_id = str(item.get("id") or "").strip()
+        name = str(item.get("name") or item.get("summary") or item.get("displayName") or "").strip()
+        if key:
+            value = key
+            label = f"{key} — {name}" if name and name.lower() != key.lower() else key
+        elif issue_id:
+            value = issue_id
+            label = name or issue_id
+        else:
+            continue
+        options.append(JiraFieldOption(label=label, value=value))
+    return options
+
+
 def _edit_html_suggests_user_picker(edit_html: str) -> bool:
     snippet = (edit_html or "").lower()
     return any(token in snippet for token in ("userpicker", "user-picker", "assignee", "reporter", "data-user"))
@@ -326,6 +350,12 @@ def parse_jira_field(field_id: str, field: dict[str, Any], *, tab: str | None = 
         schema_dict = field.get("schema") if isinstance(field.get("schema"), dict) else {}
         if schema_is_gh_sprint(schema_dict):
             options = options_from_allowed_values(field)
+            if not options:
+                options = parse_select_options(edit_html, skip_empty_values=True)
+        elif field_type == "parent":
+            options = options_from_parent_allowed_values(field)
+            if not options:
+                options = options_from_allowed_values(field)
             if not options:
                 options = parse_select_options(edit_html, skip_empty_values=True)
         else:

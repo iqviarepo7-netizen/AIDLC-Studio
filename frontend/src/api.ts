@@ -75,6 +75,10 @@ export const api = {
     request<{ issues: { label: string; value: string }[] }>(
       `/api/jira/create/issue-search?project_id=${encodeURIComponent(projectId)}&query=${encodeURIComponent(query)}`,
     ),
+  jiraCreateParentSearch: (projectId: string, issueTypeId: string, query = "") =>
+    request<{ issues: { label: string; value: string }[] }>(
+      `/api/jira/create/parent-search?project_id=${encodeURIComponent(projectId)}&issue_type_id=${encodeURIComponent(issueTypeId)}&query=${encodeURIComponent(query)}`,
+    ),
   jiraCreateIssueLinkTypes: () => request<{ link_types: import("./types/jiraCreate").JiraIssueLinkTypeOption[] }>("/api/jira/create/issue-link-types"),
   jiraCreateIssue: (payload: {
     project_id: string;
@@ -104,5 +108,8 @@ export const api = {
     issue_type_label?: string;
     current_values: Record<string, unknown>;
     user_edited_field_ids: string[];
+    pending_clarification_field_id?: string | null;
+    conversation_phase?: "initial_requirement" | "field_resolution" | "ready_to_create" | null;
+    pending_fields?: { field_id: string; requested_value?: string | null }[];
   }) => request<CreateJiraAgentResponse>("/api/jira/create/agent", "POST", payload),
 };

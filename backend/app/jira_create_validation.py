@@ -6,6 +6,7 @@ from typing import Any
 
 from .jira_create_constants import CONTEXT_MANAGED_FIELD_IDS
 from .jira_create_models import JiraCreateMetadata, MissingRequiredField
+from .jira_field_parser import schema_is_gh_sprint
 
 
 def field_question(field_id: str, label: str) -> str:
@@ -60,6 +61,8 @@ def missing_required_fields(metadata: JiraCreateMetadata, values: dict[str, Any]
 
 
 def validate_select_values(metadata: JiraCreateMetadata, values: dict[str, Any]) -> dict[str, str]:
+    from .jira_create_service import _coerce_sprint_field_value, parent_field_expects_issue_id
+
     errors: dict[str, str] = {}
     for field_id, field in metadata.fields.items():
         if field.type not in {"select", "radio", "user", "status", "priority", "parent", "color-picker"}:
@@ -67,9 +70,20 @@ def validate_select_values(metadata: JiraCreateMetadata, values: dict[str, Any])
         value = values.get(field_id)
         if field_is_empty(value):
             continue
+        if field.type == "select":
+            raw = field.raw_field if isinstance(field.raw_field, dict) else {}
+            schema = raw.get("schema") if isinstance(raw.get("schema"), dict) else {}
+            if schema_is_gh_sprint(schema):
+                if _coerce_sprint_field_value(field, value) is None:
+                    errors[field_id] = f"{field.label} must use a valid Jira sprint."
+                continue
         if field.type == "parent" and field.searchable:
-            key = str(value).strip()
-            if not key or "-" not in key:
+            text = str(value).strip()
+            if parent_field_expects_issue_id(field_id):
+                if not text.isdigit():
+                    errors[field_id] = f"{field.label} must be a valid Jira issue id."
+                continue
+            if not text or "-" not in text:
                 errors[field_id] = f"{field.label} must be a valid Jira issue key."
             continue
         allowed = {option.value for option in field.options}

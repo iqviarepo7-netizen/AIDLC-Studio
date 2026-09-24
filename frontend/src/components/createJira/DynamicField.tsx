@@ -8,12 +8,22 @@ type Props = {
   value: unknown;
   error?: string;
   projectId?: string;
+  issueTypeId?: string;
   variant?: "default" | "jira-compact";
   layoutModifiers?: string[];
   onChange: (fieldId: string, value: unknown) => void;
 };
 
-export function DynamicField({ field, value, error, projectId, variant = "default", layoutModifiers = [], onChange }: Props) {
+export function DynamicField({
+  field,
+  value,
+  error,
+  projectId,
+  issueTypeId,
+  variant = "default",
+  layoutModifiers = [],
+  onChange,
+}: Props) {
   const inputId = `jira-field-${field.id}`;
   const describedBy = field.description ? `${inputId}-desc` : undefined;
   const isOptionField = field.type === "checkbox" || field.type === "radio";
@@ -90,7 +100,7 @@ export function DynamicField({ field, value, error, projectId, variant = "defaul
           {field.description}
         </p>
       )}
-      {renderControl(field, value, inputId, describedBy, onChange, placeholder, variant, projectId)}
+      {renderControl(field, value, inputId, describedBy, onChange, placeholder, variant, projectId, issueTypeId)}
       {showError && <p className="field-error" role="alert">{error}</p>}
     </div>
   );
@@ -105,6 +115,7 @@ function renderControl(
   placeholder?: string,
   variant: Props["variant"] = "default",
   projectId?: string,
+  issueTypeId?: string,
 ) {
   const compact = variant === "jira-compact";
   const stringValue = typeof value === "string" ? value : "";
@@ -159,8 +170,9 @@ function renderControl(
           placeholder="Select parent…"
           options={field.options}
           searchable={field.searchable}
-          searchKind="issue"
+          searchKind="parent"
           projectId={projectId}
+          issueTypeId={issueTypeId}
           onChange={(next) => onChange(field.id, next)}
         />
       );
@@ -345,7 +357,9 @@ export function computeFieldErrors(metadata: JiraCreateMetadata, values: JiraFor
       const current = values[field.id];
       if (!isFieldEmpty(current) && field.options.length > 0) {
         const allowed = new Set(field.options.map((option) => option.value));
-        if (!allowed.has(String(current))) {
+        const currentText = String(current);
+        const sprintLike = field.label.toLowerCase().includes("sprint");
+        if (!allowed.has(currentText) && !(sprintLike && /^\d+$/.test(currentText))) {
           errors[field.id] = `${field.label} must use a valid Jira option.`;
         }
       }
@@ -361,7 +375,12 @@ export function computeFieldErrors(metadata: JiraCreateMetadata, values: JiraFor
     }
     if (field.type === "parent" && field.searchable && !isFieldEmpty(values[field.id])) {
       const key = String(values[field.id]).trim();
-      if (!key.includes("-")) {
+      const expectsIssueId = field.id.toLowerCase() === "parentid" || field.id.toLowerCase().endsWith("parentid");
+      if (expectsIssueId) {
+        if (!/^\d+$/.test(key)) {
+          errors[field.id] = `${field.label} must be a valid Jira issue id.`;
+        }
+      } else if (!key.includes("-")) {
         errors[field.id] = `${field.label} must be a valid Jira issue key.`;
       }
     }

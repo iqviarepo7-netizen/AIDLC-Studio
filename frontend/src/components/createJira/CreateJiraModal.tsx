@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { api } from "../../api";
 import type {
   AgentMessage,
+  CreateJiraIssueLinkRequest,
+  JiraCreatedNotice,
   JiraCreateMetadata,
   JiraFormValues,
   JiraIssueTypeOption,
@@ -17,7 +19,7 @@ import { DynamicJiraForm } from "./DynamicJiraForm";
 type Props = {
   open: boolean;
   onClose: () => void;
-  onCreated: (jiraKey: string, notice?: string) => void;
+  onCreated: (jiraKey: string, notice?: JiraCreatedNotice) => void;
 };
 
 export function CreateJiraModal({ open, onClose, onCreated }: Props) {
@@ -31,6 +33,11 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   const [attachments, setAttachments] = useState<PendingJiraAttachment[]>([]);
   const [issueLinks, setIssueLinks] = useState<PendingIssueLink[]>([]);
   const [messages, setMessages] = useState<AgentMessage[]>([]);
+  const [pendingClarificationFieldId, setPendingClarificationFieldId] = useState<string | null>(null);
+  const [conversationPhase, setConversationPhase] = useState<
+    "initial_requirement" | "field_resolution" | "ready_to_create" | null
+  >(null);
+  const [pendingFields, setPendingFields] = useState<import("../../types/jiraCreate").PendingAgentField[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(false);
   const [loadingIssueTypes, setLoadingIssueTypes] = useState(false);
   const [loadingMetadata, setLoadingMetadata] = useState(false);
@@ -46,6 +53,9 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
     setValues({});
     setUserEdited(new Set());
     setMessages([]);
+    setPendingClarificationFieldId(null);
+    setConversationPhase(null);
+    setPendingFields([]);
     setMetadata(undefined);
     setIssueTypeId("");
     setAttachments([]);
@@ -123,7 +133,9 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
       .then((response) => {
         if (requestId !== metadataRequestRef.current) return;
         setMetadata(response);
-        setValues((current) => applyMetadataDefaults(pruneValues(current, response), response));
+        setValues((current) =>
+          applyMetadataDefaults(sanitizeParentValues(pruneValues(current, response), response), response),
+        );
         setAttachments([]);
         setIssueLinks([]);
       })
@@ -168,9 +180,18 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
         issue_type_label: issueTypeLabel?.name,
         current_values: values,
         user_edited_field_ids: [...userEdited],
+        pending_clarification_field_id: pendingClarificationFieldId ?? undefined,
+        conversation_phase: conversationPhase ?? undefined,
+        pending_fields: pendingFields,
       });
       setMessages([...nextMessages, { role: "assistant", content: response.message }]);
       setValues((current) => ({ ...current, ...response.fields }));
+      setPendingClarificationFieldId(response.pending_clarification_field_id ?? null);
+      setConversationPhase(response.conversation_phase ?? null);
+      setPendingFields(response.pending_fields ?? []);
+      if (response.issue_links && response.issue_links.length > 0) {
+        setIssueLinks((current) => mergeAgentIssueLinks(current, response.issue_links ?? []));
+      }
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Create Jira Agent failed.");
     } finally {
@@ -219,9 +240,13 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
           `Jira ${result.key} was created successfully, but some additional operations could not be completed.`;
       }
 
-      const successNotice = partial
-        ? message || `Jira ${result.key} was created, but some additional operations could not be completed.`
-        : `Jira ${result.key} created successfully.`;
+      const successNotice: JiraCreatedNotice = {
+        partial,
+        detail: partial
+          ? message || "Some additional operations could not be completed."
+          : undefined,
+        browseUrl: result.browse_url ?? null,
+      };
       onCreated(result.key, successNotice);
       if (partial) {
         const details = postOps
@@ -252,11 +277,9 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="create-jira-modal">
+      <div className="create-jira-modal jira-create-surface">
         <div className="create-jira-head">
-          <div>
-            <h2 id="create-jira-title">Create Jira Agent</h2>
-          </div>
+          <h2 id="create-jira-title">Create Jira Agent</h2>
           <button type="button" className="ghost small" onClick={onClose}>
             Close
           </button>
@@ -265,43 +288,49 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
         <div className="create-jira-selectors">
           <label>
             Project
-            <select
-              value={projectId}
-              disabled={loadingProjects}
-              onChange={(event) => {
-                setProjectId(event.target.value);
-                resetIssueState();
-              }}
-            >
-              <option value="">Select project…</option>
-              {projects.map((project) => (
-                <option key={project.id} value={project.id}>
-                  {project.name} ({project.key})
-                </option>
-              ))}
-            </select>
+            <div className="jira-select-field">
+              <select
+                className="jira-control"
+                value={projectId}
+                disabled={loadingProjects}
+                onChange={(event) => {
+                  setProjectId(event.target.value);
+                  resetIssueState();
+                }}
+              >
+                <option value="">Select project…</option>
+                {projects.map((project) => (
+                  <option key={project.id} value={project.id}>
+                    {project.name} ({project.key})
+                  </option>
+                ))}
+              </select>
+            </div>
           </label>
           <label>
             Issue type
-            <select
-              value={issueTypeId}
-              disabled={!projectId || loadingIssueTypes}
-              onChange={(event) => {
-                setIssueTypeId(event.target.value);
-                setValues({});
-                setUserEdited(new Set());
-                setMessages([]);
-                setAttachments([]);
-                setIssueLinks([]);
-              }}
-            >
-              <option value="">{loadingIssueTypes ? "Loading issue types…" : "Select issue type…"}</option>
-              {issueTypes.map((issueType) => (
-                <option key={issueType.id} value={issueType.id}>
-                  {issueType.name}
-                </option>
-              ))}
-            </select>
+            <div className="jira-select-field">
+              <select
+                className="jira-control"
+                value={issueTypeId}
+                disabled={!projectId || loadingIssueTypes}
+                onChange={(event) => {
+                  setIssueTypeId(event.target.value);
+                  setValues({});
+                  setUserEdited(new Set());
+                  setMessages([]);
+                  setAttachments([]);
+                  setIssueLinks([]);
+                }}
+              >
+                <option value="">{loadingIssueTypes ? "Loading issue types…" : "Select issue type…"}</option>
+                {issueTypes.map((issueType) => (
+                  <option key={issueType.id} value={issueType.id}>
+                    {issueType.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </label>
         </div>
 
@@ -332,6 +361,27 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   );
 }
 
+function sanitizeParentValues(values: JiraFormValues, metadata: JiraCreateMetadata): JiraFormValues {
+  const next = { ...values };
+  Object.values(metadata.fields).forEach((field) => {
+    if (field.type !== "parent") return;
+    const current = next[field.id];
+    if (current === undefined || current === "") return;
+    if (field.options.length === 0) return;
+    const allowed = new Set(field.options.map((option) => option.value));
+    if (!allowed.has(String(current))) {
+      delete next[field.id];
+      if (field.id === "parent") {
+        delete next.parentId;
+      }
+      if (field.id.toLowerCase().endsWith("parentid")) {
+        delete next.parent;
+      }
+    }
+  });
+  return next;
+}
+
 function pruneValues(values: JiraFormValues, metadata: JiraCreateMetadata): JiraFormValues {
   const allowed = new Set(Object.keys(metadata.fields));
   const next: JiraFormValues = {};
@@ -348,6 +398,26 @@ function applyMetadataDefaults(values: JiraFormValues, metadata: JiraCreateMetad
     if (field.default_value !== undefined && field.default_value !== null && field.default_value !== "") {
       next[field.id] = field.default_value;
     }
+  });
+  return next;
+}
+
+function mergeAgentIssueLinks(current: PendingIssueLink[], incoming: CreateJiraIssueLinkRequest[]): PendingIssueLink[] {
+  const next = [...current];
+  incoming.forEach((link, index) => {
+    const duplicate = next.some(
+      (item) =>
+        item.link_type_id === link.link_type_id &&
+        item.target_issue_key === link.target_issue_key &&
+        item.new_issue_role === link.new_issue_role,
+    );
+    if (duplicate) return;
+    next.push({
+      id: `agent-${link.link_type_id}-${link.new_issue_role}-${link.target_issue_key}-${Date.now()}-${index}`,
+      link_type_id: link.link_type_id,
+      target_issue_key: link.target_issue_key,
+      new_issue_role: link.new_issue_role,
+    });
   });
   return next;
 }

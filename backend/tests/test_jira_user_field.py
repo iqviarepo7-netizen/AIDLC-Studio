@@ -12,6 +12,13 @@ def test_automatic_assignee_tokens_are_not_submittable() -> None:
     assert is_automatic_or_empty_user_value("557058:abc-def-ghi") is False
 
 
+def test_probable_jira_account_id_rejects_display_names() -> None:
+    from app.jira_user_field import is_probable_jira_account_id
+
+    assert is_probable_jira_account_id("Mohan impelox") is False
+    assert is_probable_jira_account_id("557058:abc-def-ghi") is True
+
+
 def test_assignee_omitted_from_payload_for_automatic_values() -> None:
     metadata = JiraCreateMetadata(
         project_id="1",

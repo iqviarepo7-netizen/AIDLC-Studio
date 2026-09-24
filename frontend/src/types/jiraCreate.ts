@@ -91,17 +91,9 @@ export type MissingRequiredField = {
   question: string;
 };
 
-export type CreateJiraAgentResponse = {
-  status: "needs_information" | "ready";
-  message: string;
-  fields: JiraFormValues;
-  missing_required_fields: MissingRequiredField[];
-};
-
-export type PostCreateOperationResult = {
-  operation: string;
-  success: boolean;
-  detail?: string | null;
+export type PendingAgentField = {
+  field_id: string;
+  requested_value?: string | null;
 };
 
 export type IssueLinkDirection = "outward" | "inward";
@@ -110,6 +102,23 @@ export type CreateJiraIssueLinkRequest = {
   link_type_id: string;
   target_issue_key: string;
   new_issue_role: IssueLinkDirection;
+};
+
+export type CreateJiraAgentResponse = {
+  status: "needs_information" | "ready";
+  message: string;
+  fields: JiraFormValues;
+  missing_required_fields: MissingRequiredField[];
+  pending_clarification_field_id?: string | null;
+  conversation_phase?: "initial_requirement" | "field_resolution" | "ready_to_create";
+  pending_fields?: PendingAgentField[];
+  issue_links?: CreateJiraIssueLinkRequest[];
+};
+
+export type PostCreateOperationResult = {
+  operation: string;
+  success: boolean;
+  detail?: string | null;
 };
 
 export type PendingIssueLink = {
@@ -134,6 +143,12 @@ export type CreateJiraIssueResponse = {
   partial_success?: boolean;
   message?: string | null;
   post_create_operations?: PostCreateOperationResult[];
+};
+
+export type JiraCreatedNotice = {
+  partial?: boolean;
+  detail?: string;
+  browseUrl?: string | null;
 };
 
 export type CreateJiraAttachmentResponse = {

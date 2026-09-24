@@ -46,19 +46,17 @@ export function CreateJiraAgentPanel({ messages, busy, ready, onSend }: Props) {
       <div className="panel-title">Create Jira Agent</div>
       <div className="chat-panel-body">
         <div className="chat-message-list" ref={listRef}>
-          <div className="chat-message assistant">
-            <span className="chat-message-author">Create Jira Agent</span>
+          <div className="chat-message assistant greeting">
             <div className="chat-message-content">{GREETING}</div>
           </div>
           {messages.map((message, index) => (
             <div key={`${message.role}-${index}`} className={`chat-message ${message.role}`}>
-              <span className="chat-message-author">{message.role === "user" ? "You" : "Create Jira Agent"}</span>
+              {message.role === "user" && <span className="chat-message-author">You</span>}
               <div className="chat-message-content">{message.content}</div>
             </div>
           ))}
           {busy && (
             <div className="chat-message assistant status">
-              <span className="chat-message-author">Create Jira Agent</span>
               <div className="chat-message-content chat-thinking">Analyzing requirement…</div>
             </div>
           )}

@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { api } from "../../api";
 import type { JiraFieldOption } from "../../types/jiraCreate";
 
-type SearchKind = "user" | "issue";
+type SearchKind = "user" | "issue" | "parent";
 
 type Props = {
   id: string;
@@ -13,6 +13,7 @@ type Props = {
   required?: boolean;
   describedBy?: string;
   projectId?: string;
+  issueTypeId?: string;
   searchKind: SearchKind;
   onChange: (value: string) => void;
 };
@@ -25,6 +26,7 @@ export function JiraSearchableSelect({
   required,
   describedBy,
   projectId,
+  issueTypeId,
   searchKind,
   onChange,
 }: Props) {
@@ -59,7 +61,11 @@ export function JiraSearchableSelect({
   }, []);
 
   useEffect(() => {
-    if (!projectId) {
+    if (!projectId || (searchKind === "parent" && !issueTypeId)) {
+      setRemoteOptions([]);
+      return undefined;
+    }
+    if (searchKind === "parent" && options.length > 0) {
       setRemoteOptions([]);
       return undefined;
     }
@@ -70,7 +76,9 @@ export function JiraSearchableSelect({
       const request =
         searchKind === "user"
           ? api.jiraCreateUserSearch(projectId, query).then((response) => response.users)
-          : api.jiraCreateIssueSearch(projectId, query).then((response) => response.issues);
+          : searchKind === "parent"
+            ? api.jiraCreateParentSearch(projectId, issueTypeId!, query).then((response) => response.issues)
+            : api.jiraCreateIssueSearch(projectId, query).then((response) => response.issues);
       request
         .then((items) => {
           if (requestId !== requestSeqRef.current) return;
@@ -86,7 +94,7 @@ export function JiraSearchableSelect({
         });
     }, 300);
     return () => window.clearTimeout(handle);
-  }, [projectId, query, searchKind, open]);
+  }, [projectId, issueTypeId, query, searchKind, open, options.length]);
 
   const mergedOptions = useMemo(() => {
     const map = new Map<string, JiraFieldOption>();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AgentActivityFeed } from "./AgentActivityFeed";
 import { CreateJiraModal } from "./createJira/CreateJiraModal";
+import { JiraCreatedToast, type JiraCreatedToastState } from "./JiraCreatedToast";
 import { CodeEditor } from "./CodeEditor";
 import { CommandBar } from "./CommandBar";
 import { CompletionCard } from "./CompletionCard";
@@ -19,13 +20,13 @@ type Props = {
 
 export function StudioLayout({ studio }: Props) {
   const [createJiraOpen, setCreateJiraOpen] = useState(false);
-  const [jiraSuccessNotice, setJiraSuccessNotice] = useState<string>();
+  const [jiraToast, setJiraToast] = useState<JiraCreatedToastState | null>(null);
 
   useEffect(() => {
-    if (!jiraSuccessNotice) return undefined;
-    const handle = window.setTimeout(() => setJiraSuccessNotice(undefined), 6000);
+    if (!jiraToast) return undefined;
+    const handle = window.setTimeout(() => setJiraToast(null), 6000);
     return () => window.clearTimeout(handle);
-  }, [jiraSuccessNotice]);
+  }, [jiraToast]);
 
   return (
     <div className="studio-shell">
@@ -47,7 +48,6 @@ export function StudioLayout({ studio }: Props) {
       />
       <WorkflowProgress config={studio.config} workflow={studio.workflow} deliveryComplete={studio.deliveryComplete} />
       {studio.error && <div className="banner error">{studio.error}</div>}
-      {jiraSuccessNotice && <div className="banner success" role="status">{jiraSuccessNotice}</div>}
       <ModelSelectionPanel
         workflow={studio.workflow}
         selectedRoute={studio.selectedRoute}
@@ -98,9 +98,15 @@ export function StudioLayout({ studio }: Props) {
         onClose={() => setCreateJiraOpen(false)}
         onCreated={(jiraKey, notice) => {
           studio.setJiraKey(jiraKey);
-          if (notice) setJiraSuccessNotice(notice);
+          setJiraToast({
+            key: jiraKey,
+            browseUrl: notice?.browseUrl,
+            partial: notice?.partial,
+            detail: notice?.detail,
+          });
         }}
       />
+      {jiraToast && <JiraCreatedToast toast={jiraToast} onDismiss={() => setJiraToast(null)} />}
     </div>
   );
 }

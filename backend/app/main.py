@@ -221,15 +221,9 @@ async def jira_create_user_search(
     session: SessionConnection = Depends(require_session),
 ):
     config = require_direct_jira(session)
-    project_key: str | None = None
-    project_response = await direct_jira._request(config, "GET", f"/project/{project_id}", timeout=30.0)
-    if project_response.status_code < 400:
-        payload = project_response.json()
-        if isinstance(payload, dict):
-            project_key = str(payload.get("key") or "") or None
     users = await search_assignable_users(
         config,
-        project_key=project_key,
+        project_key=None,
         project_id=project_id,
         query=query,
     )
@@ -244,6 +238,24 @@ async def jira_create_issue_search(
 ):
     config = require_direct_jira(session)
     issues = await search_issues(config, project_id=project_id, query=query)
+    return {"issues": [item.model_dump() for item in issues]}
+
+
+@app.get("/api/jira/create/parent-search")
+async def jira_create_parent_search(
+    project_id: str,
+    issue_type_id: str,
+    query: str = "",
+    session: SessionConnection = Depends(require_session),
+):
+    from .jira_create_service import search_create_parent_issues
+
+    issues = await search_create_parent_issues(
+        session,
+        project_id=project_id,
+        issue_type_id=issue_type_id,
+        query=query,
+    )
     return {"issues": [item.model_dump() for item in issues]}
 
 

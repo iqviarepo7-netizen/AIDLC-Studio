@@ -9,8 +9,9 @@ type Props = {
   required?: boolean;
   describedBy?: string;
   searchable?: boolean;
-  searchKind?: "user" | "issue";
+  searchKind?: "user" | "issue" | "parent";
   projectId?: string;
+  issueTypeId?: string;
   onChange: (value: string) => void;
 };
 
@@ -25,6 +26,7 @@ export function JiraSelectField({
   searchable,
   searchKind = "user",
   projectId,
+  issueTypeId,
   onChange,
 }: Props) {
   if (searchable) {
@@ -37,6 +39,7 @@ export function JiraSelectField({
         required={required}
         describedBy={describedBy}
         projectId={projectId}
+        issueTypeId={issueTypeId}
         searchKind={searchKind}
         onChange={onChange}
       />

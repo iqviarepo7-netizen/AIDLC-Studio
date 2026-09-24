@@ -178,6 +178,8 @@ export function DynamicJiraForm({
 
                 projectId={projectId}
 
+                issueTypeId={metadata.issue_type_id}
+
                 variant={fieldVariant(field)}
                 layoutModifiers={fieldLayoutModifiers(field)}
 
