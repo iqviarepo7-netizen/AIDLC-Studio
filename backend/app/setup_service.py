@@ -14,7 +14,12 @@ async def validate_jira(config: JiraConnectionConfig) -> str:
         return await direct_jira.validate_connection(config)
     if not config.mcp_url:
         raise HTTPException(status_code=400, detail="Jira MCP URL is required for MCP mode.")
-    await _ping_mcp(config.mcp_url, config.mcp_token)
+    if not (config.base_url and config.email and config.mcp_token):
+        raise HTTPException(
+            status_code=400,
+            detail="Jira base URL, email, and API token are required for MCP mode.",
+        )
+    await _ping_mcp(config.mcp_url, config.mcp_token, extra_headers=config.extra_mcp_headers())
     return "Jira MCP endpoint reachable"
 
 
@@ -27,15 +32,16 @@ async def validate_git(config: GitConnectionConfig) -> str:
     return "Git MCP endpoint reachable"
 
 
-async def _ping_mcp(server_url: str, auth_token: str | None) -> None:
+async def _ping_mcp(server_url: str, auth_token: str | None, extra_headers: dict[str, str] | None = None) -> None:
     client = ExternalMCPClient()
-    server = MCPServerConfig(server_url=server_url, auth_token=auth_token or "")
+    extra = {key: value for key, value in (extra_headers or {}).items() if value}
+    server = MCPServerConfig(server_url=server_url, auth_token=auth_token or "", extra_headers=extra)
     try:
         await client.call_tool(server, "health", {})
     except HTTPException as exc:
         if exc.status_code not in {404, 502}:
             raise
-        headers: dict[str, str] = {}
+        headers: dict[str, str] = dict(extra)
         if auth_token:
             headers["Authorization"] = f"Bearer {auth_token}"
         async with httpx.AsyncClient(timeout=15.0) as http:

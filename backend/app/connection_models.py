@@ -17,6 +17,14 @@ class JiraConnectionConfig(BaseModel):
     api_version: Literal["2", "3"] | None = None
     auth_scheme: Literal["basic", "bearer"] | None = None
 
+    def extra_mcp_headers(self) -> dict[str, str]:
+        headers: dict[str, str] = {}
+        if self.base_url:
+            headers["X-Jira-Base-Url"] = self.base_url.strip().rstrip("/")
+        if self.email:
+            headers["X-Jira-Email"] = self.email.strip()
+        return headers
+
 
 class GitConnectionConfig(BaseModel):
     mode: Literal["direct", "mcp"] = "mcp"
@@ -68,8 +76,9 @@ class SessionConnection(BaseModel):
         host = None
         if self.jira.mode == "direct" and self.jira.base_url:
             host = self.jira.base_url.rstrip("/").split("//")[-1][:80]
-        elif self.jira.mode == "mcp" and self.jira.mcp_url:
-            host = self.jira.mcp_url.rstrip("/").split("//")[-1][:80]
+        elif self.jira.mode == "mcp" and (self.jira.base_url or self.jira.mcp_url):
+            source = self.jira.base_url or self.jira.mcp_url or ""
+            host = source.rstrip("/").split("//")[-1][:80]
         return SetupSummary(
             jira_mode=self.jira.mode,
             git_mode=self.git.mode,

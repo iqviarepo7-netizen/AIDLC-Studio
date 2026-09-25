@@ -159,11 +159,19 @@ export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
             <div className="setup-grid">
               <label>
                 MCP URL
-                <input value={jira.mcp_url ?? ""} onChange={(e) => setJira({ ...jira, mcp_url: e.target.value })} placeholder="http://localhost:9001/jira" required />
+                <input value={jira.mcp_url ?? ""} onChange={(e) => setJira({ ...jira, mcp_url: e.target.value })} placeholder="http://localhost:9001" required />
               </label>
               <label>
-                MCP token (optional)
-                <input type="password" value={jira.mcp_token ?? ""} onChange={(e) => setJira({ ...jira, mcp_token: e.target.value })} />
+                Base URL
+                <input value={jira.base_url ?? ""} onChange={(e) => setJira({ ...jira, base_url: e.target.value })} placeholder="https://your-site.atlassian.net" required />
+              </label>
+              <label>
+                Email
+                <input value={jira.email ?? ""} onChange={(e) => setJira({ ...jira, email: e.target.value })} placeholder="you@company.com" required />
+              </label>
+              <label>
+                Jira API token
+                <input type="password" value={jira.mcp_token ?? ""} onChange={(e) => setJira({ ...jira, mcp_token: e.target.value })} placeholder="Atlassian API token" required />
               </label>
               <label className="setup-field-full">
                 Done transition ID (optional)

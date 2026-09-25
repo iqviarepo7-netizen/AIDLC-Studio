@@ -121,6 +121,7 @@ class MCPAdapter:
             return MCPServerConfig(
                 server_url=session.jira.mcp_url or base.server_url,
                 auth_token=session.jira.mcp_token or base.auth_token,
+                extra_headers=session.jira.extra_mcp_headers(),
                 tools=base.tools,
             )
         if server == "git" and session and session.git.mode == "mcp":
