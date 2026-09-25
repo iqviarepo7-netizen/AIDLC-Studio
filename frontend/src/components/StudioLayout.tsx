@@ -12,7 +12,6 @@ import { StageActivityCard } from "./StageActivityCard";
 import { TerminalPanel } from "./TerminalPanel";
 import { ImplementationReportModal } from "./ImplementationReportModal";
 import { WorkflowProgress } from "./WorkflowProgress";
-import { useState } from "react";
 import type { useStudio } from "../hooks/useStudio";
 import { canShowReport } from "../reportUtils";
 
