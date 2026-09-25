@@ -3,21 +3,27 @@
 Exposes POST /tools/call (and /mcp/tools/call) with tools:
   health, get_issue, transition_issue, add_comment
 
-Credentials live in this process's .env — not in the Studio Connect form.
+Jira site URL, email, and API token come from Studio Connect headers
+(X-Jira-Base-Url, X-Jira-Email, Authorization: Bearer), falling back to .env.
 Studio Connect field "MCP URL" should be: http://localhost:9001
 """
 
 from __future__ import annotations
 
 import os
+from contextvars import ContextVar
 from typing import Any, Literal
 
 import httpx
 from dotenv import load_dotenv
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
 load_dotenv()
+
+_request_api_token: ContextVar[str] = ContextVar("jira_mcp_request_api_token", default="")
+_request_base_url: ContextVar[str] = ContextVar("jira_mcp_request_base_url", default="")
+_request_email: ContextVar[str] = ContextVar("jira_mcp_request_email", default="")
 
 AuthScheme = Literal["basic", "bearer"]
 ApiVersion = Literal["2", "3"]
@@ -27,6 +33,9 @@ app = FastAPI(title="AIDLC Jira MCP", version="1.0.0")
 # Resolved on first successful /myself probe and reused for later calls.
 _resolved_api_version: ApiVersion | None = None
 _resolved_auth_scheme: AuthScheme | None = None
+_resolved_token: str | None = None
+_resolved_base_url: str | None = None
+_resolved_email: str | None = None
 
 
 class ToolCallRequest(BaseModel):
@@ -38,26 +47,56 @@ def _env(name: str, default: str = "") -> str:
     return (os.environ.get(name) or default).strip()
 
 
+def _strip_secret(value: str) -> str:
+    return value.strip().strip('"').strip("'").rstrip("|").strip()
+
+
+def _token_from_authorization(authorization: str | None) -> str:
+    if not authorization:
+        return ""
+    scheme, _, remainder = authorization.partition(" ")
+    if scheme.lower() != "bearer":
+        return _strip_secret(authorization)
+    return _strip_secret(remainder)
+
+
+def _bind_request_identity(
+    authorization: str | None,
+    x_jira_base_url: str | None = None,
+    x_jira_email: str | None = None,
+) -> None:
+    _request_api_token.set(_token_from_authorization(authorization))
+    _request_base_url.set((x_jira_base_url or "").strip().rstrip("/"))
+    _request_email.set((x_jira_email or "").strip())
+
+
+def bind_jira_identity(
+    authorization: str | None = Header(default=None),
+    x_jira_base_url: str | None = Header(default=None, alias="X-Jira-Base-Url"),
+    x_jira_email: str | None = Header(default=None, alias="X-Jira-Email"),
+) -> None:
+    _bind_request_identity(authorization, x_jira_base_url, x_jira_email)
+
+
+def _jira_api_token() -> str:
+    return _strip_secret(_request_api_token.get() or _env("JIRA_API_TOKEN"))
+
+
 def _require_jira_config() -> tuple[str, str, str]:
-    base_url = _env("JIRA_BASE_URL").rstrip("/")
-    email = _env("JIRA_EMAIL")
-    token = _env("JIRA_API_TOKEN").rstrip("|").strip()
-    if not base_url or not email or not token:
+    base_url = (_request_base_url.get() or _env("JIRA_BASE_URL")).rstrip("/")
+    email = _request_email.get() or _env("JIRA_EMAIL")
+    token = _jira_api_token()
+    if not base_url or not email:
         raise HTTPException(
-            status_code=503,
-            detail="Jira MCP is not configured. Set JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN.",
+            status_code=400,
+            detail="Jira base URL and email are required. Enter them in Studio, or set JIRA_BASE_URL and JIRA_EMAIL in the MCP .env.",
+        )
+    if not token:
+        raise HTTPException(
+            status_code=401,
+            detail="Jira API token is missing. Paste it in Studio's Jira API token field, or set JIRA_API_TOKEN in the MCP .env.",
         )
     return base_url, email, token
-
-
-def _check_mcp_auth(authorization: str | None) -> None:
-    expected = _env("MCP_AUTH_TOKEN")
-    if not expected:
-        return
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Missing or invalid Authorization bearer token.")
-    if authorization.removeprefix("Bearer ").strip() != expected:
-        raise HTTPException(status_code=401, detail="Invalid MCP bearer token.")
 
 
 def _auth_for(email: str, token: str, scheme: AuthScheme) -> tuple[dict[str, str], tuple[str, str] | None]:
@@ -75,8 +114,14 @@ def _is_html(response: httpx.Response) -> bool:
 
 
 async def _ensure_resolved(base_url: str, email: str, token: str) -> tuple[ApiVersion, AuthScheme]:
-    global _resolved_api_version, _resolved_auth_scheme
-    if _resolved_api_version and _resolved_auth_scheme:
+    global _resolved_api_version, _resolved_auth_scheme, _resolved_token, _resolved_base_url, _resolved_email
+    if (
+        _resolved_api_version
+        and _resolved_auth_scheme
+        and _resolved_token == token
+        and _resolved_base_url == base_url
+        and _resolved_email == email
+    ):
         return _resolved_api_version, _resolved_auth_scheme
 
     forced_version = _env("JIRA_API_VERSION")
@@ -104,6 +149,9 @@ async def _ensure_resolved(base_url: str, email: str, token: str) -> tuple[ApiVe
                     raise HTTPException(status_code=502, detail=f"Jira connection failed: HTTP {response.status_code}.")
                 _resolved_api_version = version
                 _resolved_auth_scheme = scheme
+                _resolved_token = token
+                _resolved_base_url = base_url
+                _resolved_email = email
                 return version, scheme
 
     if saw_html:
@@ -159,19 +207,12 @@ def _issue_key(arguments: dict[str, Any]) -> str:
 
 
 async def _tool_health(_: dict[str, Any]) -> dict[str, Any]:
-    # Optional live check when credentials are present; otherwise still report process up.
-    if _env("JIRA_BASE_URL") and _env("JIRA_EMAIL") and _env("JIRA_API_TOKEN"):
-        try:
-            response = await _jira_request("GET", "/myself", timeout=15.0)
-            if response.status_code < 400:
-                data = response.json()
-                display = data.get("displayName") or data.get("emailAddress") or "authenticated user"
-                return {"status": "ok", "server": "jira", "jira": f"Connected as {display}"}
-        except HTTPException:
-            raise
-        except Exception as exc:  # noqa: BLE001 — surface connectivity issues cleanly
-            raise HTTPException(status_code=502, detail=f"Jira health check failed: {exc}") from exc
-    return {"status": "ok", "server": "jira", "jira": "credentials not set"}
+    response = await _jira_request("GET", "/myself", timeout=15.0)
+    if response.status_code >= 400:
+        raise HTTPException(status_code=502, detail=f"Jira health check failed: HTTP {response.status_code}.")
+    data = response.json()
+    display = data.get("displayName") or data.get("emailAddress") or "authenticated user"
+    return {"status": "ok", "server": "jira", "jira": f"Connected as {display}"}
 
 
 async def _tool_get_issue(arguments: dict[str, Any]) -> dict[str, Any]:
@@ -235,27 +276,22 @@ async def _dispatch(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
 
 
 @app.get("/")
-async def root(authorization: str | None = Header(default=None)) -> dict[str, Any]:
-    _check_mcp_auth(authorization)
+async def root(_: None = Depends(bind_jira_identity)) -> dict[str, Any]:
     return {"status": "ok", "server": "jira-mcp", "tools": sorted(TOOLS)}
 
 
 @app.post("/tools/call")
-async def tools_call(body: ToolCallRequest, authorization: str | None = Header(default=None)) -> dict[str, Any]:
-    _check_mcp_auth(authorization)
+async def tools_call(body: ToolCallRequest, _: None = Depends(bind_jira_identity)) -> dict[str, Any]:
     return await _dispatch(body.name, body.arguments)
 
 
 @app.post("/mcp/tools/call")
-async def mcp_tools_call(body: ToolCallRequest, authorization: str | None = Header(default=None)) -> dict[str, Any]:
-    _check_mcp_auth(authorization)
+async def mcp_tools_call(body: ToolCallRequest, _: None = Depends(bind_jira_identity)) -> dict[str, Any]:
     return await _dispatch(body.name, body.arguments)
 
 
 @app.post("/")
-async def jsonrpc_or_tool_call(request: Request, authorization: str | None = Header(default=None)) -> dict[str, Any]:
-    """Support Studio's JSON-RPC fallback: method tools/call with params {name, arguments}."""
-    _check_mcp_auth(authorization)
+async def jsonrpc_or_tool_call(request: Request, _: None = Depends(bind_jira_identity)) -> dict[str, Any]:
     payload = await request.json()
     if isinstance(payload, dict) and payload.get("method") == "tools/call":
         params = payload.get("params") or {}

@@ -67,18 +67,63 @@ def test_unknown_tool(client: TestClient) -> None:
     assert response.status_code == 404
 
 
-def test_mcp_auth_required(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("MCP_AUTH_TOKEN", "secret")
+def test_header_token_used_when_env_token_missing(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("JIRA_BASE_URL", "https://example.atlassian.net")
     monkeypatch.setenv("JIRA_EMAIL", "dev@example.com")
-    monkeypatch.setenv("JIRA_API_TOKEN", "token-123")
+    monkeypatch.delenv("JIRA_API_TOKEN", raising=False)
+    main._resolved_api_version = "3"
+    main._resolved_auth_scheme = "basic"
+    main._resolved_token = "from-ui"
     client = TestClient(main.app)
 
-    denied = client.get("/")
-    assert denied.status_code == 401
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"displayName": "From UI"}
 
-    ok = client.get("/", headers={"Authorization": "Bearer secret"})
-    assert ok.status_code == 200
+    with patch.object(main, "_jira_request", new=AsyncMock(return_value=mock_response)):
+        response = client.post(
+            "/tools/call",
+            json={"name": "health", "arguments": {}},
+            headers={"Authorization": "Bearer from-ui"},
+        )
+
+    assert response.status_code == 200
+    assert "From UI" in response.json()["result"]["jira"]
+
+
+def test_missing_token_returns_401(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("JIRA_BASE_URL", "https://example.atlassian.net")
+    monkeypatch.setenv("JIRA_EMAIL", "dev@example.com")
+    monkeypatch.delenv("JIRA_API_TOKEN", raising=False)
+    main._resolved_api_version = None
+    main._resolved_auth_scheme = None
+    main._resolved_token = None
+    client = TestClient(main.app)
+
+    response = client.post("/tools/call", json={"name": "health", "arguments": {}})
+    assert response.status_code == 401
+    assert "Jira API token is missing" in response.json()["detail"]
+
+
+def test_quoted_header_token_is_stripped() -> None:
+    assert main._token_from_authorization('Bearer "ATATT-example"') == "ATATT-example"
+
+
+def test_request_token_overrides_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("JIRA_API_TOKEN", "from-env")
+    main._bind_request_identity("Bearer from-ui")
+    assert main._jira_api_token() == "from-ui"
+
+
+def test_request_site_overrides_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("JIRA_BASE_URL", "https://env.example")
+    monkeypatch.setenv("JIRA_EMAIL", "env@example.com")
+    monkeypatch.setenv("JIRA_API_TOKEN", "from-env")
+    main._bind_request_identity("Bearer from-ui", "https://ui.example", "ui@example.com")
+    base_url, email, token = main._require_jira_config()
+    assert base_url == "https://ui.example"
+    assert email == "ui@example.com"
+    assert token == "from-ui"
 
 
 def test_jsonrpc_fallback(client: TestClient) -> None:
