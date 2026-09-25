@@ -83,6 +83,7 @@ class MCPServerTools(BaseModel):
 class MCPServerConfig(BaseModel):
     server_url: str = ""
     auth_token: str = ""
+    extra_headers: dict[str, str] = Field(default_factory=dict)
     tools: MCPServerTools = Field(default_factory=MCPServerTools)
 
 

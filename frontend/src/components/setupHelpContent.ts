@@ -21,15 +21,15 @@ export const SETUP_HELP: Record<SetupHelpId, SetupHelpGuide> = {
   },
   "jira-mcp": {
     title: "Jira · MCP",
-    summary: "Route Jira calls through an external MCP server that exposes Jira tools.",
+    summary: "Route Jira calls through the local MCP server. Enter your Jira site URL, email, and API token here. MCP URL is the local MCP process, not Jira.",
     steps: [
-      { title: "Start your Jira MCP server", detail: "Run the MCP process locally or on a reachable host/port." },
-      { title: "Copy the MCP URL", detail: "Example: http://localhost:9001/jira — must expose a tools/call endpoint." },
-      { title: "Add auth token if required", detail: "Some servers expect Bearer token in the Authorization header." },
-      { title: "Map tools in policy.yaml", detail: "Backend expects fetch_issue, transition, and comment tool names (configured server-side)." },
-      { title: "Validate connection", detail: "Click Validate & Connect — the studio pings the MCP endpoint before continuing." },
+      { title: "Start your Jira MCP server", detail: "From mcp-servers/jira run: python -m uvicorn main:app --reload --port 9001" },
+      { title: "Set MCP URL", detail: "Use http://localhost:9001 — do not add /jira." },
+      { title: "Enter Base URL and email", detail: "Site root such as https://your-company.atlassian.net, plus the Atlassian account email." },
+      { title: "Paste Jira API token", detail: "Cloud: id.atlassian.com → Security → API tokens. Do not wrap it in quotes." },
+      { title: "Validate connection", detail: "Click Validate & Connect — the studio sends URL, email, and token to the MCP health tool." },
     ],
-    tips: ["Direct mode is simpler for demos; MCP is better when Jira access is already centralized."],
+    tips: ["Jira credentials stay in this browser session. The MCP .env is only a fallback if a field is left empty."],
   },
   "git-direct": {
     title: "Git · Direct (local)",

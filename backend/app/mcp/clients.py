@@ -18,6 +18,7 @@ class ExternalMCPClient:
         headers: dict[str, str] = {"Content-Type": "application/json"}
         if server.auth_token:
             headers["Authorization"] = f"Bearer {server.auth_token}"
+        headers.update({key: value for key, value in server.extra_headers.items() if value})
 
         payload = {"name": tool_name, "arguments": arguments}
         endpoints = [f"{url}/tools/call", f"{url}/mcp/tools/call", url]
