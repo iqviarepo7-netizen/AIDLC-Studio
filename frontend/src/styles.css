@@ -134,6 +134,14 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .status-pill.state-failed { color: var(--error); border-color: color-mix(in srgb, var(--error) 45%, var(--border)); }
 .status-pill.state-completed { color: var(--success); border-color: color-mix(in srgb, var(--success) 45%, var(--border)); }
 
+.banner.success {
+  margin: 0 20px 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--success) 45%, var(--border));
+  background: color-mix(in srgb, var(--success) 12%, var(--bg-secondary));
+  color: var(--text-primary);
+}
 .banner.error, .completion-card.error {
   margin: 12px 20px 0;
   padding: 12px 14px;
@@ -984,6 +992,694 @@ button.small { padding: 6px 10px; font-size: 11px; }
   text-align: left;
 }
 .config-table th { background: var(--bg-tertiary); color: var(--text-secondary); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.create-jira-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 2vw, 24px);
+  overflow-y: auto;
+  background: rgba(2, 6, 12, 0.78);
+  backdrop-filter: blur(8px);
+}
+.create-jira-modal {
+  width: min(100%, 1280px);
+  height: min(92vh, 860px);
+  max-height: min(92vh, 860px);
+  min-height: min(720px, 92vh);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: clamp(16px, 2vw, 22px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+.create-jira-modal .banner.error {
+  margin: 0 0 12px;
+  flex-shrink: 0;
+}
+.create-jira-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.create-jira-head h2 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.3;
+}
+.create-jira-selectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.jira-create-surface .create-jira-selectors label,
+.jira-static-fields label {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--jira-create-label-size);
+  font-weight: var(--jira-create-label-weight);
+  color: var(--jira-create-label-color);
+}
+.jira-create-surface .create-jira-selectors label:focus-within {
+  color: var(--text-primary);
+}
+.create-jira-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  flex: 1 1 auto;
+  min-height: min(360px, 48vh);
+  align-items: stretch;
+}
+.create-jira-agent,
+.create-jira-form {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(13, 17, 23, 0.72);
+  padding: 12px 14px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  min-width: 0;
+}
+.create-jira-panels:has(.jira-create-scroll) {
+  min-height: min(360px, 48vh);
+}
+.create-jira-agent {
+  min-height: min(320px, 44vh);
+  max-height: calc(min(92vh, 860px) - 168px);
+}
+.create-jira-form:has(.jira-create-scroll) {
+  max-height: calc(min(92vh, 860px) - 168px);
+}
+.create-jira-form .panel-title,
+.create-jira-agent .panel-title {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+.chat-panel-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chat-message-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chat-message {
+  max-width: 92%;
+}
+.chat-message.greeting {
+  max-width: 100%;
+}
+.chat-message.user { align-self: flex-end; }
+.chat-message.assistant,
+.chat-message.status { align-self: flex-start; }
+.chat-message-author {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.chat-message.user .chat-message-author { color: var(--accent); }
+.chat-message.assistant .chat-message-author { color: var(--success); }
+.chat-message-content {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  white-space: pre-wrap;
+  line-height: 1.45;
+  font-size: 13px;
+}
+.chat-message.user .chat-message-content {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.chat-thinking { color: var(--text-secondary); font-style: italic; }
+.chat-composer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 6px 8px;
+  border: var(--jira-create-control-border, 1px solid var(--border));
+  border-radius: var(--jira-create-control-radius, 8px);
+  background: var(--jira-create-control-bg, var(--bg-tertiary));
+}
+.chat-composer-input {
+  flex: 1;
+  min-height: var(--jira-create-control-min-height, 32px);
+  max-height: 120px;
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--jira-create-control-size, 13px);
+  padding: var(--jira-create-control-pad-y, 6px) 4px;
+  line-height: 1.45;
+}
+.chat-composer-input:focus { outline: none; }
+.chat-composer-send {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: var(--jira-create-control-radius, 8px);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+.jira-create-scroll {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.jira-create-field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+}
+/* Shared Create Jira form tokens (one consistent surface) */
+.jira-create-surface {
+  --jira-create-label-size: 11px;
+  --jira-create-label-weight: 600;
+  --jira-create-label-color: var(--text-secondary);
+  --jira-create-control-size: 13px;
+  --jira-create-control-weight: 400;
+  --jira-create-control-pad-y: 6px;
+  --jira-create-control-pad-x: 8px;
+  --jira-create-control-min-height: 32px;
+  --jira-create-control-radius: 8px;
+  --jira-create-control-bg: var(--bg-tertiary);
+  --jira-create-control-border: 1px solid var(--border);
+}
+.jira-create-surface .jira-field label,
+.jira-create-surface .jira-field .jira-field-label {
+  margin: 0;
+  display: block;
+  font-size: var(--jira-create-label-size);
+  font-weight: var(--jira-create-label-weight);
+  color: var(--jira-create-label-color);
+}
+.jira-create-surface .jira-control,
+.jira-create-surface .jira-field .jira-control {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: var(--jira-create-control-size);
+  font-weight: var(--jira-create-control-weight);
+  line-height: 1.35;
+  min-height: var(--jira-create-control-min-height);
+  padding: var(--jira-create-control-pad-y) var(--jira-create-control-pad-x);
+  background: var(--jira-create-control-bg);
+  border: var(--jira-create-control-border);
+  border-radius: var(--jira-create-control-radius);
+  color: var(--text-primary);
+}
+.jira-create-surface .jira-field.jira-field-multiline .jira-control {
+  min-height: 88px;
+  resize: vertical;
+  align-self: stretch;
+}
+.jira-create-surface .jira-field.jira-compact {
+  display: grid;
+  grid-template-columns: minmax(120px, 34%) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 8px 2px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  min-width: 0;
+  position: relative;
+  z-index: 0;
+}
+.jira-create-surface .jira-field.jira-compact:focus-within,
+.jira-create-surface .jira-field.jira-compact:has(.jira-combobox-open) {
+  z-index: 50;
+}
+.jira-create-surface .jira-field.jira-compact.jira-field-multiline {
+  align-items: start;
+}
+.jira-create-surface .jira-field.jira-compact.jira-field-options {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 6px;
+}
+.jira-create-surface .jira-field.jira-compact .option-group { margin-top: 0; }
+.jira-create-surface .jira-select-field,
+.jira-create-surface .jira-combobox {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+.jira-create-surface .jira-select-field select.jira-control {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+}
+.jira-create-surface .jira-select-field:has(select)::after,
+.jira-create-surface .jira-combobox::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+.jira-create-surface .jira-combobox {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--jira-create-control-pad-x);
+  padding-right: 28px;
+  cursor: text;
+}
+.jira-create-surface .jira-combobox .jira-combobox-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: var(--jira-create-control-pad-y) 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  min-height: calc(var(--jira-create-control-min-height) - 2px);
+  font: inherit;
+  font-size: var(--jira-create-control-size);
+  font-weight: var(--jira-create-control-weight);
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+.jira-create-surface .jira-combobox .jira-combobox-input--placeholder,
+.jira-create-surface .jira-combobox .jira-combobox-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+.jira-create-surface .jira-select-field select.jira-control:focus,
+.jira-create-surface .jira-combobox:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  outline: none;
+}
+.jira-option-group { width: 100%; min-width: 0; }
+.jira-option-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.jira-option-item input { flex-shrink: 0; margin: 0; width: auto; }
+.jira-option-item span { flex: 1; min-width: 0; }
+.jira-select-field select { width: 100%; max-width: 100%; }
+.jira-color-picker { position: relative; width: 100%; min-width: 0; max-width: 100%; }
+.jira-color-picker-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+.jira-color-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+.jira-color-picker-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jira-color-picker-chevron { color: var(--text-secondary); font-size: 11px; }
+.jira-color-picker-menu {
+  position: absolute;
+  z-index: 25;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  padding: 10px;
+  box-sizing: border-box;
+}
+.jira-color-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+  gap: 8px;
+  max-width: 100%;
+}
+.jira-color-picker-grid button {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+.jira-color-picker-grid button.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.jira-color-picker-grid button .jira-color-swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 0;
+}
+.jira-color-check {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.jira-static-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.jira-tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+.jira-tab-bar button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-weight: 700;
+  padding: 8px 10px;
+}
+.jira-tab-bar button.active {
+  color: var(--text-primary);
+  border-color: var(--border);
+  background: rgba(34, 211, 238, 0.06);
+}
+.jira-tab-panel {
+  flex: 1;
+  overflow: auto;
+  padding-right: 4px;
+}
+.required-mark { color: var(--error); margin-left: 4px; }
+.field-description { color: var(--text-secondary); font-size: 12px; margin: 4px 0 8px; }
+.field-error { color: var(--error); font-size: 12px; margin: 6px 0 0; }
+.option-group { display: grid; gap: 6px; margin-top: 6px; }
+.option-item { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text-primary); }
+.create-jira-footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.create-jira-actions { display: flex; gap: 8px; }
+.jira-create-surface .jira-combobox-list {
+  max-height: 220px;
+  overflow: auto;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background-color: var(--jira-create-control-bg);
+  border: var(--jira-create-control-border);
+  border-radius: var(--jira-create-control-radius);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+.jira-combobox-list--floating {
+  position: fixed;
+  z-index: 10050;
+  max-height: 220px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background-color: var(--jira-create-control-bg, var(--bg-tertiary));
+  border: var(--jira-create-control-border, 1px solid var(--border));
+  border-radius: var(--jira-create-control-radius, 8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+  pointer-events: auto;
+  isolation: isolate;
+}
+.jira-combobox-list li {
+  background-color: var(--jira-create-control-bg, var(--bg-tertiary));
+}
+.jira-combobox-list button {
+  width: 100%;
+  text-align: left;
+  margin: 0;
+  background: transparent;
+  background-image: none;
+  border: 0;
+  box-shadow: none;
+  padding: var(--jira-create-control-pad-y, 6px) var(--jira-create-control-pad-x, 8px);
+  font-family: inherit;
+  font-size: var(--jira-create-control-size, 13px);
+  font-weight: var(--jira-create-control-weight, 400);
+  line-height: 1.35;
+  min-height: var(--jira-create-control-min-height, 32px);
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jira-combobox-list button:hover,
+.jira-combobox-list button:focus-visible {
+  background: rgba(34, 211, 238, 0.08);
+  outline: none;
+}
+.jira-combobox-list button.is-selected,
+.jira-combobox-list button[aria-selected="true"] {
+  background: rgba(34, 211, 238, 0.14);
+  font-weight: 600;
+}
+.jira-combobox-empty { padding: 8px 10px; font-size: 12px; }
+.jira-combobox-hint { margin: 4px 0 0; font-size: 12px; }
+.jira-linked-work-items-controls {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.jira-linked-add { justify-self: start; }
+.jira-linked-work-items-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.jira-linked-work-items-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+.jira-readonly-value { margin: 0; font-size: 13px; color: var(--text-primary); }
+.jira-attachment-drop {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+}
+.jira-attachment-column { display: grid; gap: 10px; min-width: 0; }
+.jira-attachment-drop {
+  min-height: 72px;
+}
+.jira-attachment-drop input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.jira-attachment-selected-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.jira-attachment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.jira-attachment-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-tertiary);
+}
+.jira-attachment-file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.jira-attachment-file-size {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.jira-attachment-list li button {
+  position: relative;
+  z-index: 2;
+}
+
+.app-toast-stack {
+  position: fixed;
+  right: clamp(12px, 2vw, 20px);
+  bottom: clamp(12px, 2vw, 20px);
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  max-width: min(420px, calc(100vw - 24px));
+}
+.app-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--success) 38%, var(--border));
+  background: color-mix(in srgb, var(--bg-secondary) 92%, #000);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  color: var(--text-primary);
+}
+.jira-created-toast-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--success) 35%, var(--border));
+}
+.jira-created-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+.jira-created-toast-title {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.jira-created-toast-key {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+.jira-created-toast-key:hover {
+  text-decoration: underline;
+}
+.jira-created-toast-detail {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.app-toast-dismiss {
+  flex-shrink: 0;
+  min-width: 28px;
+  height: 28px;
+  padding: 0;
+  line-height: 1;
+  font-size: 18px;
+}
+
+@media (max-width: 960px) {
+  .create-jira-panels,
+  .create-jira-selectors,
+  .jira-static-fields { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 640px) {
   .jira-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }

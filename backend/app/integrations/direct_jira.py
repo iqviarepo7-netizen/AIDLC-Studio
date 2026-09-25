@@ -56,6 +56,7 @@ async def _request(
     path: str,
     *,
     json: dict[str, Any] | None = None,
+    params: dict[str, str | int] | None = None,
     timeout: float = 30.0,
 ) -> httpx.Response:
     await _ensure_resolved(config)
@@ -66,7 +67,34 @@ async def _request(
     headers.update(extra)
     url = f"{_base_url(config)}/rest/api/{version}{path}"
     async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
-        response = await client.request(method, url, auth=auth, headers=headers, json=json)
+        response = await client.request(method, url, auth=auth, headers=headers, json=json, params=params)
+    if response.status_code in {301, 302, 303, 307, 308} or _is_html(response):
+        raise HTTPException(
+            status_code=401,
+            detail="Jira returned a login page instead of the REST API. Check VPN/SSO access and that the token is a REST API token or personal access token.",
+        )
+    return response
+
+
+async def _agile_request(
+    config: JiraConnectionConfig,
+    method: str,
+    path: str,
+    *,
+    params: dict[str, str | int] | None = None,
+    json: dict[str, Any] | None = None,
+    timeout: float = 30.0,
+) -> httpx.Response:
+    await _ensure_resolved(config)
+    scheme: AuthScheme = config.auth_scheme or "basic"
+    headers = {"Accept": "application/json"}
+    if json is not None:
+        headers["Content-Type"] = "application/json"
+    extra, auth = _auth_for(config, scheme)
+    headers.update(extra)
+    url = f"{_base_url(config)}/rest/agile/1.0{path}"
+    async with httpx.AsyncClient(timeout=timeout, follow_redirects=False) as client:
+        response = await client.request(method, url, auth=auth, headers=headers, params=params, json=json)
     if response.status_code in {301, 302, 303, 307, 308} or _is_html(response):
         raise HTTPException(
             status_code=401,

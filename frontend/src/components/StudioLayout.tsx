@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { AgentActivityFeed } from "./AgentActivityFeed";
+import { CreateJiraModal } from "./createJira/CreateJiraModal";
+import { JiraCreatedToast, type JiraCreatedToastState } from "./JiraCreatedToast";
 import { CodeEditor } from "./CodeEditor";
 import { CommandBar } from "./CommandBar";
 import { CompletionCard } from "./CompletionCard";
@@ -20,6 +23,15 @@ type Props = {
 export function StudioLayout({ studio }: Props) {
   const [modelConfigOpen, setModelConfigOpen] = useState(false);
 
+  const [createJiraOpen, setCreateJiraOpen] = useState(false);
+  const [jiraToast, setJiraToast] = useState<JiraCreatedToastState | null>(null);
+
+  useEffect(() => {
+    if (!jiraToast) return undefined;
+    const handle = window.setTimeout(() => setJiraToast(null), 6000);
+    return () => window.clearTimeout(handle);
+  }, [jiraToast]);
+
   return (
     <div className="studio-shell">
       <CommandBar
@@ -29,6 +41,7 @@ export function StudioLayout({ studio }: Props) {
         onJiraKeyChange={studio.setJiraKey}
         baseBranch={studio.baseBranch}
         onStart={studio.startWorkflow}
+        onCreateJira={() => setCreateJiraOpen(true)}
         onReconfigure={studio.beginReconfigure}
         onOpenModelConfig={() => setModelConfigOpen(true)}
         sessionSummary={studio.sessionSummary}
@@ -86,6 +99,20 @@ export function StudioLayout({ studio }: Props) {
           onSelectFile={studio.viewReportFile}
         />
       )}
+      <CreateJiraModal
+        open={createJiraOpen}
+        onClose={() => setCreateJiraOpen(false)}
+        onCreated={(jiraKey, notice) => {
+          studio.setJiraKey(jiraKey);
+          setJiraToast({
+            key: jiraKey,
+            browseUrl: notice?.browseUrl,
+            partial: notice?.partial,
+            detail: notice?.detail,
+          });
+        }}
+      />
+      {jiraToast && <JiraCreatedToast toast={jiraToast} onDismiss={() => setJiraToast(null)} />}
     </div>
   );
 }

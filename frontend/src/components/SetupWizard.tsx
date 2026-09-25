@@ -91,16 +91,36 @@ function BranchField({
 }
 
 export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
-  const [jira, setJira] = useState<JiraConnectionConfig>(initial?.jira ?? defaultJira);
-  const [git, setGit] = useState<GitConnectionConfig>(initial?.git ?? defaultGit);
-
+  // 1. Lazy initialization: Load from localStorage first, then fallback to initial props or defaults
+  const [jira, setJira] = useState<JiraConnectionConfig>(() => {
+    if (initial?.jira) return initial.jira;
+    const saved = localStorage.getItem("setup_jira");
+    return saved ? JSON.parse(saved) : defaultJira;
+  });
+ 
+  const [git, setGit] = useState<GitConnectionConfig>(() => {
+    if (initial?.git) return initial.git;
+    const saved = localStorage.getItem("setup_git");
+    return saved ? JSON.parse(saved) : defaultGit;
+  });
+ 
+  // 2. Keep state in sync if the initial prop changes from a parent component
   useEffect(() => {
     if (initial) {
       setJira(initial.jira);
       setGit(initial.git);
     }
   }, [initial]);
-
+ 
+  // 3. Automatically sync state changes to localStorage as the user types
+  useEffect(() => {
+    localStorage.setItem("setup_jira", JSON.stringify(jira));
+  }, [jira]);
+ 
+  useEffect(() => {
+    localStorage.setItem("setup_git", JSON.stringify(git));
+  }, [git]);
+ 
   return (
     <div className="setup-overlay">
       <form
@@ -111,15 +131,16 @@ export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
         }}
       >
         <h2>Connect Jira & Git</h2>
-        <p className="muted">Choose direct API access or MCP for each integration. Credentials stay in memory for this browser session only.</p>
+        {/* Updated descriptive text */}
+        <p className="muted">Choose direct API access or MCP for each integration. Credentials stay in localStorage across browser sessions.</p>
         {error && <div className="banner error">{error}</div>}
-
+ 
         <SetupSection title="Jira" guideId={helpIdForJira(jira.mode)} mode={jira.mode} onModeChange={(mode) => setJira({ ...jira, mode })}>
           {jira.mode === "direct" ? (
             <div className="setup-grid">
               <label>
                 Base URL
-                <input value={jira.base_url ?? ""} onChange={(e) => setJira({ ...jira, base_url: e.target.value })} placeholder="https://jira.company.com" required />
+                <input value={jira.base_url ?? ""} onChange={(e) => setJira({ ...jira, base_url: e.target.value })} placeholder="https://your-org.atlassian.net" required />
               </label>
               <label>
                 Email
@@ -151,7 +172,7 @@ export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
             </div>
           )}
         </SetupSection>
-
+ 
         <SetupSection title="Git" guideId={helpIdForGit(git.mode)} mode={git.mode} onModeChange={(mode) => setGit({ ...git, mode })}>
           {git.mode === "direct" ? (
             <div className="setup-grid">
@@ -195,7 +216,7 @@ export function SetupWizard({ onSubmit, initial, busy, error }: Props) {
             </div>
           )}
         </SetupSection>
-
+ 
         <div className="setup-actions">
           <button type="submit" disabled={busy}>
             {busy ? "Validating connections..." : "Validate & Connect"}
