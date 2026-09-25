@@ -8,6 +8,19 @@ from fastapi import HTTPException
 from ..config_loader import MCPServerConfig
 
 
+def _http_error_detail(response: httpx.Response) -> str:
+    try:
+        body = response.json()
+        if isinstance(body, dict):
+            detail = body.get("detail")
+            if detail is not None:
+                return str(detail)
+    except ValueError:
+        pass
+    text = (response.text or "").strip()
+    return text[:500] if text else f"HTTP {response.status_code}"
+
+
 class ExternalMCPClient:
     """HTTP client for external MCP servers exposing a tools/call endpoint."""
 
@@ -27,13 +40,20 @@ class ExternalMCPClient:
             for endpoint in endpoints[:2]:
                 try:
                     response = await client.post(endpoint, headers=headers, json=payload)
-                    response.raise_for_status()
+                    if response.is_error:
+                        detail = _http_error_detail(response)
+                        raise HTTPException(
+                            status_code=502,
+                            detail=f"MCP tool call failed: {detail}",
+                        )
                     body = response.json()
                     if isinstance(body, dict) and "result" in body:
                         result = body["result"]
                         return result if isinstance(result, dict) else {"result": result}
                     if isinstance(body, dict):
                         return body
+                except HTTPException:
+                    raise
                 except (httpx.HTTPError, ValueError) as exc:
                     last_error = exc
                     continue
@@ -44,11 +64,18 @@ class ExternalMCPClient:
                     headers=headers,
                     json={"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": payload},
                 )
-                response.raise_for_status()
+                if response.is_error:
+                    detail = _http_error_detail(response)
+                    raise HTTPException(
+                        status_code=502,
+                        detail=f"MCP tool call failed: {detail}",
+                    )
                 body = response.json()
                 if isinstance(body, dict) and "result" in body:
                     result = body["result"]
                     return result if isinstance(result, dict) else {"result": result}
+            except HTTPException:
+                raise
             except (httpx.HTTPError, ValueError) as exc:
                 last_error = exc
 

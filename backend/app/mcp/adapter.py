@@ -16,7 +16,7 @@ from ..session_context import get_current_session
 from .clients import ExternalMCPClient
 from .tool_map import ToolMap
 
-SECRET_KEYS = {"auth_token", "token", "password", "api_key", "authorization"}
+SECRET_KEYS = {"auth_token", "token", "password", "api_key", "authorization", "github_token", "gitlab_token"}
 
 
 def redact_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -105,6 +105,14 @@ class MCPAdapter:
                 guardrail_result=guardrail_result,
             )
         )
+
+    @staticmethod
+    def _git_host_token_arguments() -> dict[str, str]:
+        session = get_current_session()
+        if not session or not session.git.mcp_token:
+            return {}
+        token = session.git.mcp_token
+        return {"github_token": token, "gitlab_token": token}
 
     def _server_config(self, server: str) -> MCPServerConfig:
         session = get_current_session()
@@ -247,13 +255,16 @@ class MCPAdapter:
             duration = int((perf_counter() - started) * 1000)
             self._audit(workflow, "publisher", "git", "push", "success", duration, {"branch": branch}, {}, None)
             return
+        push_args: dict[str, Any] = {"repository_path": repository_path, **self._git_host_token_arguments()}
+        if branch:
+            push_args["head_branch"] = branch
         await self.call_tool(
             workflow,
             stage="publishing",
             agent="publisher",
             server="git",
             tool_key="push",
-            arguments={"repository_path": repository_path},
+            arguments=push_args,
         )
 
     async def create_pull_request(
@@ -266,7 +277,12 @@ class MCPAdapter:
         base_branch: str | None = None,
         head_branch: str | None = None,
     ) -> PullRequest:
-        arguments: dict[str, Any] = {"repository_path": repository_path, "title": title, "body": body}
+        arguments: dict[str, Any] = {
+            "repository_path": repository_path,
+            "title": title,
+            "body": body,
+            **self._git_host_token_arguments(),
+        }
         if base_branch:
             arguments["base_branch"] = base_branch
         if head_branch:
