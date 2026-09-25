@@ -1,4 +1,5 @@
 import type { BranchListResponse, HealthStatus, PublicConfig, SetupRequest, SetupResponse, Workflow, WorkflowReport } from "./types";
+import type { CreateJiraAgentResponse, CreateJiraIssueResponse, JiraCreateMetadata, JiraIssueTypeOption, JiraProjectOption } from "./types/jiraCreate";
 
 const API = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
@@ -61,4 +62,54 @@ export const api = {
     source.onmessage = (event) => onUpdate(JSON.parse(event.data) as Workflow);
     return () => source.close();
   },
+  jiraCreateProjects: () => request<{ projects: JiraProjectOption[] }>("/api/jira/create/projects"),
+  jiraCreateIssueTypes: (projectId: string) =>
+    request<{ issue_types: JiraIssueTypeOption[] }>(`/api/jira/create/issue-types?project_id=${encodeURIComponent(projectId)}`),
+  jiraCreateMetadata: (projectId: string, issueTypeId: string) =>
+    request<JiraCreateMetadata>("/api/jira/create/metadata", "POST", { project_id: projectId, issue_type_id: issueTypeId }),
+  jiraCreateUserSearch: (projectId: string, query = "") =>
+    request<{ users: { label: string; value: string }[] }>(
+      `/api/jira/create/user-search?project_id=${encodeURIComponent(projectId)}&query=${encodeURIComponent(query)}`,
+    ),
+  jiraCreateIssueSearch: (projectId: string, query = "") =>
+    request<{ issues: { label: string; value: string }[] }>(
+      `/api/jira/create/issue-search?project_id=${encodeURIComponent(projectId)}&query=${encodeURIComponent(query)}`,
+    ),
+  jiraCreateParentSearch: (projectId: string, issueTypeId: string, query = "") =>
+    request<{ issues: { label: string; value: string }[] }>(
+      `/api/jira/create/parent-search?project_id=${encodeURIComponent(projectId)}&issue_type_id=${encodeURIComponent(issueTypeId)}&query=${encodeURIComponent(query)}`,
+    ),
+  jiraCreateIssueLinkTypes: () => request<{ link_types: import("./types/jiraCreate").JiraIssueLinkTypeOption[] }>("/api/jira/create/issue-link-types"),
+  jiraCreateIssue: (payload: {
+    project_id: string;
+    issue_type_id: string;
+    fields: Record<string, unknown>;
+    issue_links?: import("./types/jiraCreate").CreateJiraIssueLinkRequest[];
+  }) => request<CreateJiraIssueResponse>("/api/jira/create/issue", "POST", payload),
+  jiraCreateIssueAttachments: async (issueKey: string, files: File[]) => {
+    const form = new FormData();
+    files.forEach((file) => form.append("uploads", file));
+    const response = await fetch(`${API}/api/jira/create/issue/${encodeURIComponent(issueKey)}/attachments`, {
+      method: "POST",
+      headers: sessionId ? { "X-Session-Id": sessionId } : undefined,
+      body: form,
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(typeof error.detail === "string" ? error.detail : "Could not upload Jira attachments.");
+    }
+    return response.json() as Promise<import("./types/jiraCreate").CreateJiraAttachmentResponse>;
+  },
+  jiraCreateAgent: (payload: {
+    messages: { role: "user" | "assistant"; content: string }[];
+    project_id: string;
+    issue_type_id: string;
+    project_label?: string;
+    issue_type_label?: string;
+    current_values: Record<string, unknown>;
+    user_edited_field_ids: string[];
+    pending_clarification_field_id?: string | null;
+    conversation_phase?: "initial_requirement" | "field_resolution" | "ready_to_create" | null;
+    pending_fields?: { field_id: string; requested_value?: string | null }[];
+  }) => request<CreateJiraAgentResponse>("/api/jira/create/agent", "POST", payload),
 };
