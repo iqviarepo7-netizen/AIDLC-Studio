@@ -41,8 +41,11 @@ class WorkflowStore:
         self._persist()
         return workflow
 
+    def try_get(self, workflow_id: str) -> Workflow | None:
+        return self._items.get(workflow_id)
+
     def get(self, workflow_id: str) -> Workflow:
-        workflow = self._items.get(workflow_id)
+        workflow = self.try_get(workflow_id)
         if not workflow:
             raise HTTPException(status_code=404, detail="Workflow not found")
         return workflow

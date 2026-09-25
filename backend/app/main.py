@@ -355,12 +355,15 @@ async def regenerate_workflow_plan(workflow_id: str, session: SessionConnection 
 
 @app.get("/api/workflows/{workflow_id}/events")
 async def workflow_events(workflow_id: str):
+    store.get(workflow_id)
     terminal = {WorkflowState.COMPLETED, WorkflowState.FAILED}
 
     async def stream():
         last_revision: str | None = None
         while True:
-            workflow = store.get(workflow_id)
+            workflow = store.try_get(workflow_id)
+            if workflow is None:
+                break
             revision = f"{workflow.updated_at.isoformat()}:{workflow.state}:{workflow.current_stage}:{len(workflow.generated_files)}:{len(workflow.terminal_log)}"
             if revision != last_revision:
                 last_revision = revision
