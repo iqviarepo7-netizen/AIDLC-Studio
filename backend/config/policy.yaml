@@ -30,6 +30,27 @@ model_routing:
 
 retry_escalation: next_tier
 
+# Ordered API keys for LLM failover (secrets via env_var; only ids persist on workflows).
+llm_key_chain:
+  - id: groq_key_1
+    provider: groq
+    env_var: GROQ_API_KEY
+  - id: groq_key_2
+    provider: groq
+    env_var: GROQ_API_KEY_2
+  - id: groq_key_3
+    provider: groq
+    env_var: GROQ_API_KEY_3
+  - id: gemini_key_1
+    provider: gemini
+    env_var: GEMINI_API_KEY
+  - id: gemini_key_2
+    provider: gemini
+    env_var: GEMINI_API_KEY_2
+  - id: gemini_key_3
+    provider: gemini
+    env_var: GEMINI_API_KEY_3
+
 mcp:
   jira:
     server_url: ${JIRA_MCP_URL}

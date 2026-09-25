@@ -1,4 +1,14 @@
-import type { BranchListResponse, HealthStatus, PublicConfig, SetupRequest, SetupResponse, Workflow, WorkflowReport } from "./types";
+import type {
+  BranchListResponse,
+  HealthStatus,
+  LLMConfigurationSnapshot,
+  LLMProviderModelsResponse,
+  PublicConfig,
+  SetupRequest,
+  SetupResponse,
+  Workflow,
+  WorkflowReport,
+} from "./types";
 
 const API = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
@@ -34,6 +44,8 @@ async function request<T>(path: string, method = "GET", body?: object): Promise<
 export const api = {
   health: () => request<HealthStatus>("/health"),
   publicConfig: () => request<PublicConfig>("/api/config/public"),
+  llmProviderModels: (provider: string) => request<LLMProviderModelsResponse>(`/api/llm/providers/${provider}/models`),
+  llmConfiguration: () => request<LLMConfigurationSnapshot>("/api/llm/configuration"),
   validateSetup: (payload: SetupRequest) => request<SetupResponse>("/api/setup/validate", "POST", payload),
   previewBranches: (repositoryPath: string) =>
     request<BranchListResponse>("/api/setup/branches", "POST", { repository_path: repositoryPath }),

@@ -27,6 +27,7 @@ from .models import (
     BranchAnalysis,
     GeneratedFileRecord,
     ImplementationResult,
+    LLMFailoverEvent,
     TestResult,
     Workflow,
     WorkflowState,
@@ -49,7 +50,7 @@ class Orchestrator:
         self.settings = settings or get_settings()
         self.config = config or load_app_config()
         self.mcp = mcp or MCPAdapter(self.config)
-        self.gateway = ModelGateway(self.settings)
+        self.gateway = ModelGateway(self.settings, self.config)
         self.terminal = TerminalRunner(self.config)
         self.task_analyzer = TaskAnalyzerAgent(self.config)
         self.scope_analyzer = ScopeAnalyzerAgent()
@@ -153,9 +154,18 @@ class Orchestrator:
             raise HTTPException(status_code=409, detail="Issue analysis is incomplete.")
         first_route = self.config.policy.model_routing[0] if self.config.policy.model_routing else None
         assessment_provider = (
-            self.gateway.provider(first_route.provider, first_route.model, first_route.max_tokens) if first_route else None
+            self.gateway.provider(
+                first_route.provider,
+                first_route.model,
+                first_route.max_tokens,
+                workflow=workflow,
+                on_failover=self._record_llm_failover,
+            )
+            if first_route
+            else None
         )
         workflow.complexity = await self.complexity.assess(workflow.jira_task, workflow.repository_analysis, assessment_provider)
+        self.store.save(workflow)
         workflow.model_recommendation = self.model_selector.recommend(workflow.complexity)
         self._audit(workflow, "complexity", "completed")
         if self._require_model_selection():
@@ -195,6 +205,8 @@ class Orchestrator:
                 workflow.model_selection.provider,
                 workflow.model_selection.model,
                 workflow.model_selection.max_tokens,
+                workflow=workflow,
+                on_failover=self._record_llm_failover,
             ),
         )
         workflow.plans = [plan]
@@ -230,6 +242,8 @@ class Orchestrator:
                     workflow.model_selection.provider,
                     workflow.model_selection.model,
                     workflow.model_selection.max_tokens,
+                    workflow=workflow,
+                    on_failover=self._record_llm_failover,
                 )
                 implementation_agent = ImplementationAgent(self.config, provider)
                 generated, summary = await implementation_agent.generate(workflow.jira_task, plan, workflow.repository_analysis)
@@ -390,6 +404,24 @@ class Orchestrator:
 
     def _set_stage(self, workflow: Workflow, stage: str) -> None:
         workflow.current_stage = stage
+
+    def _record_llm_failover(self, workflow: Workflow, event: LLMFailoverEvent) -> None:
+        workflow.llm_failover_history.append(event)
+        workflow.audit_log.append(
+            {
+                "timestamp": event.timestamp.isoformat(),
+                "agent": "llm_failover",
+                "action": event.resume_stage or workflow.current_stage or "pipeline",
+                "status": "key_failover",
+                "failed_key_id": event.failed_key_id,
+                "failed_provider": event.failed_provider,
+                "reason": event.reason,
+                "replacement_key_id": event.replacement_key_id,
+                "replacement_provider": event.replacement_provider,
+                "resume_stage": event.resume_stage,
+            }
+        )
+        self.store.save(workflow)
 
     @staticmethod
     def _audit(workflow: Workflow, agent: str, status: str) -> None:

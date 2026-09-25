@@ -8,11 +8,15 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=Path(__file__).resolve().parents[1] / ".env", extra="ignore")
 
     gemini_api_key: str | None = None
+    gemini_api_key_2: str | None = None
+    gemini_api_key_3: str | None = None
     gemini_model: str = "gemini-2.5-flash"
     gemini_model_low: str | None = None
     gemini_model_medium: str | None = None
     gemini_model_high: str | None = None
     groq_api_key: str | None = None
+    groq_api_key_2: str | None = None
+    groq_api_key_3: str | None = None
     groq_model: str = "llama-3.3-70b-versatile"
     groq_model_low: str | None = None
     groq_model_medium: str | None = None

@@ -48,6 +48,12 @@ class WorkflowConfig(BaseModel):
     default_base_branch: str = ""
 
 
+class LLMKeyChainEntry(BaseModel):
+    id: str
+    provider: str
+    env_var: str
+
+
 class ModelRoute(BaseModel):
     complexity_min: int
     complexity_max: int
@@ -112,6 +118,7 @@ class PolicyConfig(BaseModel):
     automation: AutomationConfig = Field(default_factory=AutomationConfig)
     workflow: WorkflowConfig = Field(default_factory=WorkflowConfig)
     model_routing: list[ModelRoute] = Field(default_factory=list)
+    llm_key_chain: list[LLMKeyChainEntry] = Field(default_factory=list)
     retry_escalation: str = "next_tier"
     mcp: MCPConfig = Field(default_factory=MCPConfig)
     validation: ValidationConfig = Field(default_factory=ValidationConfig)

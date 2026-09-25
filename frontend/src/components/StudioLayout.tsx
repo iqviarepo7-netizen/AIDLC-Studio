@@ -3,11 +3,13 @@ import { CodeEditor } from "./CodeEditor";
 import { CommandBar } from "./CommandBar";
 import { CompletionCard } from "./CompletionCard";
 import { FileTree } from "./FileTree";
+import { ModelConfigurationModal } from "./ModelConfigurationModal";
 import { ModelSelectionPanel } from "./ModelSelectionPanel";
 import { StageActivityCard } from "./StageActivityCard";
 import { TerminalPanel } from "./TerminalPanel";
 import { ImplementationReportModal } from "./ImplementationReportModal";
 import { WorkflowProgress } from "./WorkflowProgress";
+import { useState } from "react";
 import type { useStudio } from "../hooks/useStudio";
 import { canShowReport } from "../reportUtils";
 
@@ -16,6 +18,8 @@ type Props = {
 };
 
 export function StudioLayout({ studio }: Props) {
+  const [modelConfigOpen, setModelConfigOpen] = useState(false);
+
   return (
     <div className="studio-shell">
       <CommandBar
@@ -26,6 +30,7 @@ export function StudioLayout({ studio }: Props) {
         baseBranch={studio.baseBranch}
         onStart={studio.startWorkflow}
         onReconfigure={studio.beginReconfigure}
+        onOpenModelConfig={() => setModelConfigOpen(true)}
         sessionSummary={studio.sessionSummary}
         busy={studio.busy}
         workflowState={studio.workflow?.state}
@@ -34,6 +39,7 @@ export function StudioLayout({ studio }: Props) {
         onViewReport={studio.openReport}
       />
       <WorkflowProgress config={studio.config} workflow={studio.workflow} deliveryComplete={studio.deliveryComplete} />
+      <ModelConfigurationModal open={modelConfigOpen} onClose={() => setModelConfigOpen(false)} />
       {studio.error && <div className="banner error">{studio.error}</div>}
       <ModelSelectionPanel
         workflow={studio.workflow}

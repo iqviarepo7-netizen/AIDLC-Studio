@@ -9,6 +9,7 @@ type Props = {
   baseBranch: string;
   onStart: () => void;
   onReconfigure: () => void;
+  onOpenModelConfig?: () => void;
   busy: boolean;
   workflowState?: string;
   showReport?: boolean;
@@ -25,6 +26,7 @@ export function CommandBar({
   baseBranch,
   onStart,
   onReconfigure,
+  onOpenModelConfig,
   busy,
   workflowState,
   showReport,
@@ -76,9 +78,16 @@ export function CommandBar({
           <span className={health?.repository_configured ? "ok" : "warn"}>Git</span>
           <span className={health?.gemini_configured || health?.groq_configured ? "ok" : "warn"}>Model</span>
         </div>
-        <button className="ghost small" onClick={onReconfigure}>
-          Change connections
-        </button>
+        <div className="status-actions">
+          <button type="button" className="ghost small" onClick={onReconfigure}>
+            Change connections
+          </button>
+          {onOpenModelConfig && (
+            <button type="button" className="ghost small" onClick={onOpenModelConfig}>
+              Model configuration
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );

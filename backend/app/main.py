@@ -17,6 +17,7 @@ from .session_context import set_current_session
 from .session_store import SessionStore
 from .setup_service import validate_git, validate_jira
 from .store import WorkflowStore
+from .llm import ModelGateway
 from .workflow import Orchestrator
 
 log_directory = Path(__file__).resolve().parents[1] / "logs"
@@ -114,6 +115,18 @@ async def health(request: Request) -> dict[str, object]:
         "groq_configured": bool(settings.groq_api_key),
         "session_active": bool(session),
     }
+
+
+@app.get("/api/llm/providers/{provider}/models")
+async def list_provider_models(provider: str) -> dict[str, object]:
+    gateway = ModelGateway(settings, config)
+    models = await gateway.discover_models(provider.lower())
+    return {"provider": provider.lower(), "models": models}
+
+
+@app.get("/api/llm/configuration")
+def llm_configuration() -> dict[str, object]:
+    return ModelGateway(settings, config).configuration_snapshot()
 
 
 @app.get("/api/config/public")
