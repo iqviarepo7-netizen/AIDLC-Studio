@@ -823,6 +823,66 @@ async def normalize_sprint_form_values_with_board(
     return merged
 
 
+def _collect_sprint_ids_for_post_create(
+    metadata: JiraCreateMetadata,
+    values: dict[str, Any],
+) -> tuple[dict[str, Any], list[tuple[str, int]]]:
+    """Jira Cloud often rejects gh-sprint on issue create; assign after create instead."""
+    merged = dict(values)
+    assignments: list[tuple[str, int]] = []
+    for field_id, field in metadata.fields.items():
+        if not _parsed_field_is_sprint(field):
+            continue
+        raw = merged.get(field_id)
+        if field_is_empty(raw):
+            continue
+        sprint_id = _coerce_sprint_field_value(field, raw)
+        if sprint_id is None:
+            continue
+        assignments.append((field_id, sprint_id))
+        merged.pop(field_id, None)
+    return merged, assignments
+
+
+async def assign_issue_sprint(
+    config: JiraConnectionConfig,
+    *,
+    issue_key: str,
+    sprint_field_id: str,
+    sprint_id: int,
+) -> None:
+    key = issue_key.strip().upper()
+    if not key:
+        return
+    try:
+        response = await direct_jira._agile_request(
+            config,
+            "POST",
+            f"/sprint/{sprint_id}/issue",
+            json={"issues": [key]},
+            timeout=30.0,
+        )
+        if response.status_code < 400:
+            return
+    except HTTPException:
+        pass
+
+    field_payloads: list[Any] = [[sprint_id], sprint_id]
+    last_detail = f"Could not assign sprint {sprint_id} to {key}."
+    for field_value in field_payloads:
+        response = await direct_jira._request(
+            config,
+            "PUT",
+            f"/issue/{key}",
+            json={"fields": {sprint_field_id: field_value}},
+            timeout=30.0,
+        )
+        if response.status_code < 400:
+            return
+        last_detail = _parse_jira_error(response)
+    raise HTTPException(status_code=422, detail=last_detail)
+
+
 async def fetch_project_board_sprints(
     config: JiraConnectionConfig,
     *,
@@ -1521,7 +1581,8 @@ async def create_issue(session: SessionConnection, request: CreateJiraIssueReque
     if option_errors:
         raise HTTPException(status_code=422, detail="; ".join(option_errors.values()))
 
-    fields_payload = build_jira_fields_payload(metadata, merged, api_version=config.api_version or "2")
+    merged_for_create, sprint_assignments = _collect_sprint_ids_for_post_create(metadata, merged)
+    fields_payload = build_jira_fields_payload(metadata, merged_for_create, api_version=config.api_version or "2")
     response = await direct_jira._request(config, "POST", "/issue", json={"fields": fields_payload}, timeout=45.0)
     if response.status_code >= 400:
         detail = _parse_jira_error(response)
@@ -1533,6 +1594,29 @@ async def create_issue(session: SessionConnection, request: CreateJiraIssueReque
     key = key.upper()
     post_ops: list[PostCreateOperationResult] = []
     partial = False
+    for field_id, sprint_id in sprint_assignments:
+        try:
+            await assign_issue_sprint(
+                config,
+                issue_key=key,
+                sprint_field_id=field_id,
+                sprint_id=sprint_id,
+            )
+            post_ops.append(
+                PostCreateOperationResult(
+                    operation=f"sprint:{sprint_id}",
+                    success=True,
+                )
+            )
+        except HTTPException as sprint_error:
+            partial = True
+            post_ops.append(
+                PostCreateOperationResult(
+                    operation=f"sprint:{sprint_id}",
+                    success=False,
+                    detail=str(sprint_error.detail),
+                )
+            )
     for link in request.issue_links or []:
         try:
             await create_issue_link(
