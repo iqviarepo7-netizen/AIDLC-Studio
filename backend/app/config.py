@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     groq_model_low: str | None = None
     groq_model_medium: str | None = None
     groq_model_high: str | None = None
+    groq_fallback_model: str = "llama-3.3-70b-versatile"
     jira_mcp_url: str | None = None
     jira_mcp_token: str | None = None
     git_mcp_url: str | None = None
