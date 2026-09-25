@@ -210,7 +210,7 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
       setConversationPhase(response.conversation_phase ?? null);
       setPendingFields(response.pending_fields ?? []);
       if (response.issue_links && response.issue_links.length > 0) {
-        setIssueLinks((current) => mergeAgentIssueLinks(current, response.issue_links ?? []));
+        setIssueLinks((current) => mergeAgentIssueLinks(current, response.issue_links));
       }
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Create Jira Agent failed.");

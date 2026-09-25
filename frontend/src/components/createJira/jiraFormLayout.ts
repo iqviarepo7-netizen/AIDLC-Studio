@@ -92,13 +92,3 @@ export function fieldVariant(_field: ParsedJiraField): "jira-compact" {
 export function fieldLayoutModifiers(field: ParsedJiraField): string[] {
   return field.id === "description" ? ["jira-field-multiline"] : [];
 }
-
-/** @deprecated tabs not used in streamlined Create Jira UI */
-export function visibleJiraTabs(metadata: JiraCreateMetadata) {
-  return metadata.sorted_tabs.filter((tab) => tab.fields.length > 0);
-}
-
-/** @deprecated use fieldsForCreateUi */
-export function fieldsForRender(metadata: JiraCreateMetadata, _activeTabFieldIds?: string[]): string[] {
-  return fieldsForCreateUi(metadata);
-}

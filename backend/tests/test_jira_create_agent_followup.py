@@ -64,6 +64,50 @@ BASELINE_SUMMARY = "Add welcome popup to Run Pipeline"
 BASELINE_DESCRIPTION = "Solution:\nShow popup.\n\nAcceptance Criteria:\nPopup appears."
 
 
+def test_change_story_point_should_be_matches_story_points_field_label() -> None:
+    metadata = _baseline_metadata()
+    metadata.fields["customfield_story"] = ParsedJiraField(
+        id="customfield_story", label="Story Points", required=False, type="number"
+    )
+    updates = extract_followup_field_updates(
+        "change story point should be 15",
+        metadata,
+        pending_fields=[],
+        pending_clarification_field_id=None,
+    )
+    assert updates == {"customfield_story": "15"}
+
+
+@pytest.mark.asyncio
+async def test_followup_story_points_update_when_form_already_complete() -> None:
+    metadata = _baseline_metadata()
+    metadata.fields["customfield_story"] = ParsedJiraField(
+        id="customfield_story", label="Story Points", required=False, type="number"
+    )
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    provider = AsyncMock()
+    request = CreateJiraAgentRequest(
+        messages=[
+            CreateJiraAgentMessage(role="user", content="initial requirement"),
+            CreateJiraAgentMessage(role="assistant", content="ready"),
+            CreateJiraAgentMessage(role="user", content="change story point should be 15"),
+        ],
+        project_id="10",
+        issue_type_id="2",
+        current_values={
+            "summary": BASELINE_SUMMARY,
+            "description": BASELINE_DESCRIPTION,
+            "customfield_story": 5,
+        },
+        conversation_phase="ready_to_create",
+    )
+    response = await analyze_requirement(provider, metadata, request, config)
+    provider.generate.assert_not_called()
+    assert response.fields["customfield_story"] == "15"
+    assert response.message.startswith("Updated Story Points to 15.")
+    assert "All required Jira fields have values" not in response.message
+
+
 def test_change_due_date_is_field_patch_not_requirement_update() -> None:
     metadata = _baseline_metadata()
     assert is_requirement_modification("change due date to next week saturday") is False

@@ -18,7 +18,14 @@ _REQUIREMENT_UPDATE_PATTERNS = (
     re.compile(r"(?i)\b(additionally|in addition)\b"),
 )
 
-_FIELD_CHANGE_PATTERN = re.compile(r"(?i)^change\s+(?P<label>.+?)\s+to\s+(?P<value>.+)$")
+_FIELD_CHANGE_PATTERNS = (
+    re.compile(r"(?i)^change\s+(?P<label>.+?)\s+to\s+(?P<value>.+)$"),
+    re.compile(r"(?i)^change\s+(?P<label>.+?)\s+should\s+be\s+(?P<value>.+)$"),
+    re.compile(r"(?i)^(?:update|set)\s+(?P<label>.+?)\s+to\s+(?P<value>.+)$"),
+    re.compile(r"(?i)^make\s+(?P<label>.+?)\s+(?P<value>.+)$"),
+)
+
+_FIELD_MUTATION_HINT = re.compile(r"(?i)\b(change|update|set|make|correct)\b")
 
 
 def infer_conversation_phase(request: CreateJiraAgentRequest) -> AgentConversationPhase:
@@ -43,7 +50,7 @@ def is_requirement_modification(message: str) -> bool:
         return False
     if any(pattern.search(text) for pattern in _REQUIREMENT_UPDATE_PATTERNS):
         return True
-    if _FIELD_CHANGE_PATTERN.match(text):
+    if any(pattern.match(text) for pattern in _FIELD_CHANGE_PATTERNS):
         return False
     return False
 
@@ -83,6 +90,29 @@ def should_use_field_patch_path(request: CreateJiraAgentRequest, message: str) -
     return True
 
 
+def _normalize_label_phrase(text: str) -> str:
+    return re.sub(r"\s+", " ", text.strip().lower())
+
+
+def _singularize_label_phrase(text: str) -> str:
+    words = _normalize_label_phrase(text).split()
+    normalized: list[str] = []
+    for word in words:
+        if len(word) > 1 and word.endswith("s") and not word.endswith("ss"):
+            normalized.append(word[:-1])
+        else:
+            normalized.append(word)
+    return " ".join(normalized)
+
+
+def _labels_match_fuzzy(phrase: str, field_label: str) -> bool:
+    left = _normalize_label_phrase(phrase)
+    right = _normalize_label_phrase(field_label)
+    if left == right:
+        return True
+    return _singularize_label_phrase(left) == _singularize_label_phrase(right)
+
+
 def field_id_for_label(label: str, metadata: JiraCreateMetadata) -> str | None:
     raw = label.strip()
     if not raw:
@@ -93,17 +123,29 @@ def field_id_for_label(label: str, metadata: JiraCreateMetadata) -> str | None:
     for field_id, field in metadata.fields.items():
         if field_id.lower() == lowered or field.label.strip().lower() == lowered:
             return field_id
+    for field_id, field in metadata.fields.items():
+        if _labels_match_fuzzy(raw, field.label):
+            return field_id
     return None
 
 
 def parse_field_change_command(message: str, metadata: JiraCreateMetadata) -> dict[str, Any]:
-    match = _FIELD_CHANGE_PATTERN.match(message.strip())
-    if not match:
+    text = message.strip()
+    if not text:
         return {}
-    field_id = field_id_for_label(match.group("label").strip(), metadata)
-    if not field_id:
-        return {}
-    return {field_id: match.group("value").strip()}
+    for pattern in _FIELD_CHANGE_PATTERNS:
+        match = pattern.match(text)
+        if not match:
+            continue
+        field_id = field_id_for_label(match.group("label").strip(), metadata)
+        if not field_id:
+            continue
+        return {field_id: match.group("value").strip()}
+    return {}
+
+
+def looks_like_field_mutation(message: str) -> bool:
+    return bool(_FIELD_MUTATION_HINT.search(message.strip()))
 
 
 def message_matches_field_option(message: str, field_id: str, metadata: JiraCreateMetadata) -> bool:
@@ -139,9 +181,6 @@ def extract_followup_field_updates(
     )
     if updates:
         return updates
-    command_updates = parse_field_change_command(message, metadata)
-    if command_updates:
-        return command_updates
     preprocessed = preprocess_user_message(message, metadata)
     if preprocessed.provided_fields:
         return dict(preprocessed.provided_fields)

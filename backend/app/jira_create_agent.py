@@ -13,8 +13,8 @@ from .jira_create_agent_conversation import (
     build_requirement_update_context,
     extract_followup_field_updates,
     has_requirement_baseline,
-    infer_conversation_phase,
     is_requirement_modification,
+    looks_like_field_mutation,
     merge_field_patch,
     merge_preserving_requirement,
     response_conversation_phase,
@@ -325,6 +325,30 @@ def validate_agent_payload(payload: dict[str, Any], metadata: JiraCreateMetadata
     return CreateJiraAgentResponse(status="needs_information", message="", fields=fields, missing_required_fields=missing)
 
 
+def _format_applied_field_updates(
+    metadata: JiraCreateMetadata,
+    merged_values: dict[str, Any],
+    patch_field_ids: set[str],
+) -> str | None:
+    if not patch_field_ids:
+        return None
+    updates: list[str] = []
+    for field_id in sorted(patch_field_ids):
+        field = metadata.fields.get(field_id)
+        if not field:
+            continue
+        value = merged_values.get(field_id)
+        if field_is_empty(value):
+            continue
+        updates.append(f"{field.label} to {value}")
+    if not updates:
+        return None
+    if len(updates) == 1:
+        return f"Updated {updates[0]}."
+    joined = "; ".join(updates)
+    return f"Updated {joined}."
+
+
 def build_user_facing_message(
     metadata: JiraCreateMetadata,
     request: CreateJiraAgentRequest,
@@ -332,13 +356,18 @@ def build_user_facing_message(
     missing: list[MissingRequiredField],
     *,
     status: str,
+    applied_patch_field_ids: set[str] | None = None,
 ) -> str:
     project = request.project_label or metadata.project_key or "selected project"
     issue_type = request.issue_type_label or metadata.issue_type_name or "selected issue type"
     lines: list[str] = []
 
     if status == "ready":
-        lines.append("All required Jira fields have values. Review the form on the right and click Create when ready.")
+        patch_message = _format_applied_field_updates(metadata, merged_values, applied_patch_field_ids or set())
+        if patch_message:
+            lines.append(patch_message)
+        else:
+            lines.append("All required Jira fields have values. Review the form on the right and click Create when ready.")
         lines.append("")
         lines.append(f"Context: Project {project} · Issue type {issue_type}")
         return "\n".join(lines)
@@ -410,12 +439,20 @@ def enforce_mandatory_fields(
     *,
     requirement: str,
     extra_missing: list[MissingRequiredField] | None = None,
+    applied_patch_field_ids: set[str] | None = None,
 ) -> CreateJiraAgentResponse:
     unresolved = missing_required_for_agent(metadata, merged_values, requirement=requirement)
     combined = unresolved + [item for item in (extra_missing or []) if item.id not in {m.id for m in unresolved}]
     combined += [item for item in response.missing_required_fields if item.id == "__clarification__"]
     status = "ready" if not combined else "needs_information"
-    message = build_user_facing_message(metadata, request, merged_values, combined, status=status)
+    message = build_user_facing_message(
+        metadata,
+        request,
+        merged_values,
+        combined,
+        status=status,
+        applied_patch_field_ids=applied_patch_field_ids,
+    )
     phase = response_conversation_phase(status, merged_values)
     pending = build_pending_fields(
         combined,
@@ -454,7 +491,6 @@ async def analyze_requirement(
     config: JiraConnectionConfig,
 ) -> CreateJiraAgentResponse:
     last_user = next((message.content for message in reversed(request.messages) if message.role == "user"), "")
-    phase = infer_conversation_phase(request)
     requirement_mod = is_requirement_modification(last_user)
     lock_summary_description = False
     preprocessed_requirement = ""
@@ -494,6 +530,30 @@ async def analyze_requirement(
                     conversation_phase="field_resolution",
                     pending_fields=request.pending_fields,
                 )
+        if not field_updates and looks_like_field_mutation(last_user):
+            project = request.project_label or metadata.project_key or "selected project"
+            issue_type = request.issue_type_label or metadata.issue_type_name or "selected issue type"
+            return CreateJiraAgentResponse(
+                status="needs_information",
+                message=(
+                    "I couldn't tell which Jira field to update from that message. "
+                    "Please name the field and value (for example: \"change Story Points to 15\")."
+                    f"\n\nContext: Project {project} · Issue type {issue_type}"
+                ),
+                fields=dict(request.current_values),
+                missing_required_fields=[
+                    MissingRequiredField(
+                        id="__clarification__",
+                        label="Clarification",
+                        question=(
+                            "Which Jira field should I update, and what should the new value be?"
+                        ),
+                    )
+                ],
+                pending_clarification_field_id=request.pending_clarification_field_id,
+                conversation_phase="field_resolution",
+                pending_fields=request.pending_fields,
+            )
         patch_field_keys = set(field_updates.keys())
         candidate_fields = dict(request.current_values)
         candidate_fields.update(field_updates)
@@ -583,7 +643,7 @@ async def analyze_requirement(
             request.current_values,
             resolved_fields,
             set(request.user_edited_field_ids),
-            lock_summary_description=lock_summary_description or should_use_field_patch_path(request, last_user),
+            lock_summary_description=lock_summary_description,
         )
     enforced = enforce_mandatory_fields(
         metadata,
@@ -592,6 +652,7 @@ async def analyze_requirement(
         merged,
         requirement=preprocessed_requirement,
         extra_missing=resolve_missing + link_missing,
+        applied_patch_field_ids=patch_field_keys if patch_field_keys else None,
     )
     enforced.fields = merged
     enforced.issue_links = resolved_links
