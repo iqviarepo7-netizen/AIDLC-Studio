@@ -48,8 +48,9 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
   const issueTypesRequestRef = useRef(0);
   const metadataRequestRef = useRef(0);
   const createInFlightRef = useRef(false);
+  const [agentPanelSessionKey, setAgentPanelSessionKey] = useState(0);
 
-  const resetIssueState = useCallback(() => {
+  const resetAgentSession = useCallback(() => {
     setValues({});
     setUserEdited(new Set());
     setMessages([]);
@@ -57,10 +58,29 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
     setConversationPhase(null);
     setPendingFields([]);
     setMetadata(undefined);
-    setIssueTypeId("");
     setAttachments([]);
     setIssueLinks([]);
+    setAgentBusy(false);
+    setCreating(false);
+    setError(undefined);
+    createInFlightRef.current = false;
+    issueTypesRequestRef.current += 1;
+    metadataRequestRef.current += 1;
+    setAgentPanelSessionKey((current) => current + 1);
   }, []);
+
+  const resetSession = useCallback(() => {
+    resetAgentSession();
+    setProjectId("");
+    setIssueTypeId("");
+    setIssueTypes([]);
+  }, [resetAgentSession]);
+
+  useEffect(() => {
+    if (!open) {
+      resetSession();
+    }
+  }, [open, resetSession]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -295,7 +315,7 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
                 disabled={loadingProjects}
                 onChange={(event) => {
                   setProjectId(event.target.value);
-                  resetIssueState();
+                  resetAgentSession();
                 }}
               >
                 <option value="">Select project…</option>
@@ -316,11 +336,7 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
                 disabled={!projectId || loadingIssueTypes}
                 onChange={(event) => {
                   setIssueTypeId(event.target.value);
-                  setValues({});
-                  setUserEdited(new Set());
-                  setMessages([]);
-                  setAttachments([]);
-                  setIssueLinks([]);
+                  resetAgentSession();
                 }}
               >
                 <option value="">{loadingIssueTypes ? "Loading issue types…" : "Select issue type…"}</option>
@@ -337,7 +353,13 @@ export function CreateJiraModal({ open, onClose, onCreated }: Props) {
         {error && <div className="banner error">{error}</div>}
 
         <div className="create-jira-panels">
-          <CreateJiraAgentPanel messages={messages} busy={agentBusy} ready={agentReady} onSend={handleAgentSend} />
+          <CreateJiraAgentPanel
+            key={agentPanelSessionKey}
+            messages={messages}
+            busy={agentBusy}
+            ready={agentReady}
+            onSend={handleAgentSend}
+          />
           <DynamicJiraForm
             projectId={projectId}
             metadata={metadata}

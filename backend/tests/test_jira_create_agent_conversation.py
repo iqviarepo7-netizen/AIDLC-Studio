@@ -1,8 +1,10 @@
 from app.jira_create_agent_conversation import (
+    build_requirement_update_context,
     infer_conversation_phase,
     interpret_field_resolution_reply,
     is_requirement_modification,
     parse_field_change_command,
+    should_use_field_patch_path,
 )
 from app.jira_create_models import (
     CreateJiraAgentMessage,
@@ -77,3 +79,26 @@ def test_parse_field_change_command_without_requirement_regeneration() -> None:
 
 def test_requirement_modification_detects_new_functionality() -> None:
     assert is_requirement_modification("also make the popup close automatically after 5 seconds") is True
+
+
+def test_requirement_modification_detects_change_in_requirement_phrasing() -> None:
+    message = "change in requirement, need to show alert not popup"
+    assert is_requirement_modification(message) is True
+    assert should_use_field_patch_path(
+        CreateJiraAgentRequest(
+            messages=[
+                CreateJiraAgentMessage(role="user", content="show welcome home popup when Run Pipeline is clicked"),
+                CreateJiraAgentMessage(role="assistant", content="ready"),
+                CreateJiraAgentMessage(role="user", content=message),
+            ],
+            project_id="1",
+            issue_type_id="2",
+            current_values={
+                "summary": "Welcome popup on Run Pipeline",
+                "description": "Solution:\nPopup.\n\nAcceptance Criteria:\nPopup shows.",
+                "priority": "2",
+            },
+            conversation_phase="ready_to_create",
+        ),
+        message,
+    ) is False

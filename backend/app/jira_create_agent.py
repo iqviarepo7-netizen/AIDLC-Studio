@@ -10,7 +10,9 @@ from fastapi import HTTPException
 from .connection_models import JiraConnectionConfig
 from .jira_create_agent_conversation import (
     build_pending_fields,
+    build_requirement_update_context,
     extract_followup_field_updates,
+    has_requirement_baseline,
     infer_conversation_phase,
     is_requirement_modification,
     merge_field_patch,
@@ -513,9 +515,15 @@ async def analyze_requirement(
             conversation_lines.append(f"{message.role.upper()}: {content}")
         conversation = "\n".join(conversation_lines)
         mode_hint = "requirement_update" if requirement_mod else "initial_requirement"
+        requirement_update_block = ""
+        if requirement_mod and has_requirement_baseline(request.current_values):
+            requirement_update_block = (
+                f"{build_requirement_update_context(request, last_user)}\n\n"
+            )
         prompt = (
             f"{AGENT_RULES}\n\n"
             f"RESPONSE MODE FOR THIS TURN: {mode_hint}\n\n"
+            f"{requirement_update_block}"
             f"JIRA FIELD SCHEMA:\n{build_schema_prompt(metadata)}\n\n"
             f"PREPROCESSED USER INPUT:\n{preprocessed_block}\n\n"
             f"CURRENT FORM VALUES:\n{json.dumps(request.current_values, indent=2)}\n\n"
@@ -545,7 +553,7 @@ async def analyze_requirement(
             candidate_fields["description"] = cleaned
         if mode_hint == "initial_requirement":
             candidate_fields = apply_summary_description_fallback(candidate_fields, preprocessed.requirement)
-        elif requirement_mod and isinstance(payload.get("summary"), str):
+        elif requirement_mod:
             lock_summary_description = False
 
     resolved_fields, resolve_missing = await resolve_agent_fields(

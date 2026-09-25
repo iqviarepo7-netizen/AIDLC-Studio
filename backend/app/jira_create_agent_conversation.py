@@ -12,6 +12,8 @@ AgentConversationPhase = Literal["initial_requirement", "field_resolution", "rea
 _REQUIREMENT_UPDATE_PATTERNS = (
     re.compile(r"(?i)\b(update|revise|modify)\s+(the\s+)?requirement\b"),
     re.compile(r"(?i)\bchange\s+the\s+requirement\b"),
+    re.compile(r"(?i)\bchange\b.{0,48}\brequirement\b"),
+    re.compile(r"(?i)\brequirement\b.{0,24}\bchange\b"),
     re.compile(r"(?i)\balso\s+(add|include|make|ensure)\b"),
     re.compile(r"(?i)\b(additionally|in addition)\b"),
 )
@@ -39,9 +41,38 @@ def is_requirement_modification(message: str) -> bool:
     text = message.strip()
     if not text:
         return False
+    if any(pattern.search(text) for pattern in _REQUIREMENT_UPDATE_PATTERNS):
+        return True
     if _FIELD_CHANGE_PATTERN.match(text):
         return False
-    return any(pattern.search(text) for pattern in _REQUIREMENT_UPDATE_PATTERNS)
+    return False
+
+
+def initial_user_requirement(messages: list) -> str:
+    for message in messages:
+        if getattr(message, "role", None) == "user":
+            content = getattr(message, "content", "")
+            if isinstance(content, str) and content.strip():
+                return content.strip()
+    return ""
+
+
+def build_requirement_update_context(request: CreateJiraAgentRequest, change_message: str) -> str:
+    initial = initial_user_requirement(request.messages)
+    summary = request.current_values.get("summary")
+    description = request.current_values.get("description")
+    summary_text = str(summary).strip() if summary is not None else ""
+    description_text = str(description).strip() if description is not None else ""
+    change_text = change_message.strip()
+    return (
+        "REQUIREMENT UPDATE CONTEXT:\n"
+        "Modify the existing functional requirement using the user's change. "
+        "Do not treat the change message as a brand-new standalone requirement.\n"
+        f"Current functional requirement (original user requirement): {initial or '(none)'}\n"
+        f"Current Summary: {summary_text or '(none)'}\n"
+        f"Current Description:\n{description_text or '(none)'}\n"
+        f"User's requested requirement change: {change_text or '(none)'}\n"
+    )
 
 
 def should_use_field_patch_path(request: CreateJiraAgentRequest, message: str) -> bool:

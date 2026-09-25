@@ -1,6 +1,19 @@
+import json
 from unittest.mock import AsyncMock, patch
 
 import pytest
+
+
+@pytest.fixture(autouse=True)
+def _stub_jira_form_normalization():
+    async def _identity(config, metadata, values, **kwargs):
+        return values
+
+    with (
+        patch("app.jira_create_service.normalize_sprint_form_values_with_board", side_effect=_identity),
+        patch("app.jira_create_service.normalize_parent_form_values", side_effect=_identity),
+    ):
+        yield
 
 from app.connection_models import JiraConnectionConfig
 from app.jira_create_agent import analyze_requirement
@@ -153,3 +166,91 @@ async def test_followup_change_summary_only_updates_summary() -> None:
     provider.generate.assert_not_called()
     assert response.fields["summary"] == "Pipeline popup"
     assert response.fields["description"] == BASELINE_DESCRIPTION
+
+
+@pytest.mark.asyncio
+async def test_requirement_update_regenerates_summary_and_description_preserves_jira_fields() -> None:
+    metadata = _baseline_metadata()
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    provider = AsyncMock()
+    provider.generate.return_value = json.dumps(
+        {
+            "mode": "requirement_update",
+            "summary": "Show welcome home alert when Run Pipeline is clicked",
+            "description": {
+                "solution": "When Run Pipeline is clicked, show a browser alert with welcome home.",
+                "acceptanceCriteria": "Alert appears with welcome home; no popup is shown.",
+            },
+            "fieldUpdates": {},
+            "clarification": None,
+        }
+    )
+    initial_requirement = "show welcome home popup when Run Pipeline is clicked"
+    follow_up = "change in requirement, need to show alert not popup"
+    request = CreateJiraAgentRequest(
+        messages=[
+            CreateJiraAgentMessage(role="user", content=initial_requirement),
+            CreateJiraAgentMessage(role="assistant", content="ready"),
+            CreateJiraAgentMessage(role="user", content=follow_up),
+        ],
+        project_id="10",
+        issue_type_id="2",
+        current_values={
+            "summary": BASELINE_SUMMARY,
+            "description": BASELINE_DESCRIPTION,
+            "priority": "2",
+            "assignee": "acc-1",
+        },
+        conversation_phase="ready_to_create",
+    )
+    response = await analyze_requirement(provider, metadata, request, config)
+    provider.generate.assert_called_once()
+    prompt = provider.generate.call_args[0][0]
+    assert initial_requirement in prompt
+    assert BASELINE_SUMMARY in prompt
+    assert "alert not popup" in prompt.lower()
+    assert "alert" in response.fields["summary"].lower()
+    assert "popup" not in response.fields["summary"].lower()
+    assert "alert" in response.fields["description"].lower()
+    assert response.fields["priority"] == "2"
+    assert response.fields["assignee"] == "acc-1"
+
+
+@pytest.mark.asyncio
+async def test_followup_requirement_extension_preserves_unrelated_fields() -> None:
+    metadata = _baseline_metadata()
+    config = JiraConnectionConfig(mode="direct", base_url="https://jira.example.com", email="u@x.com", api_token="t")
+    provider = AsyncMock()
+    provider.generate.return_value = json.dumps(
+        {
+            "mode": "requirement_update",
+            "summary": "Welcome alert on Run Pipeline with auto-close",
+            "description": {
+                "solution": "Show alert on Run Pipeline; auto-close after 5 seconds.",
+                "acceptanceCriteria": "Alert closes after 5 seconds.",
+            },
+            "fieldUpdates": {},
+            "clarification": None,
+        }
+    )
+    request = CreateJiraAgentRequest(
+        messages=[
+            CreateJiraAgentMessage(role="user", content="show welcome home alert when Run Pipeline is clicked"),
+            CreateJiraAgentMessage(role="assistant", content="ready"),
+            CreateJiraAgentMessage(role="user", content="also make the alert close after 5 seconds"),
+        ],
+        project_id="10",
+        issue_type_id="2",
+        current_values={
+            "summary": "Show welcome home alert when Run Pipeline is clicked",
+            "description": "Solution:\nAlert.\n\nAcceptance Criteria:\nAlert shows.",
+            "priority": "2",
+            "customfield_story": 3,
+        },
+        conversation_phase="ready_to_create",
+    )
+    response = await analyze_requirement(provider, metadata, request, config)
+    provider.generate.assert_called_once()
+    assert "5" in response.fields["description"] or "close" in response.fields["description"].lower()
+    assert response.fields["priority"] == "2"
+    assert response.fields["customfield_story"] == 3
