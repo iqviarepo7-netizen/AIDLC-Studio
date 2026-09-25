@@ -220,6 +220,16 @@ class ReportSectionStatus(BaseModel):
     status: str
 
 
+class LLMFailoverEvent(BaseModel):
+    timestamp: datetime
+    failed_key_id: str
+    failed_provider: str
+    reason: str
+    replacement_key_id: str | None = None
+    replacement_provider: str | None = None
+    resume_stage: str | None = None
+
+
 class WorkflowReport(BaseModel):
     jira_key: str
     summary: str
@@ -241,6 +251,8 @@ class WorkflowReport(BaseModel):
     testing: ReportTestingSection | None = None
     delivery: ReportDeliverySection | None = None
     audit_trail: list[MCPAuditRecord] = Field(default_factory=list)
+    llm_failover_history: list[LLMFailoverEvent] = Field(default_factory=list)
+    llm_keys_used: list[str] = Field(default_factory=list)
 
 
 class Workflow(BaseModel):
@@ -271,6 +283,9 @@ class Workflow(BaseModel):
     audit_log: list[dict[str, Any]] = Field(default_factory=list)
     retry_count: int = 0
     current_stage: str | None = None
+    active_llm_key_index: int = 0
+    llm_failover_history: list[LLMFailoverEvent] = Field(default_factory=list)
+    llm_keys_used: list[str] = Field(default_factory=list)
     report: WorkflowReport | None = None
 
 

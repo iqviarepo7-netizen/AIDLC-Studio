@@ -187,7 +187,56 @@ All agents live under `backend/app/agents/`. Behavior is driven by `backend/conf
 ### ReportAgent
 
 - **Input:** Completed workflow
-- **Output:** Final report (Jira, complexity, model, validation, PR link)
+- **Output:** Final report (Jira, complexity, model, validation, PR link, LLM key failover history)
+
+---
+
+## LLM gateway, failover, JSON, and discovery
+
+### ModelGateway (`backend/app/llm.py`)
+
+- Resolves an ordered **API key chain** from `policy.yaml` → `llm_key_chain` (secrets via `.env` / `Settings`).
+- Workflow LLM calls use `FailoverLLMProvider` when at least one chain key resolves.
+- **Failover reasons:** invalid key (401/403), rate limit / quota (429, 402), timeout, provider unavailable (5xx), model not found (404 model errors).
+- **Not failover:** malformed JSON, HTTP 400 tool-choice conflicts, generic client errors.
+- On failover: same stage and prompt are retried with the next key; `llm_failover_history`, `llm_keys_used`, and `audit_log` (`key_failover`) are persisted on the workflow.
+- **1s pause** before trying the next key after rate-limit / quota failures.
+- Cross-provider chain entries use `default_model_for()` for the target provider when the route provider differs.
+
+### JSON parsing (`backend/app/llm_json.py`)
+
+- Shared `parse_llm_json_object()` for implementation, planning, and complexity agents.
+- Strips markdown fences and extracts the first JSON object when models wrap output in prose.
+
+### Groq tool output
+
+- Chat responses may return `tool_calls[].function.arguments`; GroqProvider treats that string as model text when `content` is empty.
+- OSS `reasoning_effort` is not sent (reduces tool-choice 400 errors).
+
+### Validation retry vs key failover
+
+- **Key failover:** rotates API keys within one LLM request (`FailoverLLMProvider`).
+- **Validation retry:** unchanged — `retry_count` and `ModelSelectorAgent.route_for_retry()` escalate model tier on validation failure.
+
+### Model discovery API
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/llm/providers/{provider}/models` | Lists models (Groq: live `GET /openai/v1/models`) |
+| GET | `/api/llm/configuration` | Configured models, routing table, resolved key chain ids (no secrets) |
+
+**Discovery response shape:**
+
+```json
+{
+  "provider": "groq",
+  "models": [
+    { "provider": "groq", "id": "llama-3.3-70b-versatile", "display_name": "...", "owned_by": "...", "active": true }
+  ]
+}
+```
+
+The studio UI **LLM configuration** panel calls these endpoints and shows routing and discovered models in tables.
 
 ---
 

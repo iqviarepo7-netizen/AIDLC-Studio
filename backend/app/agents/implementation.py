@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-import json
-import re
 from dataclasses import dataclass
 
 from fastapi import HTTPException
 
 from ..config_loader import AppConfig
 from ..llm import LLMProvider
+from ..llm_json import parse_llm_json_object
 from ..models import JiraTask, Plan, RepositoryAnalysis
 
 
@@ -38,7 +37,7 @@ class ImplementationAgent:
     async def generate(self, task: JiraTask, plan: Plan, repository: RepositoryAnalysis) -> tuple[list[GeneratedFile], str]:
         prompt = self.build_prompt(task, plan, repository)
         raw = await self.provider.generate(prompt)
-        payload = self._parse(raw)
+        payload = parse_llm_json_object(raw, context="Implementation model")
         files = payload.get("files")
         summary = payload.get("summary")
         max_files = int(self.settings.get("max_files", 10))
@@ -56,11 +55,4 @@ class ImplementationAgent:
 
     @staticmethod
     def _parse(raw: str) -> dict[str, object]:
-        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw.strip())
-        try:
-            payload = json.loads(cleaned)
-        except json.JSONDecodeError as exc:
-            raise HTTPException(status_code=502, detail="Implementation model did not return valid JSON.") from exc
-        if not isinstance(payload, dict):
-            raise HTTPException(status_code=502, detail="Implementation model response must be an object.")
-        return payload
+        return parse_llm_json_object(raw, context="Implementation model")

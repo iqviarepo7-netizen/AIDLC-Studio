@@ -68,6 +68,8 @@ Set `automation.mode: review_required` in `policy.yaml` if you want the workflow
 - `GET /api/workflows/{id}` — workflow state for the studio UI
 - `GET /api/workflows/{id}/files/{path}` — generated file content
 - `GET /api/config/public` — UI theme and stage labels
+- `GET /api/llm/providers/{provider}/models` — discover models (Groq)
+- `GET /api/llm/configuration` — routing, key chain ids, configured models
 - `GET /health` — MCP/model/repository readiness
 
 ## Tests

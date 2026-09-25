@@ -939,6 +939,60 @@ button.small { padding: 6px 10px; font-size: 11px; }
   .welcome-snippet { display: none; }
 }
 
+.status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.model-config-modal .model-config-panel {
+  padding: 20px 22px 24px;
+  overflow: auto;
+  max-height: min(88vh, 920px);
+}
+.model-config-panel h2 { margin: 0; font-size: 1.25rem; }
+.model-config-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.model-config-panel .setup-grid.model-config-provider {
+  grid-template-columns: minmax(0, 280px);
+  margin-bottom: 1rem;
+}
+.model-config-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 1rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+.model-config-toggle input { accent-color: var(--accent); }
+.model-config-panel h4 { margin: 1rem 0 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
+.model-config-scroll {
+  max-height: 240px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.config-table th,
+.config-table td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+.config-table th { background: var(--bg-tertiary); color: var(--text-secondary); }
+
 .sr-only {
   position: absolute;
   width: 1px;

@@ -119,8 +119,6 @@ class PlanningAgent:
 
     @staticmethod
     def _parse_json(raw: str) -> dict[str, object]:
-        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw.strip())
-        payload = json.loads(cleaned)
-        if not isinstance(payload, dict):
-            raise ValueError("Planning response must be an object.")
-        return payload
+        from ..llm_json import parse_llm_json_object
+
+        return parse_llm_json_object(raw, context="Planning model")

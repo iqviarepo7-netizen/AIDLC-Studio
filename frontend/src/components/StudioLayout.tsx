@@ -6,6 +6,7 @@ import { CodeEditor } from "./CodeEditor";
 import { CommandBar } from "./CommandBar";
 import { CompletionCard } from "./CompletionCard";
 import { FileTree } from "./FileTree";
+import { ModelConfigurationModal } from "./ModelConfigurationModal";
 import { ModelSelectionPanel } from "./ModelSelectionPanel";
 import { StageActivityCard } from "./StageActivityCard";
 import { TerminalPanel } from "./TerminalPanel";
@@ -19,6 +20,8 @@ type Props = {
 };
 
 export function StudioLayout({ studio }: Props) {
+  const [modelConfigOpen, setModelConfigOpen] = useState(false);
+
   const [createJiraOpen, setCreateJiraOpen] = useState(false);
   const [jiraToast, setJiraToast] = useState<JiraCreatedToastState | null>(null);
 
@@ -39,6 +42,7 @@ export function StudioLayout({ studio }: Props) {
         onStart={studio.startWorkflow}
         onCreateJira={() => setCreateJiraOpen(true)}
         onReconfigure={studio.beginReconfigure}
+        onOpenModelConfig={() => setModelConfigOpen(true)}
         sessionSummary={studio.sessionSummary}
         busy={studio.busy}
         workflowState={studio.workflow?.state}
@@ -47,6 +51,7 @@ export function StudioLayout({ studio }: Props) {
         onViewReport={studio.openReport}
       />
       <WorkflowProgress config={studio.config} workflow={studio.workflow} deliveryComplete={studio.deliveryComplete} />
+      <ModelConfigurationModal open={modelConfigOpen} onClose={() => setModelConfigOpen(false)} />
       {studio.error && <div className="banner error">{studio.error}</div>}
       <ModelSelectionPanel
         workflow={studio.workflow}

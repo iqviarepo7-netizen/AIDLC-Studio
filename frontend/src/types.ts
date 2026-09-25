@@ -86,9 +86,21 @@ export type Workflow = {
   terminal_log: TerminalLogEntry[];
   mcp_audit: MCPAuditRecord[];
   audit_log: { timestamp: string; agent: string; action: string; status: string }[];
+  llm_failover_history?: LLMFailoverEvent[];
+  llm_keys_used?: string[];
   report?: WorkflowReport | null;
   created_at?: string;
   updated_at?: string;
+};
+
+export type LLMFailoverEvent = {
+  timestamp: string;
+  failed_key_id: string;
+  failed_provider: string;
+  reason: string;
+  replacement_key_id?: string | null;
+  replacement_provider?: string | null;
+  resume_stage?: string | null;
 };
 
 export type WorkflowReport = {
@@ -169,6 +181,8 @@ export type WorkflowReport = {
     jira_transition_posted: boolean;
   } | null;
   audit_trail?: MCPAuditRecord[];
+  llm_failover_history?: LLMFailoverEvent[];
+  llm_keys_used?: string[];
 };
 
 export type PublicConfig = {
@@ -235,3 +249,34 @@ export type SetupResponse = {
 };
 
 export type SetupSummary = SetupResponse["summary"];
+
+export type LLMModelInfo = {
+  provider: string;
+  id: string;
+  display_name?: string | null;
+  owned_by?: string | null;
+  active?: boolean;
+};
+
+export type LLMProviderModelsResponse = {
+  provider: string;
+  models: LLMModelInfo[];
+};
+
+export type LLMConfigurationSnapshot = {
+  providers: Record<
+    string,
+    {
+      configured_models: { default?: string; low?: string; medium?: string; high?: string };
+      key_chain_ids: string[];
+    }
+  >;
+  model_routing: Array<{
+    complexity_min: number;
+    complexity_max: number;
+    provider: string;
+    model: string;
+    max_tokens: number;
+  }>;
+  llm_key_chain_order: string[];
+};

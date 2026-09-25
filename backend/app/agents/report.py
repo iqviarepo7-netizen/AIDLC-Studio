@@ -121,6 +121,8 @@ class ReportAgent:
                 jira_transition_posted=jira_transition_posted,
             ),
             audit_trail=workflow.mcp_audit,
+            llm_failover_history=workflow.llm_failover_history,
+            llm_keys_used=workflow.llm_keys_used,
         )
 
     def _failure_info(self, workflow: Workflow) -> ReportFailureInfo:

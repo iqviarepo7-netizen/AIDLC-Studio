@@ -112,6 +112,8 @@ export function ImplementationReportPanel({ workflow, onClose, onSelectFile }: P
   const fileSummaries = build?.files ?? workflow.generated_files.map((file) => ({ path: file.path, line_count: file.content.split("\n").length }));
   const terminalLog = testing?.terminal_log ?? workflow.terminal_log;
   const auditTrail = report?.audit_trail ?? workflow.mcp_audit;
+  const failoverHistory = report?.llm_failover_history ?? workflow.llm_failover_history ?? [];
+  const llmKeysUsed = report?.llm_keys_used ?? workflow.llm_keys_used ?? [];
 
   const durationMs =
     report?.duration_ms ??
@@ -137,6 +139,7 @@ export function ImplementationReportPanel({ workflow, onClose, onSelectFile }: P
             <StatusBadge status={report?.final_status ?? workflow.state} />
             {!partial && <StatusBadge status={report?.validation_status ?? workflow.implementation?.validation_status ?? "UNKNOWN"} />}
             {pr && <span className="report-meta-chip">PR #{pr.number}</span>}
+            {llmKeysUsed.length > 0 && <span className="report-meta-chip">Keys: {llmKeysUsed.join(", ")}</span>}
             <span className="report-meta-chip">{formatDuration(durationMs)}</span>
             <span className="report-meta-chip">{report?.selected_model ?? workflow.selected_model ?? "unknown model"}</span>
             {(report?.retry_count ?? workflow.retry_count) > 0 && (
@@ -148,6 +151,29 @@ export function ImplementationReportPanel({ workflow, onClose, onSelectFile }: P
           Close
         </button>
       </div>
+
+      {failoverHistory.length > 0 && (
+        <table className="config-table report-failover-table">
+          <thead>
+            <tr>
+              <th>Failed key</th>
+              <th>Reason</th>
+              <th>Replacement</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {failoverHistory.map((event) => (
+              <tr key={`${event.timestamp}-${event.failed_key_id}`}>
+                <td>{event.failed_key_id}</td>
+                <td>{event.reason}</td>
+                <td>{event.replacement_key_id ?? "—"}</td>
+                <td>{event.resume_stage ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {partial && failure && (
         <div className="report-failure-banner">
